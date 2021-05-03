@@ -9,6 +9,7 @@ for pn in ivalues(GAMESTATE:GetEnabledPlayers()) do
 	--Mod definer
 	GAMESTATE:GetPlayerState(pn):GetPlayerOptions('ModsLevel_Preferred'):LifeSetting('LifeType_Battery');
 	GAMESTATE:GetPlayerState(pn):GetPlayerOptions('ModsLevel_Preferred'):BatteryLives(batLives);
+	GAMESTATE:GetPlayerState(pn):GetPlayerOptions('ModsLevel_Preferred'):AttackMines(true);
 	GAMESTATE:GetPlayerState(pn):GetPlayerOptions('ModsLevel_Preferred'):FailSetting('FailType_Immediate');
 end;
 
@@ -51,7 +52,7 @@ else
 	else
 		t[#t+1] = Def.ActorFrame {
 			LoadActor( "normal" )..{
-				OnCommand=cmd(play);
+				OnCommand=function(self) self:play() end;
 			};
 		};
 	end
