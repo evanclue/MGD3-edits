@@ -81,16 +81,17 @@ t[#t+1] = Def.ActorFrame {
 	LoadFont("Combo numbers")..{
 		InitCommand=function(self)
 			if Song then
-				local TotalStep=STATSMAN:GetCurStageStats():GetPlayerStageStats(PLAYER_1):GetTapNoteScores("TapNoteScore_W1") + STATSMAN:GetCurStageStats():GetPlayerStageStats(PLAYER_1):GetTapNoteScores("TapNoteScore_W2") + STATSMAN:GetCurStageStats():GetPlayerStageStats(PLAYER_1):GetTapNoteScores("TapNoteScore_W3") + STATSMAN:GetCurStageStats():GetPlayerStageStats(PLAYER_1):GetTapNoteScores("TapNoteScore_W4");
+				local TotalStep=STATSMAN:GetCurStageStats():GetPlayerStageStats(player):GetTapNoteScores("TapNoteScore_W1") + STATSMAN:GetCurStageStats():GetPlayerStageStats(player):GetTapNoteScores("TapNoteScore_W2") + STATSMAN:GetCurStageStats():GetPlayerStageStats(player):GetTapNoteScores("TapNoteScore_W3") + STATSMAN:GetCurStageStats():GetPlayerStageStats(player):GetTapNoteScores("TapNoteScore_W4");
 				self:settext(TotalStep);
 				self:horizalign(right);
 				self:maxwidth(230);
 				self:zoom(0.7);
+				self:zoomy(#GAMESTATE:GetHumanPlayers()==2 and 0.35 or 0.7);
 				if player == PLAYER_1 then
-					self:y(SCREEN_CENTER_Y+20);
+					self:y(#GAMESTATE:GetHumanPlayers()==2 and SCREEN_CENTER_Y+11 or SCREEN_CENTER_Y+20);
 					self:x(SCREEN_CENTER_X+107);
 				else
-					self:y(SCREEN_CENTER_Y+120);
+					self:y(#GAMESTATE:GetHumanPlayers()==2 and SCREEN_CENTER_Y+29 or SCREEN_CENTER_Y+20);
 					self:x(SCREEN_CENTER_X+107);
 				end;
 			end;
@@ -104,11 +105,12 @@ t[#t+1] = Def.ActorFrame {
 				self:horizalign(left);
 				self:maxwidth(230);
 				self:zoom(0.7);
+				self:zoomy(#GAMESTATE:GetHumanPlayers()==2 and 0.35 or 0.7);
 				if player == PLAYER_1 then
-					self:y(SCREEN_CENTER_Y+20);
+					self:y(#GAMESTATE:GetHumanPlayers()==2 and SCREEN_CENTER_Y+11 or SCREEN_CENTER_Y+20);
 					self:x(SCREEN_CENTER_X+138);
 				else
-					self:y(SCREEN_CENTER_Y+120);
+					self:y(#GAMESTATE:GetHumanPlayers()==2 and SCREEN_CENTER_Y+29 or SCREEN_CENTER_Y+20);
 					self:x(SCREEN_CENTER_X+138);
 				end;
 			end;

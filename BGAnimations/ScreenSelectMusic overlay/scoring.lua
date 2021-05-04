@@ -13,9 +13,10 @@ for player in ivalues( {PLAYER_1, PLAYER_2} ) do
 		Font="Combo numbers",
 		InitCommand=function(self)
 			self:visible( GAMESTATE:IsHumanPlayer(player) )
-				:zoom( #GAMESTATE:GetHumanPlayers()==2 and 0.2 or 0.38 )
+				:zoom( #GAMESTATE:GetHumanPlayers()==2 and 0.24 or 0.38 )
 				:x( (#GAMESTATE:GetHumanPlayers()==2 and (player==PLAYER_1 and -30 or 30)) or 0  )
 				:y(-15)
+                :maxwidth(230)
 		end,
 
         ["CurrentSteps" .. ToEnumShortString(player) .. "ChangedMessageCommand"]=function(self) self:playcommand("Set") end,
@@ -46,9 +47,10 @@ for player in ivalues( {PLAYER_1, PLAYER_2} ) do
 		Font="Combo numbers",
 		InitCommand=function(self)
 			self:visible( GAMESTATE:IsHumanPlayer(player) )
-				:zoom( #GAMESTATE:GetHumanPlayers()==2 and 0.2 or 0.38 )
+				:zoom( #GAMESTATE:GetHumanPlayers()==2 and 0.24 or 0.38 )
 				:x( (#GAMESTATE:GetHumanPlayers()==2 and (player==PLAYER_1 and -30 or 30)) or 0  )
-				:y(12)
+				:y(13)
+                :maxwidth(230)
 		end,
 
         ["CurrentSteps" .. ToEnumShortString(player) .. "ChangedMessageCommand"]=function(self) self:playcommand("Set") end,
