@@ -139,7 +139,7 @@ t[#t+1] = Def.ActorFrame {
 			if Song then
 				self:settext(STATSMAN:GetPlayedStageStats(sIndex):GetPlayerStageStats(player):GetTapNoteScores("TapNoteScore_W1") + STATSMAN:GetPlayedStageStats(sIndex):GetPlayerStageStats(player):GetTapNoteScores("TapNoteScore_W2") + STATSMAN:GetPlayedStageStats(sIndex):GetPlayerStageStats(player):GetTapNoteScores("TapNoteScore_W3") + STATSMAN:GetPlayedStageStats(sIndex):GetPlayerStageStats(player):GetTapNoteScores("TapNoteScore_W4"));
 				self:horizalign(right);
-				self:maxwidth(244);
+				self:maxwidth(230);
 				self:zoom(0.7);
 				if player == player then
 					self:y(SCREEN_CENTER_Y+20);
@@ -160,7 +160,7 @@ t[#t+1] = Def.ActorFrame {
 			if Song then
 				self:settext(STATSMAN:GetPlayedStageStats(sIndex):GetPlayerStageStats(player):GetRadarPossible():GetValue('RadarCategory_TapsAndHolds'));
 				self:horizalign(left);
-				self:maxwidth(244);
+				self:maxwidth(230);
 				self:zoom(0.7);
 				if player == player then
 					self:y(SCREEN_CENTER_Y+20);

@@ -84,7 +84,7 @@ t[#t+1] = Def.ActorFrame {
 				local TotalStep=STATSMAN:GetCurStageStats():GetPlayerStageStats(PLAYER_1):GetTapNoteScores("TapNoteScore_W1") + STATSMAN:GetCurStageStats():GetPlayerStageStats(PLAYER_1):GetTapNoteScores("TapNoteScore_W2") + STATSMAN:GetCurStageStats():GetPlayerStageStats(PLAYER_1):GetTapNoteScores("TapNoteScore_W3") + STATSMAN:GetCurStageStats():GetPlayerStageStats(PLAYER_1):GetTapNoteScores("TapNoteScore_W4");
 				self:settext(TotalStep);
 				self:horizalign(right);
-				self:maxwidth(244);
+				self:maxwidth(230);
 				self:zoom(0.7);
 				if player == PLAYER_1 then
 					self:y(SCREEN_CENTER_Y+20);
@@ -102,7 +102,7 @@ t[#t+1] = Def.ActorFrame {
 			if Song then
 				self:settext(GAMESTATE:GetCurrentSteps(player):GetRadarValues(player):GetValue('RadarCategory_TapsAndHolds'));
 				self:horizalign(left);
-				self:maxwidth(244);
+				self:maxwidth(230);
 				self:zoom(0.7);
 				if player == PLAYER_1 then
 					self:y(SCREEN_CENTER_Y+20);
