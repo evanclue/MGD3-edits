@@ -96,6 +96,8 @@ t[#t+1] = Def.ActorFrame {
 				end;
 			end;
 		end;
+		PlayerJoinedMessageCommand=function(self, params) self:queuecommand("Init") end,
+		PlayerUnjoinedMessageCommand=function(self, params) self:queuecommand("Init") end,
 	};
 	--Total notes
 	LoadFont("Combo numbers")..{
@@ -115,6 +117,8 @@ t[#t+1] = Def.ActorFrame {
 				end;
 			end;
 		end;
+		PlayerJoinedMessageCommand=function(self, params) self:queuecommand("Init") end,
+		PlayerUnjoinedMessageCommand=function(self, params) self:queuecommand("Init") end,
 	};
 };
 end;

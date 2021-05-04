@@ -58,7 +58,7 @@ local t = Def.ActorFrame{
 			};
 		};
 		CursorP2 = Def.ActorFrame {
-			InitCommand=function(self) self:x(49):player(PLAYER_2) end;
+			InitCommand=function(self) self:x(52):player(PLAYER_2) end;
 			PlayerJoinedMessageCommand=function(self, params)
 				if params.Player == PLAYER_2 then
 					self:visible(true);

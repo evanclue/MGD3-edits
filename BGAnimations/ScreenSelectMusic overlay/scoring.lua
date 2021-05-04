@@ -13,11 +13,13 @@ for player in ivalues( {PLAYER_1, PLAYER_2} ) do
 		Font="Combo numbers",
 		InitCommand=function(self)
 			self:visible( GAMESTATE:IsHumanPlayer(player) )
-				:zoom( #GAMESTATE:GetHumanPlayers()==2 and 0.24 or 0.38 )
+				:zoom(0.38)
 				:x( (#GAMESTATE:GetHumanPlayers()==2 and (player==PLAYER_1 and -30 or 30)) or 0  )
 				:y(-15)
-                :maxwidth(230)
+                :maxwidth((#GAMESTATE:GetHumanPlayers()==2 and 140) or 300)
 		end,
+		PlayerJoinedMessageCommand=function(self, params) self:queuecommand("Init") end,
+		PlayerUnjoinedMessageCommand=function(self, params) self:queuecommand("Init") end,
 
         ["CurrentSteps" .. ToEnumShortString(player) .. "ChangedMessageCommand"]=function(self) self:playcommand("Set") end,
         ["CurrentTrail" .. ToEnumShortString(player) .. "ChangedMessageCommand"]=function(self) self:playcommand("Set") end,
@@ -47,11 +49,13 @@ for player in ivalues( {PLAYER_1, PLAYER_2} ) do
 		Font="Combo numbers",
 		InitCommand=function(self)
 			self:visible( GAMESTATE:IsHumanPlayer(player) )
-				:zoom( #GAMESTATE:GetHumanPlayers()==2 and 0.24 or 0.38 )
+				:zoom(0.38)
 				:x( (#GAMESTATE:GetHumanPlayers()==2 and (player==PLAYER_1 and -30 or 30)) or 0  )
 				:y(13)
-                :maxwidth(230)
+                :maxwidth((#GAMESTATE:GetHumanPlayers()==2 and 140) or 300)
 		end,
+		PlayerJoinedMessageCommand=function(self, params) self:queuecommand("Init") end,
+		PlayerUnjoinedMessageCommand=function(self, params) self:queuecommand("Init") end,
 
         ["CurrentSteps" .. ToEnumShortString(player) .. "ChangedMessageCommand"]=function(self) self:playcommand("Set") end,
         ["CurrentTrail" .. ToEnumShortString(player) .. "ChangedMessageCommand"]=function(self) self:playcommand("Set") end,

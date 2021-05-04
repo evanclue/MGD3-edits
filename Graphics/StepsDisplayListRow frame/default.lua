@@ -13,7 +13,16 @@ t[#t+1] = Def.ActorFrame{
 
 	LoadFont("Panedisplay Text")..{
 		Name="tmeter";
-		InitCommand=function(self) self:x(31.5):horizalign(center):zoom(0.36) end;
+		InitCommand=function(self)
+			self:horizalign(center):zoom(0.36)
+			if #GAMESTATE:GetHumanPlayers()==2 then
+				self:x(26):maxwidth(110)
+			else
+				self:x(31.5)
+			end;
+		end;
+		PlayerJoinedMessageCommand=function(self, params) self:queuecommand("Init") end,
+		PlayerUnjoinedMessageCommand=function(self, params) self:queuecommand("Init") end,
 	};
 
 	LoadFont("Panedisplay Text")..{
