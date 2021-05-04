@@ -11,17 +11,31 @@ end;
 
 t[#t+1] = Def.ActorFrame {
 	CodeMessageCommand = function(self, params)
-		if params.Name == 'SpeedUp' then
+		if params.Name == 'SpeedUp' and not ThemePrefs.Get("InvertAccel") then
 			sIdx = sIdx - 1;
 			if sIdx < 1 then
 				sIdx = sMax;
 			end
 			GAMESTATE:ApplyGameCommand('mod,'..SpeedMods[sIdx]);
 			self:playcommand("Speed");
-		elseif params.Name == 'SpeedDown' then
+		elseif params.Name == 'SpeedDown' and not ThemePrefs.Get("InvertAccel") then
 			sIdx = sIdx + 1;
 			if sIdx > sMax then
 				sIdx = 1;
+			end
+			GAMESTATE:ApplyGameCommand('mod,'..SpeedMods[sIdx]);
+			self:playcommand("Speed");
+		elseif params.Name == 'SpeedUp' and ThemePrefs.Get("InvertAccel") then
+			sIdx = sIdx + 1;
+			if sIdx > sMax then
+				sIdx = 1;
+			end
+			GAMESTATE:ApplyGameCommand('mod,'..SpeedMods[sIdx]);
+			self:playcommand("Speed");
+		elseif params.Name == 'SpeedDown' and ThemePrefs.Get("InvertAccel") then
+			sIdx = sIdx - 1;
+			if sIdx < 1 then
+				sIdx = sMax;
 			end
 			GAMESTATE:ApplyGameCommand('mod,'..SpeedMods[sIdx]);
 			self:playcommand("Speed");
