@@ -154,8 +154,6 @@ t[#t+1] = Def.ActorFrame {
 		ItemCommand=function(self)
 			self:settext(STATSMAN:GetPlayedStageStats(sIndex):GetPlayerStageStats(player):GetTapNoteScores("TapNoteScore_W1") + STATSMAN:GetPlayedStageStats(sIndex):GetPlayerStageStats(player):GetTapNoteScores("TapNoteScore_W2") + STATSMAN:GetPlayedStageStats(sIndex):GetPlayerStageStats(player):GetTapNoteScores("TapNoteScore_W3") + STATSMAN:GetPlayedStageStats(sIndex):GetPlayerStageStats(player):GetTapNoteScores("TapNoteScore_W4"));
 		end
-		PlayerJoinedMessageCommand=function(self, params) self:queuecommand("Init") end,
-		PlayerUnjoinedMessageCommand=function(self, params) self:queuecommand("Init") end,
 	};
 	--Total notes
 	LoadFont("Combo numbers")..{
@@ -178,8 +176,6 @@ t[#t+1] = Def.ActorFrame {
 		ItemCommand=function(self)
 			self:settext(STATSMAN:GetPlayedStageStats(sIndex):GetPlayerStageStats(player):GetRadarPossible():GetValue('RadarCategory_TapsAndHolds'));
 		end
-		PlayerJoinedMessageCommand=function(self, params) self:queuecommand("Init") end,
-		PlayerUnjoinedMessageCommand=function(self, params) self:queuecommand("Init") end,
 	};
 };
 end;
