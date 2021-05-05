@@ -6,7 +6,20 @@ local st = GAMESTATE:GetCurrentStyle():GetStepsType();
 local Song = GAMESTATE:GetCurrentSong();
 
 local function GetPosition(pn)
-	if st == "StepsType_Dance_Double" or st == "StepsType_Dance_Solo" or Center1Player then return SCREEN_WIDTH/2;
+	if st == "StepsType_Dance_Solo" then
+		if Center1Player then
+			return SCREEN_WIDTH/2;
+		elseif pn == PLAYER_1 then
+			return SCREEN_WIDTH/4;
+		elseif pn == PLAYER_2 then
+			return SCREEN_WIDTH/4*3;
+		end;
+	elseif st == "StepsType_Dance_Double" then
+		if pn == PLAYER_1 then
+			return SCREEN_WIDTH/4;
+		elseif pn == PLAYER_2 then
+			return SCREEN_WIDTH/4*3;
+		end;
 	else
 		local strPlayer = (NumPlayers == 1) and "OnePlayer" or "TwoPlayers";
 		local strSide = (NumSides == 1) and "OneSide" or "TwoSides";
