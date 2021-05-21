@@ -1,7 +1,7 @@
 local t = Def.ActorFrame {};
-local batLives = ThemePrefs.Get("DefLives");
 
 for pn in ivalues(GAMESTATE:GetEnabledPlayers()) do
+	local batLives = ThemePrefs.Get("DefLives");
 	if batLives == 123456 then
 		batLives = GetLives(pn);
 	end
@@ -14,9 +14,9 @@ for pn in ivalues(GAMESTATE:GetEnabledPlayers()) do
 end;
 
 if GAMESTATE:IsCourseMode() then
-		t[#t+1] = Def.ActorFrame {
-			LoadActor("course");
-		};
+	t[#t+1] = Def.ActorFrame {
+		LoadActor("course");
+	};
 else
 	--Regular play
 	local Song = GAMESTATE:GetCurrentSong();

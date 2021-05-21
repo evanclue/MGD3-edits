@@ -1,5 +1,7 @@
 local player = Var "Player"
 local curLives = 0;
+local moved = (GAMESTATE:GetNumPlayersEnabled() == 1) and true or false;
+local centered = (GAMESTATE:GetNumPlayersEnabled() == 1) and true or false;
 
 local t = Def.ActorFrame{
 	LoadFont("Combo numbers")..{
@@ -35,6 +37,23 @@ local t = Def.ActorFrame{
 				end;
 			end;
 		end;
+		HealthStateChangedMessageCommand=function(self, param)
+			if param.HealthState == 'HealthState_Dead' then --If player dies
+				if param.PlayerNumber == PLAYER_1 and player == PLAYER_1 and not moved then --Move P1's filter if P1 dies
+					--self:linear(0.1):zoom(0);
+					moved = true;
+				elseif param.PlayerNumber == PLAYER_2 and player == PLAYER_2 and not moved then --Move P2's filter if P2 dies
+					--self:linear(0.1):zoom(0);
+					moved = true;
+				elseif param.PlayerNumber == PLAYER_1 and player == PLAYER_2 and not centered then --Move P1's filter to center if P2 dies
+					--self:linear(0.5):x(SCREEN_WIDTH*0.21);
+					centered = true;
+				elseif param.PlayerNumber == PLAYER_2 and player == PLAYER_1 and not centered then --Move P2's filter to center if P1 dies
+					--self:linear(0.5):x(-SCREEN_WIDTH*0.21);
+					centered = true;
+				end
+			end
+		end
 	};
 };
 

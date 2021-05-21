@@ -48,12 +48,32 @@ if Song then
 	end;
 end;
 
+local moved = (GAMESTATE:GetNumPlayersEnabled() == 1) and true or false;
+local centered = (GAMESTATE:GetNumPlayersEnabled() == 1) and true or false;
+
 for player in ivalues(GAMESTATE:GetHumanPlayers()) do
 	t[#t+1] = LoadActor("playerfilter")..{
 		InitCommand=function(self)
 			self:x(GetPosition(player));
 			self:y(SCREEN_CENTER_Y);
 		end;
+		HealthStateChangedMessageCommand=function(self, param)
+			if param.HealthState == 'HealthState_Dead' then --If player dies
+				if param.PlayerNumber == PLAYER_1 and player == PLAYER_1 and not moved then --Move P1's filter if P1 dies
+					self:linear(0.5):x(SCREEN_LEFT-SCREEN_WIDTH);
+					moved = true;
+				elseif param.PlayerNumber == PLAYER_2 and player == PLAYER_2 and not moved then --Move P2's filter if P2 dies
+					self:linear(0.5):x(SCREEN_RIGHT+SCREEN_WIDTH);
+					moved = true;
+				elseif param.PlayerNumber == PLAYER_1 and player == PLAYER_2 and not centered then --Move P1's filter to center if P2 dies
+					self:linear(0.5):x(SCREEN_CENTER_X);
+					centered = true;
+				elseif param.PlayerNumber == PLAYER_2 and player == PLAYER_1 and not centered then --Move P2's filter to center if P1 dies
+					self:linear(0.5):x(SCREEN_CENTER_X);
+					centered = true;
+				end
+			end
+		end
 	}
 end
 

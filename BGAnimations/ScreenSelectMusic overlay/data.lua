@@ -95,22 +95,32 @@ t[#t+1] = Def.ActorFrame {
 
 	-- difficulty icons
 	DifficultyIcons(PLAYER_1) .. {
-		BeginCommand=function(self) self:x(76):y(-52):zoom(0.8) end;
+		BeginCommand=function(self)
+			if not GAMESTATE:IsHumanPlayer(PLAYER_2) then
+				self:x(76):y(-52):zoom(0.8)
+			else
+				self:x(76-32):y(-52):zoom(0.8):setsize(90,55)
+			end
+		end;
 		SetCommand=function(self)
-			if not GAMESTATE:GetCurrentSong() then self:visible(false)
+			if not GAMESTATE:GetCurrentSong() or not GAMESTATE:IsHumanPlayer(PLAYER_1) then self:visible(false)
 			else self:visible(true)
 			end
 		end;
-		Condition=GAMESTATE:IsHumanPlayer(PLAYER_1);
 	};
 	DifficultyIcons(PLAYER_2) .. {
-		BeginCommand=function(self) self:x(172):y(-52):zoom(0.8) end;
+		BeginCommand=function(self)
+			if not GAMESTATE:IsHumanPlayer(PLAYER_1) then
+				self:x(76):y(-52):zoom(0.8)
+			else
+				self:x(76+32):y(-52):zoom(0.8):setsize(90,55)
+			end
+		end;
 		SetCommand=function(self)
-			if not GAMESTATE:GetCurrentSong() then self:visible(false);
+			if not GAMESTATE:GetCurrentSong() or not GAMESTATE:IsHumanPlayer(PLAYER_2) then self:visible(false);
 			else self:visible(true);
 			end
 		end;
-		Condition=GAMESTATE:IsHumanPlayer(PLAYER_2);
 	};
 
 --Panel Values
