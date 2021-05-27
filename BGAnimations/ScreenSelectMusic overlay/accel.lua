@@ -1,6 +1,7 @@
 local SpeedMods = {"0.5x", "1x", "1.5x", "2x", "2.5x", "3x", "3.5x", "4x", "4.5x", "5x", "5.5x", "6x"};
 local sIdx = 2;
 local sMax = #SpeedMods;
+local invert = ThemePrefs.Get("InvertAccel") and -1 or 1;
 local t = Def.ActorFrame {};
 
 for pn in ivalues(GAMESTATE:GetEnabledPlayers()) do
@@ -11,30 +12,20 @@ end;
 
 t[#t+1] = Def.ActorFrame {
 	CodeMessageCommand = function(self, params)
-		if params.Name == 'SpeedUp' and not ThemePrefs.Get("InvertAccel") then
-			sIdx = sIdx - 1;
+		if params.Name == 'SpeedUp' then
+			sIdx = sIdx - (1 * invert);
 			if sIdx < 1 then
 				sIdx = sMax;
-			end
-			GAMESTATE:ApplyGameCommand('mod,'..SpeedMods[sIdx]);
-			self:playcommand("Speed");
-		elseif params.Name == 'SpeedDown' and not ThemePrefs.Get("InvertAccel") then
-			sIdx = sIdx + 1;
-			if sIdx > sMax then
+			elseif sIdx > sMax then
 				sIdx = 1;
 			end
 			GAMESTATE:ApplyGameCommand('mod,'..SpeedMods[sIdx]);
 			self:playcommand("Speed");
-		elseif params.Name == 'SpeedUp' and ThemePrefs.Get("InvertAccel") then
-			sIdx = sIdx + 1;
+		elseif params.Name == 'SpeedDown' then
+			sIdx = sIdx + (1 * invert);
 			if sIdx > sMax then
 				sIdx = 1;
-			end
-			GAMESTATE:ApplyGameCommand('mod,'..SpeedMods[sIdx]);
-			self:playcommand("Speed");
-		elseif params.Name == 'SpeedDown' and ThemePrefs.Get("InvertAccel") then
-			sIdx = sIdx - 1;
-			if sIdx < 1 then
+			elseif sIdx < 1 then
 				sIdx = sMax;
 			end
 			GAMESTATE:ApplyGameCommand('mod,'..SpeedMods[sIdx]);
