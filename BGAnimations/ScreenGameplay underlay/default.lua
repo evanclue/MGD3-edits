@@ -55,7 +55,7 @@ for player in ivalues(GAMESTATE:GetHumanPlayers()) do
 	t[#t+1] = LoadActor("playerfilter")..{
 		InitCommand=function(self)
 			self:x(GetPosition(player));
-			self:y(SCREEN_CENTER_Y);
+			self:CenterY();
 		end;
 		HealthStateChangedMessageCommand=function(self, param)
 			if param.HealthState == 'HealthState_Dead' then --If player dies
@@ -66,10 +66,10 @@ for player in ivalues(GAMESTATE:GetHumanPlayers()) do
 					self:linear(0.5):x(SCREEN_RIGHT+SCREEN_WIDTH);
 					moved = true;
 				elseif param.PlayerNumber == PLAYER_1 and player == PLAYER_2 and not centered then --Move P1's filter to center if P2 dies
-					self:linear(0.5):x(SCREEN_CENTER_X);
+					self:linear(0.5):CenterX();
 					centered = true;
 				elseif param.PlayerNumber == PLAYER_2 and player == PLAYER_1 and not centered then --Move P2's filter to center if P1 dies
-					self:linear(0.5):x(SCREEN_CENTER_X);
+					self:linear(0.5):CenterX();
 					centered = true;
 				end
 			end

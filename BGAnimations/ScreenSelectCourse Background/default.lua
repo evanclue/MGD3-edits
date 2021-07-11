@@ -4,7 +4,7 @@ return Def.ActorFrame {
 		OnCommand=function(self) self:rainbow():effectclock('bgm'):effectperiod(24) end;
 	};
 	LoadActor( "../ball2mod" )..{
-		OnCommand=function(self) self:x(SCREEN_CENTER_X+110):y(SCREEN_CENTER_Y):blend('BlendMode_Add'):zoom(6):spin():effectmagnitude(44,67,37) end;
+		OnCommand=function(self) self:x(SCREEN_CENTER_X+110):CenterY():blend('BlendMode_Add'):zoom(6):spin():effectmagnitude(44,67,37) end;
 	};
 	LoadActor( "../ball2mod" )..{
 		OnCommand=function(self) self:Center():z(30):blend('BlendMode_Add'):zoom(18):spin():effectmagnitude(0,44,0) end;

@@ -103,10 +103,10 @@ t[#t+1] = Def.ActorFrame {
 		InitCommand=function(self) self:Center() end;
 	};
 	LoadActor(path.."left")..{
-		InitCommand=function(self) self:x(SCREEN_LEFT+64):y(SCREEN_CENTER_Y) end;
+		InitCommand=function(self) self:x(SCREEN_LEFT+64):CenterY() end;
 	};
 	LoadActor(path.."right")..{
-		InitCommand=function(self) self:x(SCREEN_RIGHT-64):y(SCREEN_CENTER_Y) end;
+		InitCommand=function(self) self:x(SCREEN_RIGHT-64):CenterY() end;
 	};
 	LoadFont("MusicList titles")..{
 		Name="SongTit";
