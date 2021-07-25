@@ -11,7 +11,7 @@ It's source is being displayed down below.
 
 **Description:** MungyoDance3 Theme port for SM5 
 
-**Date:** Nov 20th 2017 - May 25th 2018
+**Date:** Nov 20th 2017 - May 25th 2021
 
 ---
 This time, I've actually forked this project and did my own changes (most of the changes there were mine either way...) since the my updates to it took way too long to be implemented.
