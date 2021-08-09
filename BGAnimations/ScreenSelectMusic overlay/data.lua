@@ -14,7 +14,7 @@ local function DifficultyIcons(pn)
 	end
 
 	local t = Def.DifficultyIcon {
-		File="diff 1x6";
+		File="diff 1x15";
 		InitCommand=function(self)
 			self:player( pn );
 			self:SetPlayer( pn );

@@ -41,17 +41,19 @@ t[#t+1] = Def.ActorFrame{
 		dname:visible(false);
 		tmeter:visible(false);
 		if song then
-			step = param.Steps;
-			meter = param.Meter;
-			cdiff = param.CustomDifficulty;
-			dname:visible(true);
-			dname:settext(CustomDifficultyToState[cdiff]);
-			if cdiff == "Challenge" then
-				dname:diffuse(Color("Red"));
-				tmeter:diffuse(Color("Red"));
-			else
-				dname:diffuse(Color("White"));
-				tmeter:diffuse(Color("White"));
+			if param then
+				step = param.Steps;
+				meter = param.Meter;
+				cdiff = param.CustomDifficulty;
+				dname:visible(true);
+				dname:settext(CustomDifficultyToState[cdiff]);
+				if cdiff == "Challenge" then
+					dname:diffuse(Color("Red"));
+					tmeter:diffuse(Color("Red"));
+				else
+					dname:diffuse(Color("White"));
+					tmeter:diffuse(Color("White"));
+				end;
 			end;
 
 			if getenv("wheelstop") == 1 then
