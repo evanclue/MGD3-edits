@@ -127,53 +127,53 @@ t[#t+1] = Def.ActorFrame {
 	LoadFont("Panedisplay Text")..{
 		InitCommand=function(self) self:zoom(0.36):horizalign(right):y(70):x(-11) end;
 		SetCommand=function(self)
-		    steps = GAMESTATE:GetCurrentSteps(PLAYER_1)
-		    local song = GAMESTATE:GetCurrentSong();
-		    if song and steps ~=nil then
+			steps = GAMESTATE:GetCurrentSteps(PLAYER_1)
+			local song = GAMESTATE:GetCurrentSong();
+			if song and steps ~=nil then
 				local GetRadar = GAMESTATE:GetCurrentSteps(PLAYER_1):GetRadarValues(PLAYER_1);
 				self:settext(GetRadar:GetValue('RadarCategory_TapsAndHolds'));
 			else
 				self:settext("");
-		    end;
+			end;
 		end;
 	};
 	LoadFont("Panedisplay Text")..{
 		InitCommand=function(self) self:zoom(0.36):horizalign(right):y(91):x(-11) end;
 		SetCommand=function(self)
-		    steps = GAMESTATE:GetCurrentSteps(PLAYER_1)
-		    local song = GAMESTATE:GetCurrentSong();
-		    if song and steps ~=nil then
+			steps = GAMESTATE:GetCurrentSteps(PLAYER_1)
+			local song = GAMESTATE:GetCurrentSong();
+			if song and steps ~=nil then
 				local GetRadar = GAMESTATE:GetCurrentSteps(PLAYER_1):GetRadarValues(PLAYER_1);
 				self:settext(GetRadar:GetValue('RadarCategory_Jumps'));
 			else
 				self:settext("");
-		    end;
+			end;
 		end;
 	};
 	LoadFont("Panedisplay Text")..{
 		InitCommand=function(self) self:zoom(0.36):horizalign(right):y(112):x(-11) end;
 		SetCommand=function(self)
-		    steps = GAMESTATE:GetCurrentSteps(PLAYER_1)
-		    local song = GAMESTATE:GetCurrentSong();
-		    if song and steps ~=nil then
+			steps = GAMESTATE:GetCurrentSteps(PLAYER_1)
+			local song = GAMESTATE:GetCurrentSong();
+			if song and steps ~=nil then
 				local GetRadar = GAMESTATE:GetCurrentSteps(PLAYER_1):GetRadarValues(PLAYER_1);
 				self:settext(GetRadar:GetValue('RadarCategory_Hands'));
 			else
 				self:settext("");
-		    end;
+			end;
 		end;
 	};
 	LoadFont("Panedisplay Text")..{
 		InitCommand=function(self) self:zoom(0.36):horizalign(right):y(133):x(-11) end;
 		SetCommand=function(self)
-		    steps = GAMESTATE:GetCurrentSteps(PLAYER_1)
-		    local song = GAMESTATE:GetCurrentSong();
-		    if song and steps ~=nil then
+			steps = GAMESTATE:GetCurrentSteps(PLAYER_1)
+			local song = GAMESTATE:GetCurrentSong();
+			if song and steps ~=nil then
 				local GetRadar = GAMESTATE:GetCurrentSteps(PLAYER_1):GetRadarValues(PLAYER_1);
 				self:settext(GetRadar:GetValue('RadarCategory_Holds'));
 			else
 				self:settext("");
-		    end;
+			end;
 		end;
 	};
 
