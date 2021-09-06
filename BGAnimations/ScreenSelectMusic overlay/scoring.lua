@@ -39,6 +39,8 @@ for player in ivalues( {PLAYER_1, PLAYER_2} ) do
 				if top_score then
 					local taps = top_score:GetRadarValues():GetValue("RadarCategory_TapsAndHolds")
 					self:settext(taps)
+				else
+					self:settext("0")
 				end
 			end
 		end,
@@ -66,7 +68,7 @@ for player in ivalues( {PLAYER_1, PLAYER_2} ) do
 			local steps = (GAMESTATE:IsCourseMode() and GAMESTATE:GetCurrentTrail(player)) or GAMESTATE:GetCurrentSteps(player)
 
 			if song and steps then
-  			  	local taps = steps:GetRadarValues(player):GetValue("RadarCategory_TapsAndHolds")
+				local taps = steps:GetRadarValues(player):GetValue("RadarCategory_TapsAndHolds")
 				self:settext(taps)
 			end
 		end,
