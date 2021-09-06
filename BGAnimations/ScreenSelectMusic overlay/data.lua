@@ -363,6 +363,25 @@ LoadFont("Panedisplay Blurred")..{
 					else
 						self:visible(false);
 					end
+				else
+					stepsP1 = GAMESTATE:GetCurrentSteps(PLAYER_1);
+					stepsP2 = GAMESTATE:GetCurrentSteps(PLAYER_2);
+					if stepsP1 ~=nil and stepsP2 ~=nil then
+						local GetRadarP1 = GAMESTATE:GetCurrentSteps(PLAYER_1):GetRadarValues(PLAYER_1);
+						local GetRadarP2 = GAMESTATE:GetCurrentSteps(PLAYER_2):GetRadarValues(PLAYER_2);
+						if GetRadarP1:GetValue('RadarCategory_Mines') > 0 or GetRadarP2:GetValue('RadarCategory_Mines') > 0 then
+							self:visible(true):cropleft(0):cropright(0);
+							if GetRadarP1:GetValue('RadarCategory_Mines') == 0 and GetRadarP2:GetValue('RadarCategory_Mines') > 0 then
+								self:cropleft(0.5);
+							elseif GetRadarP1:GetValue('RadarCategory_Mines') > 0 and GetRadarP2:GetValue('RadarCategory_Mines') == 0 then
+								self:cropright(0.5);
+							end
+						else
+							self:visible(false);
+						end
+					else
+						self:visible(false);
+					end;
 				end
 			else
 				self:visible(false);
