@@ -1,6 +1,6 @@
-local t = Def.ActorFrame {};
+local t = Def.ActorFrame {}
 
-local mPlayer = GAMESTATE:GetMasterPlayerNumber();
+local mPlayer = GAMESTATE:GetMasterPlayerNumber()
 
 local function DifficultyIcons(pn)
 	local function set(self, player)
@@ -8,24 +8,24 @@ local function DifficultyIcons(pn)
 		local Selection = GAMESTATE:GetCurrentSteps(pn) or GAMESTATE:GetCurrentTrail(pn)
 
 		if not Selection then
-			self:Unset();
+			self:Unset()
 			return
 		end
 		local dc = Selection:GetDifficulty()
-		self:SetFromDifficulty( dc );
+		self:SetFromDifficulty( dc )
 	end
 
 	local t = Def.DifficultyIcon {
 		File="diff 1x15";
 		InitCommand=function(self)
-			self:player( pn );
-			self:SetPlayer( pn );
+			self:player( pn )
+			self:SetPlayer( pn )
 		end;
 
-		CurrentStepsP1ChangedMessageCommand=function(self) set(self, PLAYER_1); end;
-		CurrentStepsP2ChangedMessageCommand=function(self) set(self, PLAYER_2); end;
-		CurrentTrailP1ChangedMessageCommand=function(self) set(self, PLAYER_1); end;
-		CurrentTrailP2ChangedMessageCommand=function(self) set(self, PLAYER_2); end;
+		CurrentStepsP1ChangedMessageCommand=function(self) set(self, PLAYER_1) end;
+		CurrentStepsP2ChangedMessageCommand=function(self) set(self, PLAYER_2) end;
+		CurrentTrailP1ChangedMessageCommand=function(self) set(self, PLAYER_1) end;
+		CurrentTrailP2ChangedMessageCommand=function(self) set(self, PLAYER_2) end;
 	};
 	return t;
 end
@@ -52,42 +52,42 @@ t[#t+1] = Def.ActorFrame {
 	};
 
 	SetCommand=function(self)
-		local song = GAMESTATE:GetCurrentSong();
+		local song = GAMESTATE:GetCurrentSong()
 		if song then
 			--Song
-			local title;
+			local title
 			if song:GetDisplaySubTitle() == "" then
-				title = song:GetDisplayMainTitle();
+				title = song:GetDisplayMainTitle()
 			else
-				title = song:GetDisplayFullTitle();
+				title = song:GetDisplayFullTitle()
 			end;
-			cs.Title:maxwidth(325);
-			cs.Title:settext(title);
+			cs.Title:maxwidth(325)
+			cs.Title:settext(title)
 
-			local artist = song:GetDisplayArtist();
-			cs.Artist:maxwidth(325);
-			cs.Artist:settext(artist);
+			local artist = song:GetDisplayArtist()
+			cs.Artist:maxwidth(325)
+			cs.Artist:settext(artist)
 
-			local seconds = song:MusicLengthSeconds();
-			cs.Time:settext(SecondsToMMSSMsMs(seconds));
-			cs.Artist:diffusealpha(1);
-			cs.Time:diffusealpha(1);
+			local seconds = song:MusicLengthSeconds()
+			cs.Time:settext(SecondsToMMSSMsMs(seconds))
+			cs.Artist:diffusealpha(1)
+			cs.Time:diffusealpha(1)
 
 			--Insane
-			local insane = song:HasStepsTypeAndDifficulty(0,4);
+			local insane = song:HasStepsTypeAndDifficulty(0,4)
 			if insane then
-				cs.Title:diffuse(Color("Red"));
+				cs.Title:diffuse(Color("Red"))
 			else
-				cs.Title:diffuse(Color("White"));
+				cs.Title:diffuse(Color("White"))
 			end;
 
 		else
 			--Not Song
-			cs.Title:settext("No Song Selected");
-			cs.Title:diffuse(Color("White"));
-			cs.Artist:diffusealpha(0);
-			cs.Time:diffusealpha(0);
-		end;
+			cs.Title:settext("No Song Selected")
+			cs.Title:diffuse(Color("White"))
+			cs.Artist:diffusealpha(0)
+			cs.Time:diffusealpha(0)
+		end
 	end;
 	--BPM
 	Def.BPMDisplay {
@@ -107,7 +107,7 @@ t[#t+1] = Def.ActorFrame {
 			end
 		end;
 		SetCommand=function(self)
-			self:queuecommand("Begin");
+			self:queuecommand("Begin")
 			if not GAMESTATE:GetCurrentSong() or not GAMESTATE:IsHumanPlayer(PLAYER_1) then self:visible(false)
 			else self:visible(true)
 			end
@@ -122,9 +122,9 @@ t[#t+1] = Def.ActorFrame {
 			end
 		end;
 		SetCommand=function(self)
-			self:queuecommand("Begin");
-			if not GAMESTATE:GetCurrentSong() or not GAMESTATE:IsHumanPlayer(PLAYER_2) then self:visible(false);
-			else self:visible(true);
+			self:queuecommand("Begin")
+			if not GAMESTATE:GetCurrentSong() or not GAMESTATE:IsHumanPlayer(PLAYER_2) then self:visible(false)
+			else self:visible(true)
 			end
 		end;
 	};
@@ -135,38 +135,38 @@ LoadFont("Panedisplay Blurred")..{
 	SetCommand=function(self)
 		local name = "STEPS"
 		steps = GAMESTATE:GetCurrentSteps(mPlayer)
-		local song = GAMESTATE:GetCurrentSong();
+		local song = GAMESTATE:GetCurrentSong()
 		if song and steps ~=nil then
 			if GAMESTATE:GetNumPlayersEnabled() == 1 then
-				local GetRadar = GAMESTATE:GetCurrentSteps(mPlayer):GetRadarValues(mPlayer);
+				local GetRadar = GAMESTATE:GetCurrentSteps(mPlayer):GetRadarValues(mPlayer)
 				if GetRadar:GetValue('RadarCategory_Fakes') > 0 then
-					name = name .. "?";
+					name = name .. "?"
 				end
 			else
-				stepsP1 = GAMESTATE:GetCurrentSteps(PLAYER_1);
-				stepsP2 = GAMESTATE:GetCurrentSteps(PLAYER_2);
+				stepsP1 = GAMESTATE:GetCurrentSteps(PLAYER_1)
+				stepsP2 = GAMESTATE:GetCurrentSteps(PLAYER_2)
 				if stepsP1 ~=nil and stepsP2 ~=nil then
-					local GetRadarP1 = GAMESTATE:GetCurrentSteps(PLAYER_1):GetRadarValues(PLAYER_1);
-					local GetRadarP2 = GAMESTATE:GetCurrentSteps(PLAYER_2):GetRadarValues(PLAYER_2);
+					local GetRadarP1 = GAMESTATE:GetCurrentSteps(PLAYER_1):GetRadarValues(PLAYER_1)
+					local GetRadarP2 = GAMESTATE:GetCurrentSteps(PLAYER_2):GetRadarValues(PLAYER_2)
 					if GetRadarP1:GetValue('RadarCategory_Fakes') > 0 or GetRadarP2:GetValue('RadarCategory_Fakes') > 0 then
-						name = name .. "?";
+						name = name .. "?"
 					end
-				end;
+				end
 			end
-		end;
-		self:settext(name);
+		end
+		self:settext(name)
 	end;
 };
 LoadFont("Panedisplay Blurred")..{
 	InitCommand=function(self) self:zoom(0.35):horizalign(left):y(90):x(-132):maxwidth(160):diffusealpha(0.6) end;
 	SetCommand=function(self)
-		self:settext("JUMPS");
+		self:settext("JUMPS")
 	end;
 };
 LoadFont("Panedisplay Blurred")..{
 	InitCommand=function(self) self:zoom(0.35):horizalign(left):y(111):x(-132):maxwidth(160):diffusealpha(0.6) end;
 	SetCommand=function(self)
-		self:settext("HANDS");
+		self:settext("HANDS")
 	end;
 };
 LoadFont("Panedisplay Blurred")..{
@@ -174,32 +174,32 @@ LoadFont("Panedisplay Blurred")..{
 	SetCommand=function(self)
 		local name = "HOLDS"
 		steps = GAMESTATE:GetCurrentSteps(mPlayer)
-		local song = GAMESTATE:GetCurrentSong();
+		local song = GAMESTATE:GetCurrentSong()
 		if song and steps ~=nil then
 			if GAMESTATE:GetNumPlayersEnabled() == 1 then
-				local GetRadar = GAMESTATE:GetCurrentSteps(mPlayer):GetRadarValues(mPlayer);
+				local GetRadar = GAMESTATE:GetCurrentSteps(mPlayer):GetRadarValues(mPlayer)
 				if GetRadar:GetValue('RadarCategory_Rolls') > 0 then
-					name = name .. "+ROLLS";
+					name = name .. "+ROLLS"
 				end
 				if GetRadar:GetValue('RadarCategory_Lifts') > 0 then
-					name = name .. "+LIFTS";
+					name = name .. "+LIFTS"
 				end
 			else
-				stepsP1 = GAMESTATE:GetCurrentSteps(PLAYER_1);
-				stepsP2 = GAMESTATE:GetCurrentSteps(PLAYER_2);
+				stepsP1 = GAMESTATE:GetCurrentSteps(PLAYER_1)
+				stepsP2 = GAMESTATE:GetCurrentSteps(PLAYER_2)
 				if stepsP1 ~=nil and stepsP2 ~=nil then
-					local GetRadarP1 = GAMESTATE:GetCurrentSteps(PLAYER_1):GetRadarValues(PLAYER_1);
-					local GetRadarP2 = GAMESTATE:GetCurrentSteps(PLAYER_2):GetRadarValues(PLAYER_2);
+					local GetRadarP1 = GAMESTATE:GetCurrentSteps(PLAYER_1):GetRadarValues(PLAYER_1)
+					local GetRadarP2 = GAMESTATE:GetCurrentSteps(PLAYER_2):GetRadarValues(PLAYER_2)
 					if GetRadarP1:GetValue('RadarCategory_Rolls') > 0 or GetRadarP2:GetValue('RadarCategory_Rolls') > 0 then
-						name = name .. "+ROLLS";
+						name = name .. "+ROLLS"
 					end
 					if GetRadarP1:GetValue('RadarCategory_Lifts') > 0 or GetRadarP2:GetValue('RadarCategory_Lifts') > 0 then
-						name = name .. "+LIFTS";
+						name = name .. "+LIFTS"
 					end
-				end;
+				end
 			end
-		end;
-		self:settext(name);
+		end
+		self:settext(name)
 	end;
 };
 
@@ -207,13 +207,13 @@ LoadFont("Panedisplay Blurred")..{
 	LoadFont("Panedisplay Blurred")..{
 		InitCommand=function(self) self:zoom(0.35):horizalign(left):y(70):x(10):diffusealpha(0.6):zoomx(0.33) end;
 		SetCommand=function(self)
-			self:settext("L E N G T H");
+			self:settext("L E N G T H")
 		end;
 	};
 	LoadFont("Panedisplay Blurred")..{
 		InitCommand=function(self) self:zoom(0.35):horizalign(left):y(115):x(10):diffusealpha(0.6):zoomx(0.34) end;
 		SetCommand=function(self)
-			self:settext("B P M");
+			self:settext("B P M")
 		end;
 	};
 
@@ -221,171 +221,159 @@ LoadFont("Panedisplay Blurred")..{
 	LoadFont("Panedisplay Text")..{
 		InitCommand=function(self) self:zoom(0.36):horizalign(right):y(70):x(-11):maxwidth(170) end;
 		SetCommand=function(self)
+			local name = ""
 			steps = GAMESTATE:GetCurrentSteps(mPlayer)
-			local song = GAMESTATE:GetCurrentSong();
+			local song = GAMESTATE:GetCurrentSong()
 			if song and steps ~=nil then
 				if GAMESTATE:GetNumPlayersEnabled() == 1 then
-					local GetRadar = GAMESTATE:GetCurrentSteps(mPlayer):GetRadarValues(mPlayer);
-					local stats = GetRadar:GetValue('RadarCategory_TapsAndHolds');
-					self:settext(stats);
+					local GetRadar = GAMESTATE:GetCurrentSteps(mPlayer):GetRadarValues(mPlayer)
+					name = GetRadar:GetValue('RadarCategory_TapsAndHolds')
 				else
-					stepsP1 = GAMESTATE:GetCurrentSteps(PLAYER_1);
-					stepsP2 = GAMESTATE:GetCurrentSteps(PLAYER_2);
+					stepsP1 = GAMESTATE:GetCurrentSteps(PLAYER_1)
+					stepsP2 = GAMESTATE:GetCurrentSteps(PLAYER_2)
 					if stepsP1 ~=nil and stepsP2 ~=nil then
-						local GetRadarP1 = GAMESTATE:GetCurrentSteps(PLAYER_1):GetRadarValues(PLAYER_1);
-						local GetRadarP2 = GAMESTATE:GetCurrentSteps(PLAYER_2):GetRadarValues(PLAYER_2);
-						local statsP1 = GetRadarP1:GetValue('RadarCategory_TapsAndHolds');
-						local statsP2 = GetRadarP2:GetValue('RadarCategory_TapsAndHolds');
-						self:settext(statsP1 .. " | " .. statsP2);
-					else
-						self:settext("");
-					end;
+						local GetRadarP1 = GAMESTATE:GetCurrentSteps(PLAYER_1):GetRadarValues(PLAYER_1)
+						local GetRadarP2 = GAMESTATE:GetCurrentSteps(PLAYER_2):GetRadarValues(PLAYER_2)
+						local statsP1 = GetRadarP1:GetValue('RadarCategory_TapsAndHolds')
+						local statsP2 = GetRadarP2:GetValue('RadarCategory_TapsAndHolds')
+						name = statsP1 .. " | " .. statsP2
+					end
 				end
-			else
-				self:settext("");
-			end;
+			end
+			self:settext(name)
 		end;
 	};
 	LoadFont("Panedisplay Text")..{
 		InitCommand=function(self) self:zoom(0.36):horizalign(right):y(91):x(-11):maxwidth(170) end;
 		SetCommand=function(self)
+			local name = ""
 			steps = GAMESTATE:GetCurrentSteps(mPlayer)
-			local song = GAMESTATE:GetCurrentSong();
+			local song = GAMESTATE:GetCurrentSong()
 			if song and steps ~=nil then
 				if GAMESTATE:GetNumPlayersEnabled() == 1 then
-					local GetRadar = GAMESTATE:GetCurrentSteps(mPlayer):GetRadarValues(mPlayer);
-					local stats = GetRadar:GetValue('RadarCategory_Jumps');
-					self:settext(stats);
+					local GetRadar = GAMESTATE:GetCurrentSteps(mPlayer):GetRadarValues(mPlayer)
+					name = GetRadar:GetValue('RadarCategory_Jumps')
 				else
-					stepsP1 = GAMESTATE:GetCurrentSteps(PLAYER_1);
-					stepsP2 = GAMESTATE:GetCurrentSteps(PLAYER_2);
+					stepsP1 = GAMESTATE:GetCurrentSteps(PLAYER_1)
+					stepsP2 = GAMESTATE:GetCurrentSteps(PLAYER_2)
 					if stepsP1 ~=nil and stepsP2 ~=nil then
-						local GetRadarP1 = GAMESTATE:GetCurrentSteps(PLAYER_1):GetRadarValues(PLAYER_1);
-						local GetRadarP2 = GAMESTATE:GetCurrentSteps(PLAYER_2):GetRadarValues(PLAYER_2);
-						local statsP1 = GetRadarP1:GetValue('RadarCategory_Jumps');
-						local statsP2 = GetRadarP2:GetValue('RadarCategory_Jumps');
-						self:settext(statsP1 .. " | " .. statsP2);
-					else
-						self:settext("");
-					end;
+						local GetRadarP1 = GAMESTATE:GetCurrentSteps(PLAYER_1):GetRadarValues(PLAYER_1)
+						local GetRadarP2 = GAMESTATE:GetCurrentSteps(PLAYER_2):GetRadarValues(PLAYER_2)
+						local statsP1 = GetRadarP1:GetValue('RadarCategory_Jumps')
+						local statsP2 = GetRadarP2:GetValue('RadarCategory_Jumps')
+						name = statsP1 .. " | " .. statsP2
+					end
 				end
-			else
-				self:settext("");
-			end;
+			end
+			self:settext(name)
 		end;
 	};
 	LoadFont("Panedisplay Text")..{
 		InitCommand=function(self) self:zoom(0.36):horizalign(right):y(112):x(-11):maxwidth(170) end;
 		SetCommand=function(self)
+			local name = ""
 			steps = GAMESTATE:GetCurrentSteps(mPlayer)
-			local song = GAMESTATE:GetCurrentSong();
+			local song = GAMESTATE:GetCurrentSong()
 			if song and steps ~=nil then
 				if GAMESTATE:GetNumPlayersEnabled() == 1 then
-					local GetRadar = GAMESTATE:GetCurrentSteps(mPlayer):GetRadarValues(mPlayer);
-					local stats = GetRadar:GetValue('RadarCategory_Hands');
-					self:settext(stats);
+					local GetRadar = GAMESTATE:GetCurrentSteps(mPlayer):GetRadarValues(mPlayer)
+					name = GetRadar:GetValue('RadarCategory_Hands')
 				else
-					stepsP1 = GAMESTATE:GetCurrentSteps(PLAYER_1);
-					stepsP2 = GAMESTATE:GetCurrentSteps(PLAYER_2);
+					stepsP1 = GAMESTATE:GetCurrentSteps(PLAYER_1)
+					stepsP2 = GAMESTATE:GetCurrentSteps(PLAYER_2)
 					if stepsP1 ~=nil and stepsP2 ~=nil then
-						local GetRadarP1 = GAMESTATE:GetCurrentSteps(PLAYER_1):GetRadarValues(PLAYER_1);
-						local GetRadarP2 = GAMESTATE:GetCurrentSteps(PLAYER_2):GetRadarValues(PLAYER_2);
-						local statsP1 = GetRadarP1:GetValue('RadarCategory_Hands');
-						local statsP2 = GetRadarP2:GetValue('RadarCategory_Hands');
-						self:settext(statsP1 .. " | " .. statsP2);
-					else
-						self:settext("");
-					end;
+						local GetRadarP1 = GAMESTATE:GetCurrentSteps(PLAYER_1):GetRadarValues(PLAYER_1)
+						local GetRadarP2 = GAMESTATE:GetCurrentSteps(PLAYER_2):GetRadarValues(PLAYER_2)
+						local statsP1 = GetRadarP1:GetValue('RadarCategory_Hands')
+						local statsP2 = GetRadarP2:GetValue('RadarCategory_Hands')
+						name = statsP1 .. " | " .. statsP2
+					end
 				end
-			else
-				self:settext("");
-			end;
+			end
+			self:settext(name)
 		end;
 	};
 	LoadFont("Panedisplay Text")..{
 		InitCommand=function(self) self:zoom(0.36):horizalign(right):y(133):x(-11):maxwidth(170) end;
 		SetCommand=function(self)
+			local name = ""
 			steps = GAMESTATE:GetCurrentSteps(mPlayer)
-			local song = GAMESTATE:GetCurrentSong();
+			local song = GAMESTATE:GetCurrentSong()
 			if song and steps ~=nil then
 				if GAMESTATE:GetNumPlayersEnabled() == 1 then
-					local GetRadar = GAMESTATE:GetCurrentSteps(mPlayer):GetRadarValues(mPlayer);
-					local stats = GetRadar:GetValue('RadarCategory_Holds');
+					local GetRadar = GAMESTATE:GetCurrentSteps(mPlayer):GetRadarValues(mPlayer)
+					name = GetRadar:GetValue('RadarCategory_Holds')
 					if GetRadar:GetValue('RadarCategory_Rolls') > 0 then
-						stats = stats .. "+" .. GetRadar:GetValue('RadarCategory_Rolls');
+						name = name .. "+" .. GetRadar:GetValue('RadarCategory_Rolls')
 					end
 					if GetRadar:GetValue('RadarCategory_Lifts') > 0 then
-						stats = stats .. "+" .. GetRadar:GetValue('RadarCategory_Lifts');
+						name = name .. "+" .. GetRadar:GetValue('RadarCategory_Lifts')
 					end
-					self:settext(stats);
 				else
-					stepsP1 = GAMESTATE:GetCurrentSteps(PLAYER_1);
-					stepsP2 = GAMESTATE:GetCurrentSteps(PLAYER_2);
+					stepsP1 = GAMESTATE:GetCurrentSteps(PLAYER_1)
+					stepsP2 = GAMESTATE:GetCurrentSteps(PLAYER_2)
 					if stepsP1 ~=nil and stepsP2 ~=nil then
-						local GetRadarP1 = GAMESTATE:GetCurrentSteps(PLAYER_1):GetRadarValues(PLAYER_1);
-						local GetRadarP2 = GAMESTATE:GetCurrentSteps(PLAYER_2):GetRadarValues(PLAYER_2);
-						local statsP1 = GetRadarP1:GetValue('RadarCategory_Holds');
-						local statsP2 = GetRadarP2:GetValue('RadarCategory_Holds');
+						local GetRadarP1 = GAMESTATE:GetCurrentSteps(PLAYER_1):GetRadarValues(PLAYER_1)
+						local GetRadarP2 = GAMESTATE:GetCurrentSteps(PLAYER_2):GetRadarValues(PLAYER_2)
+						local statsP1 = GetRadarP1:GetValue('RadarCategory_Holds')
+						local statsP2 = GetRadarP2:GetValue('RadarCategory_Holds')
 						if GetRadarP1:GetValue('RadarCategory_Rolls') > 0 then
-							statsP1 = statsP1 .. "+" .. GetRadarP1:GetValue('RadarCategory_Rolls');
+							statsP1 = statsP1 .. "+" .. GetRadarP1:GetValue('RadarCategory_Rolls')
 						end
 						if GetRadarP2:GetValue('RadarCategory_Rolls') > 0 then
-							statsP2 = statsP2 .. "+" .. GetRadarP2:GetValue('RadarCategory_Rolls');
+							statsP2 = statsP2 .. "+" .. GetRadarP2:GetValue('RadarCategory_Rolls')
 						end
 						if GetRadarP1:GetValue('RadarCategory_Lifts') > 0 then
-							statsP1 = statsP1 .. "+" .. GetRadarP1:GetValue('RadarCategory_Lifts');
+							statsP1 = statsP1 .. "+" .. GetRadarP1:GetValue('RadarCategory_Lifts')
 						end
 						if GetRadarP2:GetValue('RadarCategory_Lifts') > 0 then
-							statsP2 = statsP2 .. "+" .. GetRadarP2:GetValue('RadarCategory_Lifts');
+							statsP2 = statsP2 .. "+" .. GetRadarP2:GetValue('RadarCategory_Lifts')
 						end
-						self:settext(statsP1 .. " | " .. statsP2);
-					else
-						self:settext("");
-					end;
+						name = statsP1 .. " | " .. statsP2
+					end
 				end
-			else
-				self:settext("");
-			end;
+			end
+			self:settext(name)
 		end;
 	};
 
 	LoadActor("Mines")..{
 		InitCommand=function(self) self:effectclock('beat'):addx(180):addy(12):visible(false) end;
 		SetCommand=function(self)
-			local mPlayer = GAMESTATE:GetMasterPlayerNumber();
+			local mPlayer = GAMESTATE:GetMasterPlayerNumber()
 			steps = GAMESTATE:GetCurrentSteps(mPlayer)
-			local song = GAMESTATE:GetCurrentSong();
+			local song = GAMESTATE:GetCurrentSong()
 			if song and steps ~=nil then
 				if GAMESTATE:GetNumPlayersEnabled() == 1 then
-					local GetRadar = GAMESTATE:GetCurrentSteps(mPlayer):GetRadarValues(mPlayer);
+					local GetRadar = GAMESTATE:GetCurrentSteps(mPlayer):GetRadarValues(mPlayer)
 					if GetRadar:GetValue('RadarCategory_Mines') > 0 then
-						self:visible(true);
+						self:visible(true)
 					else
-						self:visible(false);
+						self:visible(false)
 					end
 				else
-					stepsP1 = GAMESTATE:GetCurrentSteps(PLAYER_1);
-					stepsP2 = GAMESTATE:GetCurrentSteps(PLAYER_2);
+					stepsP1 = GAMESTATE:GetCurrentSteps(PLAYER_1)
+					stepsP2 = GAMESTATE:GetCurrentSteps(PLAYER_2)
 					if stepsP1 ~=nil and stepsP2 ~=nil then
-						local GetRadarP1 = GAMESTATE:GetCurrentSteps(PLAYER_1):GetRadarValues(PLAYER_1);
-						local GetRadarP2 = GAMESTATE:GetCurrentSteps(PLAYER_2):GetRadarValues(PLAYER_2);
+						local GetRadarP1 = GAMESTATE:GetCurrentSteps(PLAYER_1):GetRadarValues(PLAYER_1)
+						local GetRadarP2 = GAMESTATE:GetCurrentSteps(PLAYER_2):GetRadarValues(PLAYER_2)
 						if GetRadarP1:GetValue('RadarCategory_Mines') > 0 or GetRadarP2:GetValue('RadarCategory_Mines') > 0 then
-							self:visible(true):cropleft(0):cropright(0);
+							self:visible(true):cropleft(0):cropright(0)
 							if GetRadarP1:GetValue('RadarCategory_Mines') == 0 and GetRadarP2:GetValue('RadarCategory_Mines') > 0 then
-								self:cropleft(0.5);
+								self:cropleft(0.5)
 							elseif GetRadarP1:GetValue('RadarCategory_Mines') > 0 and GetRadarP2:GetValue('RadarCategory_Mines') == 0 then
-								self:cropright(0.5);
+								self:cropright(0.5)
 							end
 						else
-							self:visible(false);
+							self:visible(false)
 						end
 					else
-						self:visible(false);
-					end;
+						self:visible(false)
+					end
 				end
 			else
-				self:visible(false);
-			end;
+				self:visible(false)
+			end
 		end;
 	};
 
