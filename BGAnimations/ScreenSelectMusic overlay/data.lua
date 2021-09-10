@@ -2,6 +2,40 @@ local t = Def.ActorFrame {}
 
 local mPlayer = GAMESTATE:GetMasterPlayerNumber()
 
+local getSMVersion = function()
+	local version = ProductVersion()
+	if type(version) ~= "string" then return {} end
+
+	version = version:gsub("-.*", "")
+
+	local v = {}
+	for i in version:gmatch("[^%.]+") do
+		table.insert(v, tonumber(i))
+	end
+
+	return v
+end
+
+function IsSMVersion(...)
+	local version = getSMVersion()
+
+	for i = 1, select('#', ...) do
+		if select(i, ...) ~= version[i] then
+			return false
+		end
+	end
+
+	return true
+end
+
+local diff = ""
+
+if IsSMVersion(5, 0, 12) or IsSMVersion(5, 1) then
+	diff = "diff 1x6"
+else
+	diff = "diff 1x15"
+end
+
 local function DifficultyIcons(pn)
 	local function set(self, player)
 		if player and player ~= pn then return end
@@ -16,7 +50,7 @@ local function DifficultyIcons(pn)
 	end
 
 	local t = Def.DifficultyIcon {
-		File="diff 1x15";
+		File=diff;
 		InitCommand=function(self)
 			self:player( pn )
 			self:SetPlayer( pn )

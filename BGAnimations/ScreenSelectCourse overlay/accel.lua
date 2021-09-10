@@ -103,14 +103,14 @@ t[#t+1] = Def.ActorFrame {
 	LoadFont("OptionIcon")..{
 		OnCommand=function(self)
 			DoesCourseHasX()
-			self:x(SCREEN_CENTER_X+100):y(SCREEN_BOTTOM-50):settext(ToUpper(SpeedMods[sIdx])..questionMark):diffuse(color('#BEC1C6')):zoom(0.76)
+			self:x(SCREEN_CENTER_X+100):y(SCREEN_BOTTOM-50):settext(string.upper(SpeedMods[sIdx])..questionMark):diffuse(color('#BEC1C6')):zoom(0.76)
 		end;
 		SpeedCommand=function(self)
-			self:settext(ToUpper(SpeedMods[sIdx])..questionMark);
+			self:settext(string.upper(SpeedMods[sIdx])..questionMark);
 		end;
 		CurrentCourseChangedMessageCommand=function(self)
 			DoesCourseHasX()
-			self:settext(ToUpper(SpeedMods[sIdx])..questionMark);
+			self:settext(string.upper(SpeedMods[sIdx])..questionMark);
 		end;
 	}
 };
