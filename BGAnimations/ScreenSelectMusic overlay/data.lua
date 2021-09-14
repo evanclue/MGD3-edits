@@ -371,7 +371,9 @@ LoadFont("Panedisplay Blurred")..{
 		end;
 	};
 
-	LoadActor("Mines")..{
+	Def.Sprite {
+		Texture='mine';
+		Frames = Sprite.LinearFrames( 8, 1 );
 		InitCommand=function(self) self:effectclock('beat'):addx(180):addy(12):visible(false) end;
 		SetCommand=function(self)
 			local mPlayer = GAMESTATE:GetMasterPlayerNumber()
