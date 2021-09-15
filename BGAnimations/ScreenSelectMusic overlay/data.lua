@@ -288,7 +288,7 @@ LoadFont("Panedisplay Blurred")..{
 				local bpms = song:GetDisplayBpms()
 				local truebpms = timingdata:GetActualBPM()
 				if bpms[1] == truebpms[1] and bpms[2] == truebpms[2] then else
-					self:settext("D I S P L A Y B P M"):maxwidth(360)
+					self:settext("D I S P L A Y B P M"):maxwidth(350)
 				end
 			end
 		end;
