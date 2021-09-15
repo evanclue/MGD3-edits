@@ -127,3 +127,12 @@ local SongVal = SongTable[songtit] or false
 return SongVal;
 
 end;
+
+function CalcDifficulty(Steps)
+	local stepCounter = Steps:GetRadarValues(GAMESTATE:GetMasterPlayerNumber()):GetValue('RadarCategory_TapsAndHolds')
+	local jumpCounter = Steps:GetRadarValues(GAMESTATE:GetMasterPlayerNumber()):GetValue('RadarCategory_Jumps')
+	local handCounter = Steps:GetRadarValues(GAMESTATE:GetMasterPlayerNumber()):GetValue('RadarCategory_Hands') * 2
+	local songInSeconds = GAMESTATE:GetCurrentSong():GetLastSecond() - GAMESTATE:GetCurrentSong():GetFirstSecond()
+
+    return math.round( ( (stepCounter + jumpCounter + handCounter) / songInSeconds ) * 20 )
+end;

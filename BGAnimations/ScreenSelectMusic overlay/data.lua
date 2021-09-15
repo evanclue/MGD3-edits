@@ -84,6 +84,11 @@ t[#t+1] = Def.ActorFrame {
 		Name="Time";
 		InitCommand=function(self) self:horizalign(center):y(88):x(69) end;
 	};
+	--True Time
+	LoadFont("ScreenSelectMusic total time")..{
+		Name="TrueTime";
+		InitCommand=function(self) self:horizalign(center):y(88):x(69) end;
+	};
 
 	SetCommand=function(self)
 		local song = GAMESTATE:GetCurrentSong()
@@ -103,9 +108,14 @@ t[#t+1] = Def.ActorFrame {
 			cs.Artist:settext(artist)
 
 			local seconds = song:MusicLengthSeconds()
-			cs.Time:settext(SecondsToMMSSMsMs(seconds))
+			local firstsecond = song:GetFirstSecond()
+			local lastsecond = song:GetLastSecond()
+			local trueseconds = lastsecond - firstsecond
 			cs.Artist:diffusealpha(1)
-			cs.Time:diffusealpha(1)
+			cs.Time:maxwidth(128):diffusealpha(1):settext(SecondsToMMSSMsMs(seconds))
+			cs.Time:effectclock('timer'):diffuseshift():effectcolor1(color("#FFFFFFFF")):effectcolor2(color("#00000000")):effectperiod(4)
+			cs.TrueTime:maxwidth(128):diffusealpha(1):settext(SecondsToMMSSMsMs(trueseconds))
+			cs.TrueTime:effectclock('timer'):diffuseshift():effectcolor1(color("#00000000")):effectcolor2(color("#FFFFFFFF")):effectperiod(4)
 
 			--Insane
 			local insane = song:HasStepsTypeAndDifficulty(0,4)
@@ -121,14 +131,30 @@ t[#t+1] = Def.ActorFrame {
 			cs.Title:diffuse(Color("White"))
 			cs.Artist:diffusealpha(0)
 			cs.Time:diffusealpha(0)
+			cs.TrueTime:diffusealpha(0)
 		end
 	end;
 	--BPM
 	Def.BPMDisplay {
 		File=THEME:GetPathF("BPM", "Display");
 		Name="BPMDisplay";
-		InitCommand=function(self) self:x(5):y(133):horizalign(left):zoom(0.62):maxwidth(210) end;-- LEFT
-		SetCommand=function(self) self:SetFromGameState() end;
+		InitCommand=function(self)
+			self:x(5):y(133):horizalign(left):zoom(0.62):maxwidth(210)
+		end;-- LEFT
+		SetCommand=function(self)
+			self:SetFromGameState()
+			local song = GAMESTATE:GetCurrentSong()
+			if song then
+				local timingdata = song:GetTimingData()
+				local bpms = song:GetDisplayBpms()
+				local truebpms = timingdata:GetActualBPM()
+				if bpms[1] == truebpms[1] and bpms[2] == truebpms[2] then
+					self:stopeffect():diffuse(Color("White"))
+				else
+					self:effectclock('beat'):diffuseshift():effectcolor1(color("#FF0000FF")):effectcolor2(color("#FF000080")):effectperiod(1)
+				end
+			end
+		end;
 	};
 
 	-- difficulty icons
@@ -241,13 +267,30 @@ LoadFont("Panedisplay Blurred")..{
 	LoadFont("Panedisplay Blurred")..{
 		InitCommand=function(self) self:zoom(0.35):horizalign(left):y(70):x(10):diffusealpha(0.6):zoomx(0.33) end;
 		SetCommand=function(self)
-			self:settext("L E N G T H")
+			self:settext("S O N G   L E N G T H"):maxwidth(360)
+			self:effectclock('timer'):diffuseshift():effectcolor1(color("#FFFFFFFF")):effectcolor2(color("#00000000")):effectperiod(4)
+		end;
+	};
+	LoadFont("Panedisplay Blurred")..{
+		InitCommand=function(self) self:zoom(0.35):horizalign(left):y(70):x(10):diffusealpha(0.6):zoomx(0.33) end;
+		SetCommand=function(self)
+			self:settext("T R U E   L E N G T H"):maxwidth(360)
+			self:effectclock('timer'):diffuseshift():effectcolor1(color("#00000000")):effectcolor2(color("#FFFFFFFF")):effectperiod(4)
 		end;
 	};
 	LoadFont("Panedisplay Blurred")..{
 		InitCommand=function(self) self:zoom(0.35):horizalign(left):y(115):x(10):diffusealpha(0.6):zoomx(0.34) end;
 		SetCommand=function(self)
 			self:settext("B P M")
+			local song = GAMESTATE:GetCurrentSong()
+			if song then
+				local timingdata = song:GetTimingData()
+				local bpms = song:GetDisplayBpms()
+				local truebpms = timingdata:GetActualBPM()
+				if bpms[1] == truebpms[1] and bpms[2] == truebpms[2] then else
+					self:settext("D I S P L A Y B P M"):maxwidth(360)
+				end
+			end
 		end;
 	};
 

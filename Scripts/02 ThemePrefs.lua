@@ -40,6 +40,12 @@ local Prefs =
 		Choices = { OptionNameString('Off'), OptionNameString('On') },
 		Values = { false, true }
 	},
+	DefDifficulties =
+	{
+		Default = false,
+		Choices = { "Set", "Calculated" },
+		Values = { false, true }
+	},
 }
 
 ThemePrefs.InitAll(Prefs)

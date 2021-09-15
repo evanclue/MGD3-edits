@@ -10,7 +10,6 @@ local CustomDifficultyToState = {
 };
 
 t[#t+1] = Def.ActorFrame{
-
 	LoadFont("Panedisplay Text")..{
 		Name="tmeter";
 		InitCommand=function(self)
@@ -56,28 +55,32 @@ t[#t+1] = Def.ActorFrame{
 				end;
 			end;
 
-			if getenv("wheelstop") == 1 then
-				song = GAMESTATE:GetCurrentSong();
-				if GetAdhocPref("UserMeterType") == "CSStyle" then
-					if song then
-						if cdiff ~= "Edit" then
-							meter = GetConvertDifficulty(song,"Difficulty_"..cdiff);
-						else
-							meter = GetConvertDifficulty(song,"Difficulty_Edit",step);
-						end;
+			if song and cdiff then
+				if cdiff ~= "Edit" then
+					if ThemePrefs.Get("DefDifficulties") then
+						meter = CalcDifficulty(song:GetOneSteps(0,"Difficulty_" .. cdiff));
 					else
-						meter = "";
-					end;
+						meter = GetConvertDifficulty(song,"Difficulty_"..cdiff);
+					end
+				else
+					if ThemePrefs.Get("DefDifficulties") then
+						meter = CalcDifficulty(song:GetOneSteps(0,"Difficulty_Edit"));
+					else
+						meter = GetConvertDifficulty(song,"Difficulty_Edit",step);
+					end
 				end;
-			else
-				song = "";
 			end;
+
+			song = "";
+
 			if meter then
 				tmeter:visible(true);
 				tmeter:settextf("%d",meter);
 			end;
 		end;
 	end;
+	PlayerJoinedMessageCommand=function(self) self:queuecommand("Set") end;
+	PlayerUnjoinedMessageCommand=function(self) self:queuecommand("Set") end;
 };
 
 return t;
