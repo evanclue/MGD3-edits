@@ -30,7 +30,7 @@ local Prefs =
 	},
 	DefLives =
 	{
-		Default = "Auto",
+		Default = -1,
 		Choices = { 1, 5, 10, 20, 40, 50, "Auto" },
 		Values = { 1, 5, 10, 20, 40, 50, -1 }
 	},
