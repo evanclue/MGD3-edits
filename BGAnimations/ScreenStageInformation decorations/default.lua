@@ -2,7 +2,7 @@ local t = Def.ActorFrame {};
 
 for pn in ivalues(GAMESTATE:GetEnabledPlayers()) do
 	local batLives = ThemePrefs.Get("DefLives");
-	if batLives == 123456 then
+	if batLives == -1 then
 		batLives = GetLives(pn);
 	end
 

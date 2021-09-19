@@ -30,9 +30,9 @@ local Prefs =
 	},
 	DefLives =
 	{
-		Default = 1,
+		Default = "Auto",
 		Choices = { 1, 5, 10, 20, 40, 50, "Auto" },
-		Values = { 1, 5, 10, 20, 40, 50, 123456 }
+		Values = { 1, 5, 10, 20, 40, 50, -1 }
 	},
 	CboUnder =
 	{
@@ -44,6 +44,12 @@ local Prefs =
 	{
 		Default = false,
 		Choices = { "Set", "Calculated" },
+		Values = { false, true }
+	},
+	ComboIsPerRow =
+	{
+		Default = false,
+		Choices = { OptionNameString('Off'), OptionNameString('On') },
 		Values = { false, true }
 	},
 }
