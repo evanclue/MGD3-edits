@@ -151,7 +151,63 @@ t[#t+1] = Def.ActorFrame {
 				if bpms[1] == truebpms[1] and bpms[2] == truebpms[2] then
 					self:stopeffect():diffuse(Color("White"))
 				else
-					self:effectclock('beat'):diffuseshift():effectcolor1(color("#FF0000FF")):effectcolor2(color("#FF000080")):effectperiod(1)
+					local sets = timingdata:GetBPMsAndTimes()
+					local currentSet, lastSet, duration
+					local first = true
+					local redCheck, orangeCheck, greenCheck = false, false, false
+
+					for set in ivalues(sets) do
+						currentSet = split("=",set)
+						currentSet[2]=math.round( currentSet[2] * 1000 ) / 1000
+						if first then first = false else
+							duration = (currentSet[1]-lastSet[1]) / lastSet[2] * 60
+							if duration > 5 then
+								if bpms[1] < tonumber(lastSet[2]) and bpms[2] < tonumber(lastSet[2]) then
+									-- FASTER THAN DISPLAYBPM
+									redCheck = true
+								elseif bpms[1] < tonumber(lastSet[2]) and bpms[2] > tonumber(lastSet[2]) then
+									-- WITHIN DISPLAYBPM
+								elseif bpms[1] > tonumber(lastSet[2]) and bpms[2] > tonumber(lastSet[2]) then
+									-- SLOWER THAN DISPLAYBPM
+									greenCheck = true
+								end
+							else
+								if bpms[1] < tonumber(lastSet[2]) and bpms[2] < tonumber(lastSet[2]) then
+									-- FASTER THAN DISPLAYBPM
+									orangeCheck = true
+								end
+							end
+						end
+						lastSet = currentSet
+					end
+
+					duration = (song:GetLastBeat()-lastSet[1]) / lastSet[2] * 60
+					if duration > 5 then
+						if bpms[1] < tonumber(lastSet[2]) and bpms[2] < tonumber(lastSet[2]) then
+							-- FASTER THAN DISPLAYBPM
+							redCheck = true
+						elseif bpms[1] < tonumber(lastSet[2]) and bpms[2] > tonumber(lastSet[2]) then
+							-- WITHIN DISPLAYBPM
+						elseif bpms[1] > tonumber(lastSet[2]) and bpms[2] > tonumber(lastSet[2]) then
+							-- SLOWER THAN DISPLAYBPM
+							greenCheck = true
+						end
+					else
+						if bpms[1] < tonumber(lastSet[2]) and bpms[2] < tonumber(lastSet[2]) then
+							-- FASTER THAN DISPLAYBPM
+							orangeCheck = true
+						end
+					end
+
+					if redCheck then
+						self:effectclock('beat'):diffuseshift():effectcolor1(color("#FF0000FF")):effectcolor2(color("#FF000080")):effectperiod(1)
+					elseif orangeCheck then
+						self:effectclock('beat'):diffuseshift():effectcolor1(color("#FF8800FF")):effectcolor2(color("#FF880080")):effectperiod(1)
+					elseif greenCheck then
+						self:effectclock('beat'):diffuseshift():effectcolor1(color("#00FF00FF")):effectcolor2(color("#00FF0080")):effectperiod(1)
+					else
+						self:stopeffect():diffuse(Color("White"))
+					end
 				end
 			end
 		end;
