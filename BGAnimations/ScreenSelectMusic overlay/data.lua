@@ -148,66 +148,90 @@ t[#t+1] = Def.ActorFrame {
 				local timingdata = song:GetTimingData()
 				local bpms = song:GetDisplayBpms()
 				local truebpms = timingdata:GetActualBPM()
-				if bpms[1] == truebpms[1] and bpms[2] == truebpms[2] then
-					self:stopeffect():diffuse(Color("White"))
-				else
-					local sets = timingdata:GetBPMsAndTimes()
-					local currentSet, lastSet, duration
-					local first = true
-					local redCheck, orangeCheck, greenCheck = false, false, false
+				local checkDISPLAY = false
 
-					for set in ivalues(sets) do
-						currentSet = split("=",set)
-						currentSet[2]=math.round( currentSet[2] * 1000 ) / 1000
-						if first then first = false else
-							duration = (currentSet[1]-lastSet[1]) / lastSet[2] * 60
-							if duration > 5 then
-								if bpms[1] < tonumber(lastSet[2]) and bpms[2] < tonumber(lastSet[2]) then
-									-- FASTER THAN DISPLAYBPM
-									redCheck = true
-								elseif bpms[1] < tonumber(lastSet[2]) and bpms[2] > tonumber(lastSet[2]) then
-									-- WITHIN DISPLAYBPM
-								elseif bpms[1] > tonumber(lastSet[2]) and bpms[2] > tonumber(lastSet[2]) then
-									-- SLOWER THAN DISPLAYBPM
-									greenCheck = true
+				bpms[1]=math.round( bpms[1] * 1000 ) / 1000
+				bpms[2]=math.round( bpms[2] * 1000 ) / 1000
+				truebpms[1]=math.round( truebpms[1] * 1000 ) / 1000
+				truebpms[2]=math.round( truebpms[2] * 1000 ) / 1000
+
+				local sets = timingdata:GetBPMsAndTimes()
+				local currentSet, lastSet, duration
+				local first = true
+				local redCheck, orangeCheck, yellowCheck, greenCheck = false, false, false, false
+
+				if song:IsDisplayBpmSecret() or song:IsDisplayBpmRandom() then
+					checkDISPLAY = false
+					yellowCheck = false
+				elseif bpms[1] == truebpms[1] and bpms[2] == truebpms[2] and bpms[1] ~= bpms[2] then
+					checkDISPLAY = false
+					yellowCheck = true
+				else
+					checkDISPLAY = true
+					yellowCheck = false
+				end
+
+				for set in ivalues(sets) do
+					currentSet = split("=",set)
+					currentSet[2]=math.round( currentSet[2] * 1000 ) / 1000
+					if first then first = false else
+						duration = (currentSet[1]-lastSet[1]) / lastSet[2] * 60
+						if duration > 5 then
+							if bpms[1] < tonumber(lastSet[2]) and bpms[2] < tonumber(lastSet[2]) then
+								-- FASTER THAN DISPLAYBPM
+								redCheck = true
+							elseif bpms[1] < tonumber(lastSet[2]) and bpms[2] >= tonumber(lastSet[2]) then
+								-- WITHIN DISPLAYBPM
+								if (bpms[2] / 2) < tonumber(lastSet[2]) and bpms[2] >= tonumber(lastSet[2]) then
+									yellowCheck = false
 								end
-							else
-								if bpms[1] < tonumber(lastSet[2]) and bpms[2] < tonumber(lastSet[2]) then
-									-- FASTER THAN DISPLAYBPM
-									orangeCheck = true
-								end
+							elseif bpms[1] > tonumber(lastSet[2]) and bpms[2] > tonumber(lastSet[2]) then
+								-- SLOWER THAN DISPLAYBPM
+								greenCheck = true
+							end
+						else
+							if bpms[1] < tonumber(lastSet[2]) and bpms[2] < tonumber(lastSet[2]) then
+								-- FASTER THAN DISPLAYBPM
+								orangeCheck = true
+							elseif bpms[1] < tonumber(lastSet[2]) and bpms[2] > tonumber(lastSet[2]) then
+								-- WITHIN DISPLAYBPM
 							end
 						end
-						lastSet = currentSet
 					end
+					lastSet = currentSet
+				end
 
-					duration = (song:GetLastBeat()-lastSet[1]) / lastSet[2] * 60
-					if duration > 5 then
-						if bpms[1] < tonumber(lastSet[2]) and bpms[2] < tonumber(lastSet[2]) then
-							-- FASTER THAN DISPLAYBPM
-							redCheck = true
-						elseif bpms[1] < tonumber(lastSet[2]) and bpms[2] > tonumber(lastSet[2]) then
-							-- WITHIN DISPLAYBPM
-						elseif bpms[1] > tonumber(lastSet[2]) and bpms[2] > tonumber(lastSet[2]) then
-							-- SLOWER THAN DISPLAYBPM
-							greenCheck = true
+				duration = (song:GetLastSecond()-lastSet[1]) / lastSet[2] * 60
+				if duration > 5 then
+					if bpms[1] < tonumber(lastSet[2]) and bpms[2] < tonumber(lastSet[2]) then
+						-- FASTER THAN DISPLAYBPM
+						redCheck = true
+					elseif bpms[1] < tonumber(lastSet[2]) and bpms[2] >= tonumber(lastSet[2]) then
+						-- WITHIN DISPLAYBPM
+						if (bpms[2] / 2) < tonumber(lastSet[2]) and bpms[2] >= tonumber(lastSet[2]) then
+							yellowCheck = false
 						end
-					else
-						if bpms[1] < tonumber(lastSet[2]) and bpms[2] < tonumber(lastSet[2]) then
-							-- FASTER THAN DISPLAYBPM
-							orangeCheck = true
-						end
+					elseif bpms[1] > tonumber(lastSet[2]) and bpms[2] > tonumber(lastSet[2]) then
+						-- SLOWER THAN DISPLAYBPM
+						greenCheck = true
 					end
+				else
+					if bpms[1] < tonumber(lastSet[2]) and bpms[2] < tonumber(lastSet[2]) then
+						-- FASTER THAN DISPLAYBPM
+						orangeCheck = true
+					end
+				end
 
-					if redCheck then
-						self:effectclock('beat'):diffuseshift():effectcolor1(color("#FF0000FF")):effectcolor2(color("#FF000080")):effectperiod(1)
-					elseif orangeCheck then
-						self:effectclock('beat'):diffuseshift():effectcolor1(color("#FF8800FF")):effectcolor2(color("#FF880080")):effectperiod(1)
-					elseif greenCheck then
-						self:effectclock('beat'):diffuseshift():effectcolor1(color("#00FF00FF")):effectcolor2(color("#00FF0080")):effectperiod(1)
-					else
-						self:stopeffect():diffuse(Color("White"))
-					end
+				if redCheck then
+					self:effectclock('beat'):diffuseshift():effectcolor1(color("#FF0000FF")):effectcolor2(color("#FF000080")):effectperiod(1)
+				elseif orangeCheck then
+					self:effectclock('beat'):diffuseshift():effectcolor1(color("#FF8800FF")):effectcolor2(color("#FF880080")):effectperiod(1)
+				elseif greenCheck then
+					self:effectclock('beat'):diffuseshift():effectcolor1(color("#00FF00FF")):effectcolor2(color("#00FF0080")):effectperiod(1)
+				elseif yellowCheck then
+					self:effectclock('beat'):diffuseshift():effectcolor1(color("#FFFF00FF")):effectcolor2(color("#FFFF0080")):effectperiod(1)
+				else
+					self:stopeffect():diffuse(Color("White"))
 				end
 			end
 		end;
