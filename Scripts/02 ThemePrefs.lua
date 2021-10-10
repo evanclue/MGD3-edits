@@ -46,12 +46,6 @@ local Prefs =
 		Choices = { "Set", "Calculated" },
 		Values = { false, true }
 	},
-	ComboIsPerRow =
-	{
-		Default = false,
-		Choices = { OptionNameString('Off'), OptionNameString('On') },
-		Values = { false, true }
-	},
 }
 
 ThemePrefs.InitAll(Prefs)
