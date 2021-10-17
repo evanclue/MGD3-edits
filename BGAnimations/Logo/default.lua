@@ -2,6 +2,12 @@ return Def.ActorFrame {
 	LoadActor("logo_deco")..{
 		OnCommand=function(self) self:y(-85) end;
 	};
+	LoadFont("Panedisplay Blurred")..{
+		OnCommand=function(self) self:y(200):horizalign(center):maxwidth(573):zoomx(0.3):zoomy(0.2):diffusealpha(0.5):playcommand("Refresh") end;
+		RefreshCommand=function(self) 
+			self:settext("StepMania " .. ProductVersion() .. " (" .. VersionDate() .. ")")
+		end;
+	};
 	LoadActor("copy")..{
 		OnCommand=function(self) self:y(222) end;
 	};
