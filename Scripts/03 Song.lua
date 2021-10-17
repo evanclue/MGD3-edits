@@ -134,5 +134,9 @@ function CalcDifficulty(Steps)
 	local handCounter = Steps:GetRadarValues(GAMESTATE:GetMasterPlayerNumber()):GetValue('RadarCategory_Hands') * 2
 	local songInSeconds = GAMESTATE:GetCurrentSong():GetLastSecond() - GAMESTATE:GetCurrentSong():GetFirstSecond()
 
+	local mods = GAMESTATE:GetSongOptionsObject("ModsLevel_Song")
+	local rate = mods:MusicRate()
+	songInSeconds = songInSeconds / rate
+
     return math.round( ( (stepCounter + jumpCounter + handCounter) / songInSeconds ) * 20 )
 end;
