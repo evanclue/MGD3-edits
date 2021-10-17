@@ -161,14 +161,11 @@ t[#t+1] = Def.ActorFrame {
 				local redCheck, orangeCheck, yellowCheck, greenCheck = false, false, false, false
 
 				if song:IsDisplayBpmSecret() or song:IsDisplayBpmRandom() then
-					checkDISPLAY = false
-					yellowCheck = false
+					checkDISPLAY, yellowCheck = false, false
 				elseif bpms[1] == truebpms[1] and bpms[2] == truebpms[2] and bpms[1] ~= bpms[2] then
-					checkDISPLAY = false
-					yellowCheck = true
+					checkDISPLAY, yellowCheck = false, true
 				else
-					checkDISPLAY = true
-					yellowCheck = false
+					checkDISPLAY, yellowCheck = true, false
 				end
 
 				for set in ivalues(sets) do
@@ -177,23 +174,23 @@ t[#t+1] = Def.ActorFrame {
 					if first then first = false else
 						duration = (currentSet[1]-lastSet[1]) / lastSet[2] * 60
 						if duration > 5 then
-							if bpms[1] < tonumber(lastSet[2]) and bpms[2] < tonumber(lastSet[2]) then
+							if bpms[2] < tonumber(lastSet[2]) then
 								-- FASTER THAN DISPLAYBPM
 								redCheck = true
-							elseif bpms[1] < tonumber(lastSet[2]) and bpms[2] >= tonumber(lastSet[2]) then
+							elseif bpms[1] <= tonumber(lastSet[2]) and bpms[2] >= tonumber(lastSet[2]) then
 								-- WITHIN DISPLAYBPM
 								if (bpms[2] / 2) < tonumber(lastSet[2]) and bpms[2] >= tonumber(lastSet[2]) then
 									yellowCheck = false
 								end
-							elseif bpms[1] > tonumber(lastSet[2]) and bpms[2] > tonumber(lastSet[2]) then
+							elseif bpms[1] > tonumber(lastSet[2]) then
 								-- SLOWER THAN DISPLAYBPM
 								greenCheck = true
 							end
 						else
-							if bpms[1] < tonumber(lastSet[2]) and bpms[2] < tonumber(lastSet[2]) then
+							if bpms[2] < tonumber(lastSet[2]) then
 								-- FASTER THAN DISPLAYBPM
 								orangeCheck = true
-							elseif bpms[1] < tonumber(lastSet[2]) and bpms[2] > tonumber(lastSet[2]) then
+							elseif bpms[1] <= tonumber(lastSet[2]) and bpms[2] >= tonumber(lastSet[2]) then
 								-- WITHIN DISPLAYBPM
 							end
 						end
@@ -203,20 +200,20 @@ t[#t+1] = Def.ActorFrame {
 
 				duration = (song:GetLastSecond()-lastSet[1]) / lastSet[2] * 60
 				if duration > 5 then
-					if bpms[1] < tonumber(lastSet[2]) and bpms[2] < tonumber(lastSet[2]) then
+					if bpms[2] < tonumber(lastSet[2]) then
 						-- FASTER THAN DISPLAYBPM
 						redCheck = true
-					elseif bpms[1] < tonumber(lastSet[2]) and bpms[2] >= tonumber(lastSet[2]) then
+					elseif bpms[1] <= tonumber(lastSet[2]) and bpms[2] >= tonumber(lastSet[2]) then
 						-- WITHIN DISPLAYBPM
 						if (bpms[2] / 2) < tonumber(lastSet[2]) and bpms[2] >= tonumber(lastSet[2]) then
 							yellowCheck = false
 						end
-					elseif bpms[1] > tonumber(lastSet[2]) and bpms[2] > tonumber(lastSet[2]) then
+					elseif bpms[1] >= tonumber(lastSet[2]) then
 						-- SLOWER THAN DISPLAYBPM
 						greenCheck = true
 					end
 				else
-					if bpms[1] < tonumber(lastSet[2]) and bpms[2] < tonumber(lastSet[2]) then
+					if bpms[2] < tonumber(lastSet[2]) then
 						-- FASTER THAN DISPLAYBPM
 						orangeCheck = true
 					end
