@@ -132,11 +132,26 @@ function CalcDifficulty(Steps)
 	local stepCounter = Steps:GetRadarValues(GAMESTATE:GetMasterPlayerNumber()):GetValue('RadarCategory_TapsAndHolds')
 	local jumpCounter = Steps:GetRadarValues(GAMESTATE:GetMasterPlayerNumber()):GetValue('RadarCategory_Jumps')
 	local handCounter = Steps:GetRadarValues(GAMESTATE:GetMasterPlayerNumber()):GetValue('RadarCategory_Hands') * 2
-	local songInSeconds = GAMESTATE:GetCurrentSong():GetLastSecond() - GAMESTATE:GetCurrentSong():GetFirstSecond()
+	local songInSeconds = 0
+	local song = GAMESTATE:GetCurrentSong();
+	local course = GAMESTATE:GetCurrentCourse();
 
-	local mods = GAMESTATE:GetSongOptionsObject("ModsLevel_Song")
-	local rate = mods:MusicRate()
-	songInSeconds = songInSeconds / rate
+	if song then
+		songInSeconds = song:GetLastSecond() - song:GetFirstSecond()
+
+		local mods = GAMESTATE:GetSongOptionsObject("ModsLevel_Song")
+		local rate = mods:MusicRate()
+		songInSeconds = songInSeconds / rate
+	elseif course then
+		--[[
+		for entry in ivalues(course:GetCourseEntries()) do
+			local firstsecond = entry:GetSong():GetFirstSecond()
+			local lastsecond = entry:GetSong():GetLastSecond()
+			songInSeconds = songInSeconds + (lastsecond - firstsecond)
+		end
+		]]--
+		songInSeconds = TrailUtil.GetTotalSeconds(Steps);
+	end
 
     return math.round( ( (stepCounter + jumpCounter + handCounter) / songInSeconds ) * 20 )
 end;

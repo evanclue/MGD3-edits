@@ -471,6 +471,7 @@ LoadFont("Panedisplay Blurred")..{
 						local GetRadarP2 = GAMESTATE:GetCurrentSteps(PLAYER_2):GetRadarValues(PLAYER_2)
 						local statsP1 = GetRadarP1:GetValue('RadarCategory_Holds')
 						local statsP2 = GetRadarP2:GetValue('RadarCategory_Holds')
+
 						if GetRadarP1:GetValue('RadarCategory_Rolls') > 0 then
 							statsP1 = statsP1 .. "+" .. GetRadarP1:GetValue('RadarCategory_Rolls')
 						end
@@ -492,7 +493,7 @@ LoadFont("Panedisplay Blurred")..{
 	};
 
 	Def.Sprite {
-		Texture='mine';
+		Texture='../mine';
 		Frames = Sprite.LinearFrames( 8, 1 );
 		InitCommand=function(self) self:effectclock('beat'):addx(180):addy(12):visible(false) end;
 		SetCommand=function(self)

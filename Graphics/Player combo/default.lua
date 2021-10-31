@@ -50,7 +50,7 @@ return Def.ActorFrame {
 			c.ComboLabel:visible(false)
 		end
 
-		if iCombo%50 == 0 then
+		if iCombo%50 == 0 and not GAMESTATE:IsCourseMode() then
 			local Screen = SCREENMAN:GetTopScreen();
 			Screen:GetLifeMeter(player):ChangeLives(1);
 		end

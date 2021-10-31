@@ -18,7 +18,7 @@ t[#t+1] = Def.ActorFrame{
 				self:x(26):maxwidth(110)
 			else
 				self:x(31.5)
-			end;
+			end
 		end;
 		PlayerJoinedMessageCommand=function(self, params) self:queuecommand("Init") end,
 		PlayerUnjoinedMessageCommand=function(self, params) self:queuecommand("Init") end,
@@ -30,54 +30,62 @@ t[#t+1] = Def.ActorFrame{
 	};
 
 	SetCommand=function(self, param)
-		local tmeter = self:GetChild('tmeter');
-		local dname = self:GetChild('dname');
-		local song = GAMESTATE:GetCurrentSong();
-		local step;
-		local meter;
-		local cdiff;
-		self:stoptweening();
-		dname:visible(false);
-		tmeter:visible(false);
+		local tmeter = self:GetChild('tmeter')
+		local dname = self:GetChild('dname')
+		local song = GAMESTATE:GetCurrentSong()
+		local course = GAMESTATE:GetCurrentCourse()
+		local step
+		local meter
+		local cdiff
+		self:stoptweening()
+		dname:visible(false)
+		tmeter:visible(false)
 		if song then
 			if param then
-				step = param.Steps;
-				meter = param.Meter;
-				cdiff = param.CustomDifficulty;
-				dname:visible(true);
-				dname:settext(CustomDifficultyToState[cdiff]);
+				step = param.Steps
+				meter = param.Meter
+				cdiff = param.CustomDifficulty
+				dname:visible(true)
+				dname:settext(CustomDifficultyToState[cdiff])
 				if cdiff == "Challenge" then
-					dname:diffuse(Color("Red"));
-					tmeter:diffuse(Color("Red"));
+					dname:diffuse(Color("Red"))
+					tmeter:diffuse(Color("Red"))
 				else
-					dname:diffuse(Color("White"));
-					tmeter:diffuse(Color("White"));
-				end;
-			end;
+					dname:diffuse(Color("White"))
+					tmeter:diffuse(Color("White"))
+				end
+			end
 
 			if song and cdiff then
 				if cdiff ~= "Edit" then
 					if ThemePrefs.Get("DefDifficulties") then
-						meter = CalcDifficulty(song:GetOneSteps(0,"Difficulty_" .. cdiff));
+						meter = CalcDifficulty(step)
 					else
-						meter = GetConvertDifficulty(song,"Difficulty_"..cdiff);
+						meter = GetConvertDifficulty(song,"Difficulty_"..cdiff)
 					end
 				else
 					if ThemePrefs.Get("DefDifficulties") then
-						meter = CalcDifficulty(song:GetOneSteps(0,"Difficulty_Edit"));
+						meter = CalcDifficulty(step)
 					else
-						meter = GetConvertDifficulty(song,"Difficulty_Edit",step);
+						meter = GetConvertDifficulty(song,"Difficulty_Edit",step)
 					end
-				end;
-			end;
+				end
+			end
+		elseif course then
+			dname:visible(true)
+			dname:settext("COURSE")
+			meter = 0
+			local mPlayer = GAMESTATE:GetMasterPlayerNumber()
+			local trail = GAMESTATE:GetCurrentTrail(mPlayer)
+			if trail then
+				meter = CalcDifficulty(trail)
+			end
+		end
 
-			song = "";
-
-			if meter then
-				tmeter:visible(true);
-				tmeter:settextf("%d",meter);
-			end;
-		end;
+		if meter then
+			tmeter:visible(true)
+			tmeter:settextf("%d",meter)
+		end
 	end;
 	PlayerJoinedMessageCommand=function(self) self:queuecommand("Set") end;
 	PlayerUnjoinedMessageCommand=function(self) self:queuecommand("Set") end;
