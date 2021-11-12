@@ -75,6 +75,9 @@ for player in ivalues(GAMESTATE:GetHumanPlayers()) do
 			end
 		end
 	}
+	t[#t+1] = LoadActor("RemainingTime", player)..{
+		Condition=GAMESTATE:GetPlayMode() == "PlayMode_Oni";
+	}
 end
 
 return t;
