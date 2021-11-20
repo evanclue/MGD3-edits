@@ -1,9 +1,9 @@
 local t = Def.ActorFrame {};
-local file1 = "../ScreenSelectMusic overlay/selmnormal song.png";
+local file1 = "selmnormal course.png";
 local file2 = "../ScreenSelectMusic overlay/selmnormal folder.png";
 
 if IsUsingWideScreen() == true then
-	file1 = "../ScreenSelectMusic overlay/selmwide song.png";
+	file1 = "selmwide course.png";
 	file2 = "../ScreenSelectMusic overlay/selmwide folder.png";
 end
 
