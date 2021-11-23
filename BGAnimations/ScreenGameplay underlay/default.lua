@@ -75,9 +75,23 @@ for player in ivalues(GAMESTATE:GetHumanPlayers()) do
 			end
 		end
 	}
-	t[#t+1] = LoadActor("RemainingTime", player)..{
-		Condition=GAMESTATE:GetPlayMode() == "PlayMode_Oni";
-	}
+	if GAMESTATE:IsCourseMode() then
+		local course = GAMESTATE:GetCurrentCourse()
+		local entries = course:GetCourseEntries()
+		local isSurvival = false
+
+		for entry in ivalues(course:GetCourseEntries()) do
+			if entry:GetGainSeconds() > 0 then
+				isSurvival = true
+			end
+		end
+
+		if isSurvival then
+			t[#t+1] = LoadActor("RemainingTime", player)..{
+				Condition=GAMESTATE:GetPlayMode() == "PlayMode_Oni";
+			}
+		end
+	end
 end
 
 return t;

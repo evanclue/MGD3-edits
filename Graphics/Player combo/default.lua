@@ -1,16 +1,19 @@
-local c;
-local player = Var "Player";
-local ShowComboAt = THEME:GetMetric("Combo", "ShowComboAt");
-local Pulse = THEME:GetMetric("Combo", "PulseCommand");
+local c
+local player = Var "Player"
+local ShowComboAt = THEME:GetMetric("Combo", "ShowComboAt")
+local Pulse = THEME:GetMetric("Combo", "PulseCommand")
 
-local NumberMinZoom = THEME:GetMetric("Combo", "NumberMinZoom");
-local NumberMaxZoom = THEME:GetMetric("Combo", "NumberMaxZoom");
-local NumberMaxZoomAt = THEME:GetMetric("Combo", "NumberMaxZoomAt");
+local NumberMinZoom = THEME:GetMetric("Combo", "NumberMinZoom")
+local NumberMaxZoom = THEME:GetMetric("Combo", "NumberMaxZoom")
+local NumberMaxZoomAt = THEME:GetMetric("Combo", "NumberMaxZoomAt")
 
 local ComboW1 = THEME:GetMetric("Combo","FullComboW1Command")
 local ComboW2 = THEME:GetMetric("Combo","FullComboW2Command")
 local ComboW3 = THEME:GetMetric("Combo","FullComboW3Command")
 local ComboNormal = THEME:GetMetric("Combo","FullComboBrokenCommand")
+
+local course = nil
+local isSurvival = false
 
 return Def.ActorFrame {
 	LoadFont( "Combo", "numbers" ) .. {
@@ -32,6 +35,26 @@ return Def.ActorFrame {
 		c.MissesLabel:visible(false);
 	end;
 
+	OnCommand=function(self)
+		if GAMESTATE:IsCourseMode() then
+			course = GAMESTATE:GetCurrentCourse()
+			local entries = course:GetCourseEntries()
+
+			for entry in ivalues(course:GetCourseEntries()) do
+				if entry:GetGainSeconds() > 0 then
+					isSurvival = true
+				end
+			end
+		end
+	end;
+
+	OffCommand=function(self)
+		if GAMESTATE:IsCourseMode() then
+			course = nil
+			isSurvival = false
+		end
+	end;
+
 	ComboCommand=function(self, param)
 		local iCombo = param.Misses or param.Combo;
 		if not iCombo or iCombo < ShowComboAt then
@@ -50,7 +73,7 @@ return Def.ActorFrame {
 			c.ComboLabel:visible(false)
 		end
 
-		if iCombo%50 == 0 and not GAMESTATE:IsCourseMode() then
+		if iCombo%50 == 0 and not (GAMESTATE:IsCourseMode() and isSurvival) then
 			local Screen = SCREENMAN:GetTopScreen();
 			Screen:GetLifeMeter(player):ChangeLives(1);
 		end
