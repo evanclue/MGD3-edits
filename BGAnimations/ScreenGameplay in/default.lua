@@ -9,7 +9,7 @@ if GAMESTATE:IsCourseMode() then
 			end;
 			OnCommand=function(self) self:diffusecolor(1,0.3,0.3,1):diffusealpha(1):sleep(0.2):decelerate(0.88):diffusealpha(0) end;
 		};
-		LoadActor( "../border" )..{
+		LoadActor( "../exborder" )..{
 			BeginCommand=function(self) self:Center() end;
 			OnCommand=function(self) self:diffusealpha(0.8):zoomy(1):accelerate(0.8):zoomy(2.4) end;
 		};
