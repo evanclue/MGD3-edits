@@ -56,19 +56,9 @@ t[#t+1] = Def.ActorFrame{
 				end
 			end
 
-			if song and cdiff then
-				if cdiff ~= "Edit" then
-					if ThemePrefs.Get("DefDifficulties") then
-						meter = CalcDifficulty(step)
-					else
-						meter = GetConvertDifficulty(song,"Difficulty_"..cdiff)
-					end
-				else
-					if ThemePrefs.Get("DefDifficulties") then
-						meter = CalcDifficulty(step)
-					else
-						meter = GetConvertDifficulty(song,"Difficulty_Edit",step)
-					end
+			if song then
+				if ThemePrefs.Get("DefDifficulties") then
+					meter = CalcDifficulty(step)
 				end
 			end
 		elseif course then
