@@ -56,7 +56,7 @@ t[#t+1] = Def.ActorFrame{
 				end
 			end
 
-			if song then
+			if song and step then
 				if ThemePrefs.Get("DefDifficulties") then
 					meter = CalcDifficulty(step)
 				end
