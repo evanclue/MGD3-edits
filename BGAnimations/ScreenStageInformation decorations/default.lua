@@ -7,10 +7,16 @@ for pn in ivalues(GAMESTATE:GetEnabledPlayers()) do
 	end
 
 	--Mod definer
-	GAMESTATE:GetPlayerState(pn):GetPlayerOptions('ModsLevel_Preferred'):LifeSetting('LifeType_Battery');
-	GAMESTATE:GetPlayerState(pn):GetPlayerOptions('ModsLevel_Preferred'):BatteryLives(batLives);
-	GAMESTATE:GetPlayerState(pn):GetPlayerOptions('ModsLevel_Preferred'):AttackMines(true);
-	GAMESTATE:GetPlayerState(pn):GetPlayerOptions('ModsLevel_Preferred'):FailSetting('FailType_Immediate');
+	if GAMESTATE:IsCourseMode() then
+		GAMESTATE:GetPlayerState(pn):GetPlayerOptions('ModsLevel_Stage'):BatteryLives(batLives);
+		GAMESTATE:GetPlayerState(pn):GetPlayerOptions('ModsLevel_Stage'):AttackMines(true);
+		GAMESTATE:GetPlayerState(pn):GetPlayerOptions('ModsLevel_Stage'):FailSetting('FailType_Immediate');
+	else
+		GAMESTATE:GetPlayerState(pn):GetPlayerOptions('ModsLevel_Preferred'):LifeSetting('LifeType_Battery');
+		GAMESTATE:GetPlayerState(pn):GetPlayerOptions('ModsLevel_Preferred'):BatteryLives(batLives);
+		GAMESTATE:GetPlayerState(pn):GetPlayerOptions('ModsLevel_Preferred'):AttackMines(true);
+		GAMESTATE:GetPlayerState(pn):GetPlayerOptions('ModsLevel_Preferred'):FailSetting('FailType_Immediate');
+	end
 end;
 
 if GAMESTATE:IsCourseMode() then

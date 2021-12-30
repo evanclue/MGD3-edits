@@ -1,42 +1,57 @@
 function GetLives(player)
-	local song = GAMESTATE:GetCurrentSong();
-	local steps = GAMESTATE:GetCurrentSteps(player);
+	local song, steps = nil, nil;
+	local stepCounter, holdCounter, songInSeconds = 0, 0, 0;
 	local lives = 1;
 
-	if song and steps ~=nil then
+	if GAMESTATE:IsCourseMode() then
+		songs = GAMESTATE:GetCurrentCourse()
+		steps = GAMESTATE:GetCurrentTrail(player)
+		for entry in ivalues(steps:GetTrailEntries()) do
+			stepCounter = stepCounter + entry:GetSteps():GetRadarValues(player):GetValue('RadarCategory_TapsAndHolds')
+			holdCounter = holdCounter + entry:GetSteps():GetRadarValues(player):GetValue('RadarCategory_Holds')
+			songInSeconds = songInSeconds + (entry:GetSong():GetLastSecond() - entry:GetSong():GetFirstSecond())
+		end
+	else
+		songs = GAMESTATE:GetCurrentSong()
+		steps = GAMESTATE:GetCurrentSteps(player)
+		stepCounter = steps:GetRadarValues(player):GetValue('RadarCategory_TapsAndHolds')
+		holdCounter = steps:GetRadarValues(player):GetValue('RadarCategory_Holds')
+		songInSeconds = songInSeconds + (songs:GetLastSecond() - songs:GetFirstSecond())
+	end
+
+	if not GAMESTATE:IsCourseMode() then
 		-- Insane
 		if steps:GetDifficulty() == "Difficulty_Challenge" then
 			lives = 70;
-		end;
+		end
 		-- Nonstop
 		if steps:GetDescription() == 'Nonstop' then
 			lives = 5;
-		end;
-		if lives == 1 then
-			local GetRadar = steps:GetRadarValues(player);
-			local holds = GetRadar:GetValue('RadarCategory_Holds');
-			if holds >= 15 and holds < 25 then
-				lives = 25;
-			elseif holds >= 25 and holds < 50 then
-				lives = 20;
-			elseif holds >= 50 and holds < 100 then
-				lives = 10;
-			elseif holds >= 100 then
-				lives = 5;
-			else
-				--local calc = GetRadar:GetValue('RadarCategory_TapsAndHolds') * .02;
-				local calc = song:GetStepsSeconds() / GetRadar:GetValue('RadarCategory_TapsAndHolds') * 100;
-				lives = math.ceil( calc / 5 ) * 5;
+		end
+	end
 
-				if lives <= 5 then
-					lives = 10;
-				end;
-				if lives >= 65 then
-					lives = 60;
-				end;
+	if lives < 5 then
+		if holdCounter >= 15 and holdCounter < 25 then
+			lives = 25;
+		elseif holdCounter >= 25 and holdCounter < 50 then
+			lives = 20;
+		elseif holdCounter >= 50 and holdCounter < 100 then
+			lives = 10;
+		elseif holdCounter >= 100 then
+			lives = 5;
+		else
+			local calc = songInSeconds / stepCounter * 100;
+			lives = math.ceil( calc / 5 ) * 5;
+
+			if lives < 10 then
+				lives = 10;
 			end;
-		end;
-	end;
+			if lives > 60 then
+				lives = 60;
+			end
+		end
+	end
+	lua.ReportScriptError("lives - " .. lives)
 
 	return lives;
-end;
+end
