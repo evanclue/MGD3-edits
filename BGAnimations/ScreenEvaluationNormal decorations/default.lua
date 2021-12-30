@@ -100,19 +100,26 @@ t[#t+1] = Def.ActorFrame {
 	--Total notes
 	LoadFont("Combo numbers")..{
 		InitCommand=function(self)
-			if Song then
+			if GAMESTATE:IsCourseMode() then
+				local trail = GAMESTATE:GetCurrentTrail(player);
+				local TotalStep = 0
+				for entry in ivalues(trail:GetTrailEntries()) do
+					TotalStep = TotalStep + entry:GetSteps():GetRadarValues(player):GetValue('RadarCategory_TapsAndHolds')
+				end
+				self:settext(TotalStep);
+			else
 				self:settext(GAMESTATE:GetCurrentSteps(player):GetRadarValues(player):GetValue('RadarCategory_TapsAndHolds'));
-				self:horizalign(left);
-				self:maxwidth(230);
-				self:zoom(0.7);
-				self:zoomy(#GAMESTATE:GetHumanPlayers()==2 and 0.35 or 0.7);
-				if player == PLAYER_1 then
-					self:y(#GAMESTATE:GetHumanPlayers()==2 and SCREEN_CENTER_Y+11 or SCREEN_CENTER_Y+20);
-					self:x(SCREEN_CENTER_X+138);
-				else
-					self:y(#GAMESTATE:GetHumanPlayers()==2 and SCREEN_CENTER_Y+29 or SCREEN_CENTER_Y+20);
-					self:x(SCREEN_CENTER_X+138);
-				end;
+			end;
+			self:horizalign(left);
+			self:maxwidth(230);
+			self:zoom(0.7);
+			self:zoomy(#GAMESTATE:GetHumanPlayers()==2 and 0.35 or 0.7);
+			if player == PLAYER_1 then
+				self:y(#GAMESTATE:GetHumanPlayers()==2 and SCREEN_CENTER_Y+11 or SCREEN_CENTER_Y+20);
+				self:x(SCREEN_CENTER_X+138);
+			else
+				self:y(#GAMESTATE:GetHumanPlayers()==2 and SCREEN_CENTER_Y+29 or SCREEN_CENTER_Y+20);
+				self:x(SCREEN_CENTER_X+138);
 			end;
 		end;
 	};

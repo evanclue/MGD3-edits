@@ -40,7 +40,7 @@ t[#t+1] = Def.ActorFrame{
 		self:stoptweening()
 		dname:visible(false)
 		tmeter:visible(false)
-		if song then
+		if not GAMESTATE:IsCourseMode() then
 			if param then
 				step = param.Steps
 				meter = param.Meter
@@ -61,7 +61,7 @@ t[#t+1] = Def.ActorFrame{
 					meter = CalcDifficulty(step)
 				end
 			end
-		elseif course then
+		else
 			dname:visible(true)
 			dname:settext("COURSE")
 			meter = 0
