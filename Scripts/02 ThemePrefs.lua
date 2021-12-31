@@ -42,8 +42,8 @@ local Prefs =
 	},
 	DefDifficulties =
 	{
-		Default = false,
-		Choices = { "Set", "Calculated" },
+		Default = true,
+		Choices = { "Set", "MGD" },
 		Values = { false, true }
 	},
 }
