@@ -51,7 +51,6 @@ function GetLives(player)
 			end
 		end
 	end
-	lua.ReportScriptError("lives - " .. lives)
 
 	return lives;
 end
