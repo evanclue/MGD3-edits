@@ -5,7 +5,7 @@ return Def.ActorFrame {
 	LoadFont("Panedisplay Blurred")..{
 		OnCommand=function(self) self:y(200):horizalign(center):maxwidth(573):zoomx(0.3):zoomy(0.2):diffusealpha(0.5):playcommand("Refresh") end;
 		RefreshCommand=function(self) 
-			self:settext("StepMania " .. ProductVersion() .. " (" .. VersionDate() .. ")")
+			self:settext(ProductFamily() .. " " .. ProductVersion() .. " (" .. VersionDate() .. ")")
 		end;
 	};
 	LoadActor("copy")..{
