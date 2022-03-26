@@ -66,7 +66,7 @@ t[#t+1] = Def.ActorFrame {
 	};
 	LoadFont("MusicList titles")..{
 		Name="Title";
-		InitCommand=function(self) self:zoom(1):Center():queuecommand("Set"):addy(137) end;
+		InitCommand=function(self) self:zoom(1):Center():queuecommand("Set"):addy(137):maxwidth(SCREEN_WIDTH) end;
 		SetCommand=function(self)
 			if Song then
 				self:settext(Song:GetDisplayFullTitle());
