@@ -1,4 +1,5 @@
 # Mungydodance 3
+![Mungydodance 3](https://user-images.githubusercontent.com/83576877/176179241-1d9b7c62-8531-48d1-82cd-ea82ccd67bb2.png)
 
 The following project has been in-officially taken over by me (DarkBahamut162).
 
@@ -34,7 +35,7 @@ What has been fixed/added by me so far:
     * Changes color to **YELLOW** if **BPM** does reach max speed but doesn't last that long
     * Shows **ROLLS** and **LIFTS** in **HOLDS** row if available
     * Shows a **?** in **STEPS** row if song has **FAKES**
-  * Added **Difficulty Display Setting** in **Theme Settings** to calculate MGD-like difficulties for all songs
+  * Added **Difficulty Display Setting** in **Theme Settings** to calculate MGD-like difficulties for all songs *(set as default)*
   * Fixed **Life Setting** in **Theme Settings** to calculate **MGD-like life amount for all songs**
   * **Questions Acceleration** if X-Mods are already used in Courses
   * Forced implementation of **NoteSkin** and selected **Accelerator** in Course/Extra Mode via ApplyGameCommand
