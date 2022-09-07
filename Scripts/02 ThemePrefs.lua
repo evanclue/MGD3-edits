@@ -45,7 +45,7 @@ local Prefs =
 		Default = true,
 		Choices = { "Set", "MGD" },
 		Values = { false, true }
-	},
+	}
 }
 
 ThemePrefs.InitAll(Prefs)

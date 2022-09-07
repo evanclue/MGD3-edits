@@ -1,7 +1,7 @@
 function GetLives(player)
-	local song, steps = nil, nil;
-	local stepCounter, holdCounter, songInSeconds = 0, 0, 0;
-	local lives = 1;
+	local song, steps = nil, nil
+	local stepCounter, holdCounter, songInSeconds = 0, 0, 0
+	local lives = 1
 
 	if GAMESTATE:IsCourseMode() then
 		songs = GAMESTATE:GetCurrentCourse()
@@ -20,37 +20,35 @@ function GetLives(player)
 	end
 
 	if not GAMESTATE:IsCourseMode() then
-		-- Insane
 		if steps:GetDifficulty() == "Difficulty_Challenge" then
-			lives = 70;
+			lives = 70
 		end
-		-- Nonstop
 		if steps:GetDescription() == 'Nonstop' then
-			lives = 5;
+			lives = 5
 		end
 	end
 
 	if lives < 5 then
 		if holdCounter >= 15 and holdCounter < 25 then
-			lives = 25;
+			lives = 25
 		elseif holdCounter >= 25 and holdCounter < 50 then
-			lives = 20;
+			lives = 20
 		elseif holdCounter >= 50 and holdCounter < 100 then
-			lives = 10;
+			lives = 10
 		elseif holdCounter >= 100 then
-			lives = 5;
+			lives = 5
 		else
-			local calc = songInSeconds / stepCounter * 100;
-			lives = math.ceil( calc / 5 ) * 5;
+			local calc = songInSeconds / stepCounter * 100
+			lives = math.ceil( calc / 5 ) * 5
 
 			if lives < 10 then
-				lives = 10;
-			end;
+				lives = 10
+			end
 			if lives > 60 then
-				lives = 60;
+				lives = 60
 			end
 		end
 	end
 
-	return lives;
+	return lives
 end

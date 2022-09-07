@@ -17,72 +17,68 @@ local isSurvival = false
 
 return Def.ActorFrame {
 	LoadFont( "Combo", "numbers" ) .. {
-		Name="Number";
-		OnCommand = THEME:GetMetric("Combo", "NumberOnCommand");
-	};
+		Name="Number",
+		OnCommand = THEME:GetMetric("Combo", "NumberOnCommand")
+	},
 	LoadActor("_combo") .. {
-		Name="ComboLabel";
-		OnCommand = THEME:GetMetric("Combo", "LabelOnCommand");
-	};
+		Name="ComboLabel",
+		OnCommand = THEME:GetMetric("Combo", "LabelOnCommand")
+	},
 	LoadActor("_misses") .. {
-		Name="MissesLabel";
-		OnCommand = THEME:GetMetric("Combo", "LabelOnCommand");
-	};
+		Name="MissesLabel",
+		OnCommand = THEME:GetMetric("Combo", "LabelOnCommand")
+	},
 	InitCommand = function(self)
-		c = self:GetChildren();
-		c.Number:visible(false);
-		c.ComboLabel:visible(false);
-		c.MissesLabel:visible(false);
-	end;
-
+		c = self:GetChildren()
+		c.Number:visible(false)
+		c.ComboLabel:visible(false)
+		c.MissesLabel:visible(false)
+	end,
 	OnCommand=function(self)
 		if GAMESTATE:IsCourseMode() then
 			course = GAMESTATE:GetCurrentCourse()
 			local entries = course:GetCourseEntries()
-
 			for entry in ivalues(course:GetCourseEntries()) do
 				if entry:GetGainSeconds() > 0 then
 					isSurvival = true
 				end
 			end
 		end
-	end;
-
+	end,
 	OffCommand=function(self)
 		if GAMESTATE:IsCourseMode() then
 			course = nil
 			isSurvival = false
 		end
-	end;
-
+	end,
 	ComboCommand=function(self, param)
-		local iCombo = param.Misses or param.Combo;
+		local iCombo = param.Misses or param.Combo
 		if not iCombo or iCombo < ShowComboAt then
-			c.Number:visible(false);
-			c.ComboLabel:visible(false);
-			c.MissesLabel:visible(false);
-			return;
+			c.Number:visible(false)
+			c.ComboLabel:visible(false)
+			c.MissesLabel:visible(false)
+			return
 		end
 
-		local Label;
+		local Label
 		if param.Combo then
-			Label = c.ComboLabel;
+			Label = c.ComboLabel
 			c.MissesLabel:visible(false)
 		else
-			Label = c.MissesLabel;
+			Label = c.MissesLabel
 			c.ComboLabel:visible(false)
 		end
 
 		if iCombo%50 == 0 and not (GAMESTATE:IsCourseMode() and isSurvival) then
-			local Screen = SCREENMAN:GetTopScreen();
-			Screen:GetLifeMeter(player):ChangeLives(1);
+			local Screen = SCREENMAN:GetTopScreen()
+			Screen:GetLifeMeter(player):ChangeLives(1)
 		end
 
-		param.Zoom = scale( iCombo, 0, NumberMaxZoomAt, NumberMinZoom, NumberMaxZoom );
-		param.Zoom = clamp( param.Zoom, NumberMinZoom, NumberMaxZoom );
-		c.Number:visible(true);
-		Label:visible(true);
-		c.Number:settext( string.format("%i", iCombo) );
+		param.Zoom = scale( iCombo, 0, NumberMaxZoomAt, NumberMinZoom, NumberMaxZoom )
+		param.Zoom = clamp( param.Zoom, NumberMinZoom, NumberMaxZoom )
+		c.Number:visible(true)
+		Label:visible(true)
+		c.Number:settext( string.format("%i", iCombo) )
 
 		if param.FullComboW1 then ComboW1(c.Number) ComboW1(Label)
 		elseif param.FullComboW2 then ComboW2(c.Number) ComboW2(Label)
@@ -91,7 +87,7 @@ return Def.ActorFrame {
 		else ComboNormal(c.Number) ComboNormal(Label)
 		end
 
-		Pulse( c.Number, param );
-		Pulse( Label, param );
-	end;
-};
+		Pulse( c.Number, param )
+		Pulse( Label, param )
+	end
+}

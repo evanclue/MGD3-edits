@@ -1,13 +1,11 @@
 local af = Def.ActorFrame{
 	PlayerJoinedMessageCommand=function(self, params) self:queuecommand("Init") end,
 	PlayerUnjoinedMessageCommand=function(self, params) self:queuecommand("Init") end,
-
 	CurrentSongChangedMessageCommand=function(self) self:playcommand("Set") end,
-	CurrentCourseChangedMessageCommand=function(self) self:playcommand("Set") end,
+	CurrentCourseChangedMessageCommand=function(self) self:playcommand("Set") end
 }
 
 for player in ivalues( {PLAYER_1, PLAYER_2} ) do
-
 	af[#af+1] = Def.BitmapText{
 		Name="Actual",
 		Font="Combo numbers",
@@ -20,10 +18,8 @@ for player in ivalues( {PLAYER_1, PLAYER_2} ) do
 		end,
 		PlayerJoinedMessageCommand=function(self, params) self:queuecommand("Init") end,
 		PlayerUnjoinedMessageCommand=function(self, params) self:queuecommand("Init") end,
-
 		["CurrentSteps" .. ToEnumShortString(player) .. "ChangedMessageCommand"]=function(self) self:playcommand("Set") end,
 		["CurrentTrail" .. ToEnumShortString(player) .. "ChangedMessageCommand"]=function(self) self:playcommand("Set") end,
-
 		SetMessageCommand=function(self)
 			self:settext("")
 
@@ -43,7 +39,7 @@ for player in ivalues( {PLAYER_1, PLAYER_2} ) do
 					self:settext("0")
 				end
 			end
-		end,
+		end
 	}
 
 	af[#af+1] = Def.BitmapText{
@@ -58,10 +54,8 @@ for player in ivalues( {PLAYER_1, PLAYER_2} ) do
 		end,
 		PlayerJoinedMessageCommand=function(self, params) self:queuecommand("Init") end,
 		PlayerUnjoinedMessageCommand=function(self, params) self:queuecommand("Init") end,
-
 		["CurrentSteps" .. ToEnumShortString(player) .. "ChangedMessageCommand"]=function(self) self:playcommand("Set") end,
 		["CurrentTrail" .. ToEnumShortString(player) .. "ChangedMessageCommand"]=function(self) self:playcommand("Set") end,
-
 		SetMessageCommand=function(self)
 			self:settext("")
 			local song = (GAMESTATE:IsCourseMode() and GAMESTATE:GetCurrentCourse()) or GAMESTATE:GetCurrentSong()
@@ -78,7 +72,7 @@ for player in ivalues( {PLAYER_1, PLAYER_2} ) do
 				end
 				self:settext(taps)
 			end
-		end,
+		end
 	}
 end
 

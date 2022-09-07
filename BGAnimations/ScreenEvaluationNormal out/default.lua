@@ -1,6 +1,5 @@
-local t = Def.ActorFrame {
+return Def.ActorFrame {
 	Def.Quad{
-		OnCommand=function(self) self:FullScreen():diffusecolor(Color.Black):diffusealpha(0):linear(0.5):diffusealpha(1) end;
-	};
-};
-return t;
+		OnCommand=function(self) self:FullScreen():diffusecolor(Color.Black):diffusealpha(0):linear(0.5):diffusealpha(1) end
+	}
+}

@@ -1,16 +1,15 @@
-local t = Def.ActorFrame {
+return Def.ActorFrame {
 	Def.Sprite{
 		SetCommand=function(self,param)
-			local Course = param.Course;
+			local Course = param.Course
 			if Course and Course:HasBackground() then
-				self:LoadBackground(Course:GetBackgroundPath());
+				self:LoadBackground(Course:GetBackgroundPath())
 			elseif Course and Course:HasBanner() then
-				self:LoadBackground(Course:GetBannerPath());
+				self:LoadBackground(Course:GetBannerPath())
 			else
-				self:Load(THEME:GetPathG("Common fallback", "banner"));
+				self:Load(THEME:GetPathG("Common fallback", "banner"))
 			end
-			self:setsize(170,128);
+			self:setsize(170,128)
 		end
-	};
-};
-return t;
+	}
+}

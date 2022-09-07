@@ -13,8 +13,8 @@ return Def.BitmapText{
 		self:settext(SecondsToMSSMsMs( STATSMAN:GetCurStageStats():GetPlayerStageStats( player ):GetLifeRemainingSeconds() ))
 		self:queuecommand('Update')
 	end,
-	OnCommand=function(self) self:addy(-100):sleep(0.5):decelerate(0.8):addy(100) end;
-	OffCommand=function(self) self:accelerate(0.8); self:addy(-100); end;
+	OnCommand=function(self) self:addy(-100):sleep(0.5):decelerate(0.8):addy(100) end,
+	OffCommand=function(self) self:accelerate(0.8):addy(-100) end,
 	UpdateCommand=function(self)
 		local sec = STATSMAN:GetCurStageStats():GetPlayerStageStats( player ):GetLifeRemainingSeconds()
 		local hex = string.format("%02x", sec * 255 / 15)
@@ -26,5 +26,5 @@ return Def.BitmapText{
 		self:settext(SecondsToMSSMsMs( STATSMAN:GetCurStageStats():GetPlayerStageStats( player ):GetLifeRemainingSeconds() ))
 		self:sleep(0.01666)
 		self:queuecommand('Update')
-	end,
+	end
 }

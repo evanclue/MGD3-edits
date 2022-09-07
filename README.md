@@ -10,7 +10,7 @@ It's source is being displayed down below.
 [Mungyodance 3 (StepMania 5)](https://github.com/MadkaT182/MGD3)
 ---
 
-**Description:** MungyoDance3 Theme port for SM5 
+**Description:** MungyoDance3 Theme port for SM5
 
 **Date:** Nov 20th 2017 - May 25th 2021
 
