@@ -40,7 +40,6 @@ return Def.ActorFrame{
 				cc.BG2:diffusealpha(1)
 			end
 		end,
-		CurrentSongChangedMessageCommand=function(self) self:queuecommand("Set") end,
 		CurrentCourseChangedMessageCommand=function(self) self:queuecommand("Set") end,
 		CurrentTrailP1ChangedMessageCommand=function(self) self:queuecommand("Set") end,
 		CurrentTrailP2ChangedMessageCommand=function(self) self:queuecommand("Set") end

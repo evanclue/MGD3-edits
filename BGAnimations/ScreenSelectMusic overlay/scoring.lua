@@ -22,16 +22,13 @@ for player in ivalues( {PLAYER_1, PLAYER_2} ) do
 		["CurrentTrail" .. ToEnumShortString(player) .. "ChangedMessageCommand"]=function(self) self:playcommand("Set") end,
 		SetMessageCommand=function(self)
 			self:settext("")
-
 			local song = (GAMESTATE:IsCourseMode() and GAMESTATE:GetCurrentCourse()) or GAMESTATE:GetCurrentSong()
 			local steps = (GAMESTATE:IsCourseMode() and GAMESTATE:GetCurrentTrail(player)) or GAMESTATE:GetCurrentSteps(player)
 			local profile = (PROFILEMAN:IsPersistentProfile(player) and PROFILEMAN:GetProfile(player)) or PROFILEMAN:GetMachineProfile()
-
 			if song and steps and profile then
 				local score_list = profile:GetHighScoreList(song,steps)
 				local scores = score_list:GetHighScores()
 				local top_score = scores[1]
-
 				if top_score then
 					local taps = top_score:GetRadarValues(player):GetValue("RadarCategory_TapsAndHolds")
 					self:settext(taps)
@@ -60,7 +57,6 @@ for player in ivalues( {PLAYER_1, PLAYER_2} ) do
 			self:settext("")
 			local song = (GAMESTATE:IsCourseMode() and GAMESTATE:GetCurrentCourse()) or GAMESTATE:GetCurrentSong()
 			local steps = (GAMESTATE:IsCourseMode() and GAMESTATE:GetCurrentTrail(player)) or GAMESTATE:GetCurrentSteps(player)
-
 			if song and steps then
 				local taps = 0
 				if GAMESTATE:IsCourseMode() then

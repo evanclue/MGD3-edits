@@ -110,29 +110,32 @@ function IsSongRemix(songtit)
 	return SongVal
 end
 
-function CalcDifficulty(Steps)
-	local stepCounter = 0
-	local jumpCounter = 0
-	local handCounter = 0
-	local songInSeconds = 0
+function CalcDifficulty(StepsOrTrail)
+	if StepsOrTrail then
+		local stepCounter = 0
+		local jumpCounter = 0
+		local handCounter = 0
+		local songInSeconds = 0
 
-	if not GAMESTATE:IsCourseMode() then
-		stepCounter = Steps:GetRadarValues(GAMESTATE:GetMasterPlayerNumber()):GetValue('RadarCategory_TapsAndHolds')
-		jumpCounter = Steps:GetRadarValues(GAMESTATE:GetMasterPlayerNumber()):GetValue('RadarCategory_Jumps')
-		handCounter = Steps:GetRadarValues(GAMESTATE:GetMasterPlayerNumber()):GetValue('RadarCategory_Hands') * 2
-		songInSeconds = GAMESTATE:GetCurrentSong():GetLastSecond() - GAMESTATE:GetCurrentSong():GetFirstSecond()
+		if not GAMESTATE:IsCourseMode() then
+			stepCounter = StepsOrTrail:GetRadarValues(GAMESTATE:GetMasterPlayerNumber()):GetValue('RadarCategory_TapsAndHolds')
+			jumpCounter = StepsOrTrail:GetRadarValues(GAMESTATE:GetMasterPlayerNumber()):GetValue('RadarCategory_Jumps')
+			handCounter = StepsOrTrail:GetRadarValues(GAMESTATE:GetMasterPlayerNumber()):GetValue('RadarCategory_Hands') * 2
+			songInSeconds = GAMESTATE:GetCurrentSong():GetLastSecond() - GAMESTATE:GetCurrentSong():GetFirstSecond()
 
-		local mods = GAMESTATE:GetSongOptionsObject("ModsLevel_Song")
-		local rate = mods:MusicRate()
-		songInSeconds = songInSeconds / rate
-	else
-		for entry in ivalues(Steps:GetTrailEntries()) do
-			stepCounter = stepCounter + entry:GetSteps():GetRadarValues(GAMESTATE:GetMasterPlayerNumber()):GetValue('RadarCategory_TapsAndHolds')
-			jumpCounter = jumpCounter + entry:GetSteps():GetRadarValues(GAMESTATE:GetMasterPlayerNumber()):GetValue('RadarCategory_Jumps')
-			handCounter = handCounter + (entry:GetSteps():GetRadarValues(GAMESTATE:GetMasterPlayerNumber()):GetValue('RadarCategory_Hands') * 2)
-			songInSeconds = songInSeconds + (entry:GetSong():GetLastSecond() - entry:GetSong():GetFirstSecond())
+			local mods = GAMESTATE:GetSongOptionsObject("ModsLevel_Song")
+			local rate = mods:MusicRate()
+			songInSeconds = songInSeconds / rate
+		else
+			stepCounter = StepsOrTrail:GetRadarValues(GAMESTATE:GetMasterPlayerNumber()):GetValue('RadarCategory_TapsAndHolds')
+			jumpCounter = StepsOrTrail:GetRadarValues(GAMESTATE:GetMasterPlayerNumber()):GetValue('RadarCategory_Jumps')
+			handCounter = (StepsOrTrail:GetRadarValues(GAMESTATE:GetMasterPlayerNumber()):GetValue('RadarCategory_Hands') * 2)
+			for entry in ivalues(StepsOrTrail:GetTrailEntries()) do
+				songInSeconds = songInSeconds + (entry:GetSong():GetLastSecond() - entry:GetSong():GetFirstSecond())
+			end
 		end
-	end
 
-    return math.round( ( (stepCounter + jumpCounter + handCounter) / songInSeconds ) * 20 )
+		return math.round( ( (stepCounter + jumpCounter + handCounter) / songInSeconds ) * 20 )
+	end
+	return 0
 end

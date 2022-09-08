@@ -1,5 +1,5 @@
 local mPlayer = GAMESTATE:GetMasterPlayerNumber()
-
+local course,trail,entry
 local steps,stepsP1,stepsP2 = 0,0,0
 local fakes,fakesP1,fakesP2 = 0,0,0
 local jumps,jumpsP1,jumpsP2 = 0,0,0
@@ -30,43 +30,36 @@ return Def.ActorFrame {
 		},
 		SetCommand=function(self)
 			if GAMESTATE:IsCourseMode() then
-				local trail = GAMESTATE:GetCurrentTrail(mPlayer)
-				steps, fakes, jumps, hands, holds, rolls, lifts, mines = 0,0,0,0,0,0,0,0
+				trail = GAMESTATE:GetCurrentTrail(mPlayer)
 				if trail then
 					if GAMESTATE:GetNumPlayersEnabled() == 1 then
-						for entry in ivalues(trail:GetTrailEntries()) do
-							steps = steps + entry:GetSteps():GetRadarValues(mPlayer):GetValue('RadarCategory_TapsAndHolds')
-							fakes = fakes + entry:GetSteps():GetRadarValues(mPlayer):GetValue('RadarCategory_Fakes')
-							jumps = jumps + entry:GetSteps():GetRadarValues(mPlayer):GetValue('RadarCategory_Jumps')
-							hands = hands + entry:GetSteps():GetRadarValues(mPlayer):GetValue('RadarCategory_Hands')
-							holds = holds + entry:GetSteps():GetRadarValues(mPlayer):GetValue('RadarCategory_Holds')
-							rolls = rolls + entry:GetSteps():GetRadarValues(mPlayer):GetValue('RadarCategory_Rolls')
-							lifts = lifts + entry:GetSteps():GetRadarValues(mPlayer):GetValue('RadarCategory_Lifts')
-							mines = mines + entry:GetSteps():GetRadarValues(mPlayer):GetValue('RadarCategory_Mines')
-						end
+						steps = trail:GetRadarValues(mPlayer):GetValue('RadarCategory_TapsAndHolds')
+						fakes = trail:GetRadarValues(mPlayer):GetValue('RadarCategory_Fakes')
+						jumps = trail:GetRadarValues(mPlayer):GetValue('RadarCategory_Jumps')
+						hands = trail:GetRadarValues(mPlayer):GetValue('RadarCategory_Hands')
+						holds = trail:GetRadarValues(mPlayer):GetValue('RadarCategory_Holds')
+						rolls = trail:GetRadarValues(mPlayer):GetValue('RadarCategory_Rolls')
+						lifts = trail:GetRadarValues(mPlayer):GetValue('RadarCategory_Lifts')
+						mines = trail:GetRadarValues(mPlayer):GetValue('RadarCategory_Mines')
 					else
-						stepsP1, fakesP1, jumpsP1, handsP1, holdsP1, rollsP1, liftsP1, minesP1 = 0,0,0,0,0,0,0,0
-						stepsP2, fakesP2, jumpsP2, handsP2, holdsP2, rollsP2, liftsP2, minesP2 = 0,0,0,0,0,0,0,0
-						for entry in ivalues(trail:GetTrailEntries()) do
-							stepsP1 = stepsP1 + entry:GetSteps():GetRadarValues(PLAYER_1):GetValue('RadarCategory_TapsAndHolds')
-							fakesP1 = fakesP1 + entry:GetSteps():GetRadarValues(PLAYER_1):GetValue('RadarCategory_Fakes')
-							jumpsP1 = jumpsP1 + entry:GetSteps():GetRadarValues(PLAYER_1):GetValue('RadarCategory_Jumps')
-							handsP1 = handsP1 + entry:GetSteps():GetRadarValues(PLAYER_1):GetValue('RadarCategory_Hands')
-							holdsP1 = holdsP1 + entry:GetSteps():GetRadarValues(PLAYER_1):GetValue('RadarCategory_Holds')
-							rollsP1 = rollsP1 + entry:GetSteps():GetRadarValues(PLAYER_1):GetValue('RadarCategory_Rolls')
-							liftsP1 = liftsP1 + entry:GetSteps():GetRadarValues(PLAYER_1):GetValue('RadarCategory_Lifts')
-							minesP1 = minesP1 + entry:GetSteps():GetRadarValues(PLAYER_1):GetValue('RadarCategory_Mines')
-							stepsP2 = stepsP2 + entry:GetSteps():GetRadarValues(PLAYER_2):GetValue('RadarCategory_TapsAndHolds')
-							fakesP2 = fakesP2 + entry:GetSteps():GetRadarValues(PLAYER_2):GetValue('RadarCategory_Fakes')
-							jumpsP2 = jumpsP2 + entry:GetSteps():GetRadarValues(PLAYER_2):GetValue('RadarCategory_Jumps')
-							handsP2 = handsP2 + entry:GetSteps():GetRadarValues(PLAYER_2):GetValue('RadarCategory_Hands')
-							holdsP2 = holdsP2 + entry:GetSteps():GetRadarValues(PLAYER_2):GetValue('RadarCategory_Holds')
-							rollsP2 = rollsP2 + entry:GetSteps():GetRadarValues(PLAYER_2):GetValue('RadarCategory_Rolls')
-							liftsP2 = liftsP2 + entry:GetSteps():GetRadarValues(PLAYER_2):GetValue('RadarCategory_Lifts')
-							minesP2 = minesP2 + entry:GetSteps():GetRadarValues(PLAYER_2):GetValue('RadarCategory_Mines')
-						end
+						stepsP1 = trail:GetRadarValues(PLAYER_1):GetValue('RadarCategory_TapsAndHolds')
+						fakesP1 = trail:GetRadarValues(PLAYER_1):GetValue('RadarCategory_Fakes')
+						jumpsP1 = trail:GetRadarValues(PLAYER_1):GetValue('RadarCategory_Jumps')
+						handsP1 = trail:GetRadarValues(PLAYER_1):GetValue('RadarCategory_Hands')
+						holdsP1 = trail:GetRadarValues(PLAYER_1):GetValue('RadarCategory_Holds')
+						rollsP1 = trail:GetRadarValues(PLAYER_1):GetValue('RadarCategory_Rolls')
+						liftsP1 = trail:GetRadarValues(PLAYER_1):GetValue('RadarCategory_Lifts')
+						minesP1 = trail:GetRadarValues(PLAYER_1):GetValue('RadarCategory_Mines')
+						stepsP2 = trail:GetRadarValues(PLAYER_2):GetValue('RadarCategory_TapsAndHolds')
+						fakesP2 = trail:GetRadarValues(PLAYER_2):GetValue('RadarCategory_Fakes')
+						jumpsP2 = trail:GetRadarValues(PLAYER_2):GetValue('RadarCategory_Jumps')
+						handsP2 = trail:GetRadarValues(PLAYER_2):GetValue('RadarCategory_Hands')
+						holdsP2 = trail:GetRadarValues(PLAYER_2):GetValue('RadarCategory_Holds')
+						rollsP2 = trail:GetRadarValues(PLAYER_2):GetValue('RadarCategory_Rolls')
+						liftsP2 = trail:GetRadarValues(PLAYER_2):GetValue('RadarCategory_Lifts')
+						minesP2 = trail:GetRadarValues(PLAYER_2):GetValue('RadarCategory_Mines')
 					end
-					local course = GAMESTATE:GetCurrentCourse()
+					course = GAMESTATE:GetCurrentCourse()
 					local title = course:GetDisplayFullTitle()
 					c.Title:maxwidth(325)
 					c.Title:settext(title)
@@ -75,7 +68,6 @@ return Def.ActorFrame {
 					c.Artist:maxwidth(325)
 					c.Artist:settext("Programmed by "..artist)
 
-					local entries = course:GetCourseEntries()
 					local seconds, trueseconds = 0, 0
 
 					for entry in ivalues(course:GetCourseEntries()) do
@@ -113,7 +105,6 @@ return Def.ActorFrame {
 			InitCommand=function(self) self:zoom(0.35):horizalign(left):y(69):x(-132):maxwidth(160):diffusealpha(0.6):zoomx(0.37) end,
 			SetCommand=function(self)
 				local name = "STEPS"
-				local trail = GAMESTATE:GetCurrentTrail(mPlayer)
 				if trail then
 					if GAMESTATE:GetNumPlayersEnabled() == 1 then
 						if fakes > 0 then name = name .. "?" end
@@ -140,7 +131,6 @@ return Def.ActorFrame {
 			InitCommand=function(self) self:zoom(0.35):horizalign(left):y(132):x(-132):maxwidth(160):diffusealpha(0.6) end,
 			SetCommand=function(self)
 				local name = "HOLDS"
-				local trail = GAMESTATE:GetCurrentTrail(mPlayer)
 				if trail then
 					if GAMESTATE:GetNumPlayersEnabled() == 1 then
 						if rolls > 0 then name = name .. "+ROLLS" end
@@ -177,7 +167,6 @@ return Def.ActorFrame {
 			InitCommand=function(self) self:zoom(0.36):horizalign(right):y(70):x(-11):maxwidth(170) end,
 			SetCommand=function(self)
 				local name = ""
-				local trail = GAMESTATE:GetCurrentTrail(mPlayer)
 				if trail then
 					if GAMESTATE:GetNumPlayersEnabled() == 1 then name = steps else name = stepsP1 .. " | " .. stepsP2 end
 				end
@@ -188,7 +177,6 @@ return Def.ActorFrame {
 			InitCommand=function(self) self:zoom(0.36):horizalign(right):y(91):x(-11):maxwidth(170) end,
 			SetCommand=function(self)
 				local name = ""
-				local trail = GAMESTATE:GetCurrentTrail(mPlayer)
 				if trail then
 					if GAMESTATE:GetNumPlayersEnabled() == 1 then name = jumps else name = jumpsP1 .. " | " .. jumpsP2 end
 				end
@@ -199,7 +187,6 @@ return Def.ActorFrame {
 			InitCommand=function(self) self:zoom(0.36):horizalign(right):y(112):x(-11):maxwidth(170) end,
 			SetCommand=function(self)
 				local name = ""
-				local trail = GAMESTATE:GetCurrentTrail(mPlayer)
 				if trail then
 					if GAMESTATE:GetNumPlayersEnabled() == 1 then name = hands else name = handsP1 .. " | " .. handsP2 end
 				end
@@ -210,7 +197,6 @@ return Def.ActorFrame {
 			InitCommand=function(self) self:zoom(0.36):horizalign(right):y(133):x(-11):maxwidth(170) end,
 			SetCommand=function(self)
 				local name = ""
-				local trail = GAMESTATE:GetCurrentTrail(mPlayer)
 				if trail then
 					if GAMESTATE:GetNumPlayersEnabled() == 1 then
 						name = holds
@@ -238,7 +224,6 @@ return Def.ActorFrame {
 			Frames = Sprite.LinearFrames( 8, 1 ),
 			InitCommand=function(self) self:effectclock('beat'):addx(180):addy(12):visible(false) end,
 			SetCommand=function(self)
-				local trail = GAMESTATE:GetCurrentTrail(mPlayer)
 				if trail and trails ~=nil then
 					if GAMESTATE:GetNumPlayersEnabled() == 1 then
 						if mines > 0 then self:visible(true) else self:visible(false) end
@@ -259,7 +244,6 @@ return Def.ActorFrame {
 				end
 			end
 		},
-		CurrentSongChangedMessageCommand=function(self) self:queuecommand("Set") end,
 		CurrentCourseChangedMessageCommand=function(self) self:queuecommand("Set") end,
 		CurrentTrailP1ChangedMessageCommand=function(self) self:queuecommand("Set") end,
 		CurrentTrailP2ChangedMessageCommand=function(self) self:queuecommand("Set") end

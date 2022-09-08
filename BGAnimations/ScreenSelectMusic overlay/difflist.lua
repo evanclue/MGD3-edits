@@ -51,15 +51,9 @@ return Def.ActorFrame{
 							end
 							if p1Steps and p2Steps then
 								if p1Steps:GetDifficulty() == 'Difficulty_Edit' and p2Steps:GetDifficulty() == 'Difficulty_Edit' then
-									if p1Steps:GetDescription() == p2Steps:GetDescription() then
-										self:y(11)
-									else self:y(0)
-									end
+									if p1Steps:GetDescription() == p2Steps:GetDescription() then self:y(11) else self:y(0) end
 								else
-									if p1Steps:GetDifficulty() == p2Steps:GetDifficulty() then
-										self:y(11)
-									else self:y(0)
-									end
+									if p1Steps:GetDifficulty() == p2Steps:GetDifficulty() then self:y(11) else self:y(0) end
 								end
 							end
 						end
@@ -99,15 +93,9 @@ return Def.ActorFrame{
 							end
 							if p1Steps and p2Steps then
 								if p1Steps:GetDifficulty() == 'Difficulty_Edit' and p2Steps:GetDifficulty() == 'Difficulty_Edit' then
-									if p1Steps:GetDescription() == p2Steps:GetDescription() then
-										self:y(11)
-									else self:y(0)
-									end
+									if p1Steps:GetDescription() == p2Steps:GetDescription() then self:y(11) else self:y(0) end
 								else
-									if p1Steps:GetDifficulty() == p2Steps:GetDifficulty() then
-										self:y(11)
-									else self:y(0)
-									end
+									if p1Steps:GetDifficulty() == p2Steps:GetDifficulty() then self:y(11) else self:y(0) end
 								end
 							end
 						end

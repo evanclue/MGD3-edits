@@ -14,58 +14,22 @@ end
 
 function DoesCourseHasX()
 	local course = GAMESTATE:GetCurrentCourse()
-		if course then
-		local file = course:GetCourseDir()
-		local f=OpenFile(file)
-		if f then
-			local opt=GetFileParameter(f,"mods")
-			if string.find(opt,"[0-9]?[.]*[0-9]*[0-9]x") then
-				questionMark = "?"
-			else
-				questionMark = ""
-			end
-			CloseFile(f)
-		end
-	end
-end
-
-function OpenFile(filePath)
-	if not FILEMAN:DoesFileExist(filePath) then
-		return nil
-	end
-	local f=RageFileUtil.CreateRageFile()
-	f:Open(filePath,1)
-	return f
-end
-
-function CloseFile(f)
-	if f then
-		f:Close()
-		f:destroy()
-		return true
-	else
-		return false
-	end
-end
-
-function GetFileParameter(f,prm)
-	if not f then
-		return ""
-	end
-	f:Seek(0)
-	local gl=""
-	local pl=string.lower(prm)
-	local l
+	local filePath = course:GetCourseDir()
+	local file = RageFileUtil.CreateRageFile()
+	file:Open(filePath,1)
+	file:Seek(0)
+	local gLine = ""
+	local line
 	while true do
-		l=f:GetLine()
-		local ll=string.lower(l)
-		if string.find(ll,"#notes:.*") or f:AtEOF() then
-			break
-		elseif (string.find(ll,"^.*#"..pl..":.*") and (not string.find(ll,"^%/%/.*"))) or gl~="" then
-			gl=gl..""..split("//",l)[1]
+		line=file:GetLine()
+		if string.find(line,"#NOTES:.*") or file:AtEOF() then break
+		elseif (string.find(line,"^.*#MOD:.*") and (not string.find(line,"^%/%/.*"))) or gLine~="" then
+			gLine=gLine..""..split("//",line)[1]
 		end
 	end
-	return gl
+	if string.find(gLine,"[0-9]?[.]*[0-9]*[0-9]x") then questionMark = "?" else questionMark = "" end
+	file:Close()
+	file:destroy()
 end
 
 return Def.ActorFrame {
@@ -77,20 +41,12 @@ return Def.ActorFrame {
 		CodeMessageCommand = function(self, params)
 			if params.Name == 'SpeedUp' then
 				sIdx = sIdx - (1 * invert)
-				if sIdx < 1 then
-					sIdx = sMax
-				elseif sIdx > sMax then
-					sIdx = 1
-				end
+				if sIdx < 1 then sIdx = sMax elseif sIdx > sMax then sIdx = 1 end
 				GAMESTATE:ApplyGameCommand('mod,'..SpeedMods[sIdx])
 				self:playcommand("Speed")
 			elseif params.Name == 'SpeedDown' then
 				sIdx = sIdx + (1 * invert)
-				if sIdx > sMax then
-					sIdx = 1
-				elseif sIdx < 1 then
-					sIdx = sMax
-				end
+				if sIdx > sMax then sIdx = 1 elseif sIdx < 1 then sIdx = sMax end
 				GAMESTATE:ApplyGameCommand('mod,'..SpeedMods[sIdx])
 				self:playcommand("Speed")
 			end
