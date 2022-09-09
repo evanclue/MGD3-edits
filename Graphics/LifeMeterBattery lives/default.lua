@@ -45,11 +45,12 @@ return Def.ActorFrame{
 				elseif param.PlayerNumber == PLAYER_2 and player == PLAYER_2 and not moved then --Move P2's filter if P2 dies
 					--self:linear(0.1):zoom(0)
 					moved = true
-				elseif param.PlayerNumber == PLAYER_1 and player == PLAYER_2 and not centered then --Move P1's filter to center if P2 dies
-					--self:linear(0.5):x(SCREEN_WIDTH*0.21)
+				end
+				if param.PlayerNumber == PLAYER_1 and player == PLAYER_2 and not centered then --Move P1's filter to center if P2 dies
+					--self:linear(0.5):x(-SCREEN_WIDTH*0.21)
 					centered = true
 				elseif param.PlayerNumber == PLAYER_2 and player == PLAYER_1 and not centered then --Move P2's filter to center if P1 dies
-					--self:linear(0.5):x(-SCREEN_WIDTH*0.21)
+					--self:linear(0.5):x(SCREEN_WIDTH*0.21)
 					centered = true
 				end
 			end
