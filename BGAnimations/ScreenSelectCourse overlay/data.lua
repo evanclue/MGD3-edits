@@ -1,5 +1,5 @@
 local mPlayer = GAMESTATE:GetMasterPlayerNumber()
-local course,trail,entry
+local course,trail
 local steps,stepsP1,stepsP2 = 0,0,0
 local fakes,fakesP1,fakesP2 = 0,0,0
 local jumps,jumpsP1,jumpsP2 = 0,0,0
@@ -32,41 +32,23 @@ return Def.ActorFrame {
 			if GAMESTATE:IsCourseMode() then
 				trail = GAMESTATE:GetCurrentTrail(mPlayer)
 				if trail then
-					if GAMESTATE:GetNumPlayersEnabled() == 1 then
-						steps = trail:GetRadarValues(mPlayer):GetValue('RadarCategory_TapsAndHolds')
-						fakes = trail:GetRadarValues(mPlayer):GetValue('RadarCategory_Fakes')
-						jumps = trail:GetRadarValues(mPlayer):GetValue('RadarCategory_Jumps')
-						hands = trail:GetRadarValues(mPlayer):GetValue('RadarCategory_Hands')
-						holds = trail:GetRadarValues(mPlayer):GetValue('RadarCategory_Holds')
-						rolls = trail:GetRadarValues(mPlayer):GetValue('RadarCategory_Rolls')
-						lifts = trail:GetRadarValues(mPlayer):GetValue('RadarCategory_Lifts')
-						mines = trail:GetRadarValues(mPlayer):GetValue('RadarCategory_Mines')
-					else
-						stepsP1 = trail:GetRadarValues(PLAYER_1):GetValue('RadarCategory_TapsAndHolds')
-						fakesP1 = trail:GetRadarValues(PLAYER_1):GetValue('RadarCategory_Fakes')
-						jumpsP1 = trail:GetRadarValues(PLAYER_1):GetValue('RadarCategory_Jumps')
-						handsP1 = trail:GetRadarValues(PLAYER_1):GetValue('RadarCategory_Hands')
-						holdsP1 = trail:GetRadarValues(PLAYER_1):GetValue('RadarCategory_Holds')
-						rollsP1 = trail:GetRadarValues(PLAYER_1):GetValue('RadarCategory_Rolls')
-						liftsP1 = trail:GetRadarValues(PLAYER_1):GetValue('RadarCategory_Lifts')
-						minesP1 = trail:GetRadarValues(PLAYER_1):GetValue('RadarCategory_Mines')
-						stepsP2 = trail:GetRadarValues(PLAYER_2):GetValue('RadarCategory_TapsAndHolds')
-						fakesP2 = trail:GetRadarValues(PLAYER_2):GetValue('RadarCategory_Fakes')
-						jumpsP2 = trail:GetRadarValues(PLAYER_2):GetValue('RadarCategory_Jumps')
-						handsP2 = trail:GetRadarValues(PLAYER_2):GetValue('RadarCategory_Hands')
-						holdsP2 = trail:GetRadarValues(PLAYER_2):GetValue('RadarCategory_Holds')
-						rollsP2 = trail:GetRadarValues(PLAYER_2):GetValue('RadarCategory_Rolls')
-						liftsP2 = trail:GetRadarValues(PLAYER_2):GetValue('RadarCategory_Lifts')
-						minesP2 = trail:GetRadarValues(PLAYER_2):GetValue('RadarCategory_Mines')
-					end
+					steps = trail:GetRadarValues(mPlayer):GetValue('RadarCategory_TapsAndHolds')
+					fakes = trail:GetRadarValues(mPlayer):GetValue('RadarCategory_Fakes')
+					jumps = trail:GetRadarValues(mPlayer):GetValue('RadarCategory_Jumps')
+					hands = trail:GetRadarValues(mPlayer):GetValue('RadarCategory_Hands')
+					holds = trail:GetRadarValues(mPlayer):GetValue('RadarCategory_Holds')
+					rolls = trail:GetRadarValues(mPlayer):GetValue('RadarCategory_Rolls')
+					lifts = trail:GetRadarValues(mPlayer):GetValue('RadarCategory_Lifts')
+					mines = trail:GetRadarValues(mPlayer):GetValue('RadarCategory_Mines')
+
 					course = GAMESTATE:GetCurrentCourse()
 					local title = course:GetDisplayFullTitle()
 					c.Title:maxwidth(325)
 					c.Title:settext(title)
 
-					local artist = course:GetScripter()
+					local artist = course:GetScripter() ~= "" and course:GetScripter() or "??????????"
 					c.Artist:maxwidth(325)
-					c.Artist:settext("Programmed by "..artist)
+					c.Artist:settext("Programmed by ".. artist)
 
 					local seconds, trueseconds = 0, 0
 
@@ -106,11 +88,7 @@ return Def.ActorFrame {
 			SetCommand=function(self)
 				local name = "STEPS"
 				if trail then
-					if GAMESTATE:GetNumPlayersEnabled() == 1 then
-						if fakes > 0 then name = name .. "?" end
-					else
-						if fakesP1 > 0 or fakesP2 > 0 then name = name .. "?" end
-					end
+					if fakes > 0 then name = name .. "?" end
 				end
 				self:settext(name)
 			end
@@ -130,15 +108,11 @@ return Def.ActorFrame {
 		LoadFont("Panedisplay Blurred")..{
 			InitCommand=function(self) self:zoom(0.35):horizalign(left):y(132):x(-132):maxwidth(160):diffusealpha(0.6) end,
 			SetCommand=function(self)
-				local name = "HOLDS"
+				local name = ""
 				if trail then
-					if GAMESTATE:GetNumPlayersEnabled() == 1 then
-						if rolls > 0 then name = name .. "+ROLLS" end
-						if lifts > 0 then name = name .. "+LIFTS" end
-					else
-						if GetRadarP1:GetValue('RadarCategory_Rolls') > 0 or GetRadarP2:GetValue('RadarCategory_Rolls') > 0 then name = name .. "+ROLLS" end
-						if GetRadarP1:GetValue('RadarCategory_Lifts') > 0 or GetRadarP2:GetValue('RadarCategory_Lifts') > 0 then name = name .. "+LIFTS" end
-					end
+					if holds > 0 or (holds == 0 and rolls == 0 and lifts == 0) then name = name .. "HOLDS" end
+					if rolls > 0 then if name ~= "" then name = name .. "+ROLLS" else name = "ROLLS" end end
+					if lifts > 0 then if name ~= "" then name = name .. "+LIFTS" else name = "LIFTS" end end
 				end
 				self:settext(name)
 			end
@@ -168,7 +142,7 @@ return Def.ActorFrame {
 			SetCommand=function(self)
 				local name = ""
 				if trail then
-					if GAMESTATE:GetNumPlayersEnabled() == 1 then name = steps else name = stepsP1 .. " | " .. stepsP2 end
+					name = steps
 				end
 				self:settext(name)
 			end
@@ -178,7 +152,7 @@ return Def.ActorFrame {
 			SetCommand=function(self)
 				local name = ""
 				if trail then
-					if GAMESTATE:GetNumPlayersEnabled() == 1 then name = jumps else name = jumpsP1 .. " | " .. jumpsP2 end
+					name = jumps
 				end
 				self:settext(name)
 			end
@@ -188,7 +162,7 @@ return Def.ActorFrame {
 			SetCommand=function(self)
 				local name = ""
 				if trail then
-					if GAMESTATE:GetNumPlayersEnabled() == 1 then name = hands else name = handsP1 .. " | " .. handsP2 end
+					name = hands
 				end
 				self:settext(name)
 			end
@@ -198,23 +172,9 @@ return Def.ActorFrame {
 			SetCommand=function(self)
 				local name = ""
 				if trail then
-					if GAMESTATE:GetNumPlayersEnabled() == 1 then
-						name = holds
-						if rolls > 0 then name = name .. "+" .. rolls end
-						if lifts > 0 then name = name .. "+" .. lifts end
-					else
-						statsP1 = holdsP1
-						statsP2 = holdsP2
-						if rollsP1 > 0 or rollsP2 > 0 then
-							statsP1 = statsP1 .. "+" .. rollsP1
-							statsP2 = statsP2 .. "+" .. rollsP2
-						end
-						if liftsP1 > 0 or liftsP2 > 0 then
-							statsP1 = statsP1 .. "+" .. liftsP1
-							statsP2 = statsP2 .. "+" .. liftsP2
-						end
-						name = statsP1 .. " | " .. statsP2
-					end
+					if holds > 0 or (holds == 0 and rolls== 0 and lifts == 0) then name = holds end
+					if rolls > 0 then if name ~= "" then name = name .. "+" .. rolls else name = rolls end end
+					if lifts > 0 then if name ~= "" then name = name .. "+" .. lifts else name = lifts end end
 				end
 				self:settext(name)
 			end
@@ -225,27 +185,12 @@ return Def.ActorFrame {
 			InitCommand=function(self) self:effectclock('beat'):addx(180):addy(12):visible(false) end,
 			SetCommand=function(self)
 				if trail and trails ~=nil then
-					if GAMESTATE:GetNumPlayersEnabled() == 1 then
-						if mines > 0 then self:visible(true) else self:visible(false) end
-					else
-						if minesP1 > 0 or minesP2 > 0 then
-							self:visible(true):cropleft(0):cropright(0)
-							if minesP1 == 0 and minesP2 > 0 then
-								self:cropleft(0.5)
-							elseif minesP1 > 0 and minesP2 == 0 then
-								self:cropright(0.5)
-							end
-						else
-							self:visible(false)
-						end
-					end
+					if mines > 0 then self:visible(true) else self:visible(false) end
 				else
 					self:visible(false)
 				end
 			end
 		},
-		CurrentCourseChangedMessageCommand=function(self) self:queuecommand("Set") end,
-		CurrentTrailP1ChangedMessageCommand=function(self) self:queuecommand("Set") end,
-		CurrentTrailP2ChangedMessageCommand=function(self) self:queuecommand("Set") end
+		CurrentCourseChangedMessageCommand=function(self) self:queuecommand("Set") end
 	}
 }
