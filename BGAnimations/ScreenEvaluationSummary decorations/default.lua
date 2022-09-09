@@ -2,7 +2,6 @@ local t = Def.ActorFrame {}
 local Song = GAMESTATE:GetCurrentSong()
 local SongTit = Song:GetDisplayMainTitle()
 local pStages = STATSMAN:GetStagesPlayed()
-local path = "../ScreenEvaluationNormal decorations/"
 local sIndex = 1
 local tSongName = {}
 local tSongBg = {}
@@ -10,9 +9,11 @@ local tSongBg = {}
 for i = 1, pStages do
 	local pStats = STATSMAN:GetPlayedStageStats(i)
 	local pSong = pStats:GetPlayedSongs()[1]
-	local pBg = THEME:GetPathG("Common fallback", "background")
+	local pBg
 	if pSong:HasBackground() then
 		pBg = pSong:GetBackgroundPath()
+	else
+		pBg = THEME:GetPathG("Common fallback", "background")
 	end
 	table.insert(tSongName, pSong:GetDisplayMainTitle())
 	table.insert(tSongBg, pBg)
@@ -96,13 +97,13 @@ t[#t+1] = Def.ActorFrame {
 			self:setsize(200,150)
 		end
 	},
-	LoadActor(path.."rankbg")..{
+	LoadActor("../ScreenEvaluationNormal decorations/rankbg")..{
 		InitCommand=function(self) self:Center() end
 	},
-	LoadActor(path.."left")..{
+	LoadActor("../ScreenEvaluationNormal decorations/left")..{
 		InitCommand=function(self) self:x(SCREEN_LEFT+64):CenterY() end
 	},
-	LoadActor(path.."right")..{
+	LoadActor("../ScreenEvaluationNormal decorations/right")..{
 		InitCommand=function(self) self:x(SCREEN_RIGHT-64):CenterY() end
 	},
 	LoadFont("MusicList titles")..{
