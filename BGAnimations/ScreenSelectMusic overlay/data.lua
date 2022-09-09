@@ -1,33 +1,7 @@
 local mPlayer = GAMESTATE:GetMasterPlayerNumber()
-local getSMVersion = function()
-	local version = ProductVersion()
-	if type(version) ~= "string" then return {} end
-
-	version = version:gsub("-.*", "")
-
-	local v = {}
-	for i in version:gmatch("[^%.]+") do
-		table.insert(v, tonumber(i))
-	end
-
-	return v
-end
-
-function IsSMVersion(...)
-	local version = getSMVersion()
-
-	for i = 1, select('#', ...) do
-		if select(i, ...) ~= version[i] then
-			return false
-		end
-	end
-
-	return true
-end
-
 local diff = ""
 
-if IsSMVersion(5, 0, 12) or IsSMVersion(5, 1) then
+if ProductFamily() == "StepMania" then
 	diff = "diff 1x6"
 else
 	diff = "diff 1x15"
@@ -411,12 +385,14 @@ return Def.ActorFrame{
 				if song and steps ~=nil then
 					if GAMESTATE:GetNumPlayersEnabled() == 1 then
 						local GetRadar = GAMESTATE:GetCurrentSteps(mPlayer):GetRadarValues(mPlayer)
-						name = GetRadar:GetValue('RadarCategory_Holds')
+						if GetRadar:GetValue('RadarCategory_Holds') > 0 or (GetRadar:GetValue('RadarCategory_Holds') == 0 and GetRadar:GetValue('RadarCategory_Rolls') == 0 and GetRadar:GetValue('RadarCategory_Lifts') == 0) then
+							name = GetRadar:GetValue('RadarCategory_Holds')
+						end
 						if GetRadar:GetValue('RadarCategory_Rolls') > 0 then
-							name = name .. "+" .. GetRadar:GetValue('RadarCategory_Rolls')
+							if name ~= "" then name = name .. "+" .. GetRadar:GetValue('RadarCategory_Rolls') else name = GetRadar:GetValue('RadarCategory_Rolls') end
 						end
 						if GetRadar:GetValue('RadarCategory_Lifts') > 0 then
-							name = name .. "+" .. GetRadar:GetValue('RadarCategory_Lifts')
+							if name ~= "" then name = name .. "+" .. GetRadar:GetValue('RadarCategory_Lifts') else name = GetRadar:GetValue('RadarCategory_Lifts') end
 						end
 					else
 						stepsP1 = GAMESTATE:GetCurrentSteps(PLAYER_1)
@@ -424,20 +400,24 @@ return Def.ActorFrame{
 						if stepsP1 ~=nil and stepsP2 ~=nil then
 							local GetRadarP1 = GAMESTATE:GetCurrentSteps(PLAYER_1):GetRadarValues(PLAYER_1)
 							local GetRadarP2 = GAMESTATE:GetCurrentSteps(PLAYER_2):GetRadarValues(PLAYER_2)
-							local statsP1 = GetRadarP1:GetValue('RadarCategory_Holds')
-							local statsP2 = GetRadarP2:GetValue('RadarCategory_Holds')
+							if GetRadarP1:GetValue('RadarCategory_Holds') > 0 or (GetRadarP1:GetValue('RadarCategory_Holds') == 0 and GetRadarP1:GetValue('RadarCategory_Rolls') == 0 and GetRadarP1:GetValue('RadarCategory_Lifts') == 0) then
+								statsP1 = GetRadarP1:GetValue('RadarCategory_Holds')
+							end
+							if GetRadarP2:GetValue('RadarCategory_Holds') > 0 or (GetRadarP2:GetValue('RadarCategory_Holds') == 0 and GetRadarP2:GetValue('RadarCategory_Rolls') == 0 and GetRadarP2:GetValue('RadarCategory_Lifts') == 0) then
+								statsP2 = GetRadarP2:GetValue('RadarCategory_Holds')
+							end
 
 							if GetRadarP1:GetValue('RadarCategory_Rolls') > 0 then
-								statsP1 = statsP1 .. "+" .. GetRadarP1:GetValue('RadarCategory_Rolls')
+								if statsP1 ~= "" then statsP1 = statsP1 .. "+" .. GetRadarP1:GetValue('RadarCategory_Rolls') else statsP1 = GetRadarP1:GetValue('RadarCategory_Rolls') end
 							end
 							if GetRadarP2:GetValue('RadarCategory_Rolls') > 0 then
-								statsP2 = statsP2 .. "+" .. GetRadarP2:GetValue('RadarCategory_Rolls')
+								if statsP2 ~= "" then statsP2 = statsP2 .. "+" .. GetRadarP2:GetValue('RadarCategory_Rolls') else statsP2 = GetRadarP2:GetValue('RadarCategory_Rolls') end
 							end
 							if GetRadarP1:GetValue('RadarCategory_Lifts') > 0 then
-								statsP1 = statsP1 .. "+" .. GetRadarP1:GetValue('RadarCategory_Lifts')
+								if statsP1 ~= "" then statsP1 = statsP1 .. "+" .. GetRadarP1:GetValue('RadarCategory_Lifts') else statsP1 = GetRadarP1:GetValue('RadarCategory_Lifts') end
 							end
 							if GetRadarP2:GetValue('RadarCategory_Lifts') > 0 then
-								statsP2 = statsP2 .. "+" .. GetRadarP2:GetValue('RadarCategory_Lifts')
+								if statsP2 ~= "" then statsP2 = statsP2 .. "+" .. GetRadarP2:GetValue('RadarCategory_Lifts') else statsP2 = GetRadarP2:GetValue('RadarCategory_Lifts') end
 							end
 							name = statsP1 .. " | " .. statsP2
 						end
