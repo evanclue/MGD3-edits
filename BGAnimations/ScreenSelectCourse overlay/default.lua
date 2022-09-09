@@ -30,7 +30,7 @@ return Def.ActorFrame{
 			InitCommand=function(self) self:Center():addx(106):addy(-12) end
 		},
 		LoadActor("accel"),
-		SetCommand=function(self)
+		SetBGCommand=function(self)
 			local course = GAMESTATE:GetCurrentCourse()
 			if course then
 				cc.BG1:diffusealpha(1)
@@ -40,6 +40,6 @@ return Def.ActorFrame{
 				cc.BG2:diffusealpha(1)
 			end
 		end,
-		CurrentCourseChangedMessageCommand=function(self) self:queuecommand("Set") end
+		CurrentCourseChangedMessageCommand=function(self) self:queuecommand("SetBG") end
 	}
 }
