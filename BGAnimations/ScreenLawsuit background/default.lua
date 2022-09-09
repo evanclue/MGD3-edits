@@ -3,7 +3,7 @@ return Def.ActorFrame {
 		InitCommand=function(self) self:FullScreen() end
 	},
 	LoadActor("rating")..{
-		InitCommand=function(self) self:FullScreen() end,
+		InitCommand=function(self) self:Center() end,
 		OnCommand=function(self) self:diffusealpha(0):sleep(5):linear(1):diffusealpha(1) end
 	}
 }
