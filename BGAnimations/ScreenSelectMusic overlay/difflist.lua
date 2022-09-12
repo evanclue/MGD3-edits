@@ -76,7 +76,11 @@ return Def.ActorFrame{
 				end
 			}
 		},
-		CursorP1Frame = Def.Actor{},
-		CursorP2Frame = Def.Actor{}
+		CursorP1Frame = Def.Actor{
+			ChangeCommand=function(self) self:stoptweening():linear(0.05) end
+		},
+		CursorP2Frame = Def.Actor{
+			ChangeCommand=function(self) self:stoptweening():linear(0.05) end
+		}
 	}
 }
