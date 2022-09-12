@@ -6,7 +6,9 @@ for pn in ivalues(GAMESTATE:GetEnabledPlayers()) do
 		batLives = GetLives(pn)
 	end
 	if GAMESTATE:IsCourseMode() then
-		GAMESTATE:GetPlayerState(pn):GetPlayerOptions('ModsLevel_Stage'):BatteryLives(batLives)
+		if GAMESTATE:GetPlayMode() ~= "PlayMode_Oni" then
+			GAMESTATE:GetPlayerState(pn):GetPlayerOptions('ModsLevel_Stage'):BatteryLives(batLives)
+		end
 		GAMESTATE:GetPlayerState(pn):GetPlayerOptions('ModsLevel_Stage'):AttackMines(true)
 		GAMESTATE:GetPlayerState(pn):GetPlayerOptions('ModsLevel_Stage'):FailSetting('FailType_Immediate')
 	else
