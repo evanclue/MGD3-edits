@@ -9,8 +9,8 @@ local rolls,rollsP1,rollsP2 = 0,0,0
 local lifts,liftsP1,liftsP2 = 0,0,0
 local mines,minesP1,minesP2 = 0,0,0
 
-return Def.ActorFrame {
-	Def.ActorFrame {
+return Def.ActorFrame{
+	Def.ActorFrame{
 		InitCommand=function(self) c = self:GetChildren() end,
 		LoadFont("MusicList titles")..{
 			Name="Title",
@@ -48,7 +48,7 @@ return Def.ActorFrame {
 
 					local artist = course:GetScripter() ~= "" and course:GetScripter() or "??????????"
 					c.Artist:maxwidth(325)
-					c.Artist:settext("Programmed by ".. artist)
+					c.Artist:settext("Programmed by "..artist)
 
 					local seconds, trueseconds = 0, 0
 
@@ -77,7 +77,7 @@ return Def.ActorFrame {
 				c.TrueTime:diffusealpha(0)
 			end
 		end,
-		Def.BPMDisplay {
+		Def.BPMDisplay{
 			File=THEME:GetPathF("BPM", "Display"),
 			Name="BPMDisplay",
 			InitCommand=function(self) self:x(5):y(133):horizalign(left):zoom(0.62):maxwidth(210) end,
@@ -88,7 +88,7 @@ return Def.ActorFrame {
 			SetCommand=function(self)
 				local name = "STEPS"
 				if trail then
-					if fakes > 0 then name = name .. "?" end
+					if fakes > 0 then name = name.."?" end
 				end
 				self:settext(name)
 			end
@@ -110,9 +110,9 @@ return Def.ActorFrame {
 			SetCommand=function(self)
 				local name = ""
 				if trail then
-					if holds > 0 or (holds == 0 and rolls == 0 and lifts == 0) then name = name .. "HOLDS" end
-					if rolls > 0 then if name ~= "" then name = name .. "+ROLLS" else name = "ROLLS" end end
-					if lifts > 0 then if name ~= "" then name = name .. "+LIFTS" else name = "LIFTS" end end
+					if holds > 0 or (holds == 0 and rolls == 0 and lifts == 0) then name = name.."HOLDS" end
+					if rolls > 0 then if name ~= "" then name = name.."+ROLLS" else name = "ROLLS" end end
+					if lifts > 0 then if name ~= "" then name = name.."+LIFTS" else name = "LIFTS" end end
 				end
 				self:settext(name)
 			end
@@ -173,13 +173,13 @@ return Def.ActorFrame {
 				local name = ""
 				if trail then
 					if holds > 0 or (holds == 0 and rolls== 0 and lifts == 0) then name = holds end
-					if rolls > 0 then if name ~= "" then name = name .. "+" .. rolls else name = rolls end end
-					if lifts > 0 then if name ~= "" then name = name .. "+" .. lifts else name = lifts end end
+					if rolls > 0 then if name ~= "" then name = name.."+"..rolls else name = rolls end end
+					if lifts > 0 then if name ~= "" then name = name.."+"..lifts else name = lifts end end
 				end
 				self:settext(name)
 			end
 		},
-		Def.Sprite {
+		Def.Sprite{
 			Texture='../mine',
 			Frames = Sprite.LinearFrames( 8, 1 ),
 			InitCommand=function(self) self:effectclock('beat'):addx(180):addy(12):visible(false) end,

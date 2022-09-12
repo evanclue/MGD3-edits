@@ -5,7 +5,7 @@ local af = Def.ActorFrame{
 	CurrentCourseChangedMessageCommand=function(self) self:playcommand("Set") end
 }
 
-for player in ivalues( {PLAYER_1, PLAYER_2} ) do
+for player in ivalues({PLAYER_1, PLAYER_2}) do
 	af[#af+1] = Def.BitmapText{
 		Name="Actual",
 		Font="Combo numbers",
@@ -18,8 +18,8 @@ for player in ivalues( {PLAYER_1, PLAYER_2} ) do
 		end,
 		PlayerJoinedMessageCommand=function(self, params) self:queuecommand("Init") end,
 		PlayerUnjoinedMessageCommand=function(self, params) self:queuecommand("Init") end,
-		["CurrentSteps" .. ToEnumShortString(player) .. "ChangedMessageCommand"]=function(self) self:playcommand("Set") end,
-		["CurrentTrail" .. ToEnumShortString(player) .. "ChangedMessageCommand"]=function(self) self:playcommand("Set") end,
+		["CurrentSteps"..ToEnumShortString(player).."ChangedMessageCommand"]=function(self) self:playcommand("Set") end,
+		["CurrentTrail"..ToEnumShortString(player).."ChangedMessageCommand"]=function(self) self:playcommand("Set") end,
 		SetMessageCommand=function(self)
 			self:settext("")
 			local song = (GAMESTATE:IsCourseMode() and GAMESTATE:GetCurrentCourse()) or GAMESTATE:GetCurrentSong()
@@ -51,8 +51,8 @@ for player in ivalues( {PLAYER_1, PLAYER_2} ) do
 		end,
 		PlayerJoinedMessageCommand=function(self, params) self:queuecommand("Init") end,
 		PlayerUnjoinedMessageCommand=function(self, params) self:queuecommand("Init") end,
-		["CurrentSteps" .. ToEnumShortString(player) .. "ChangedMessageCommand"]=function(self) self:playcommand("Set") end,
-		["CurrentTrail" .. ToEnumShortString(player) .. "ChangedMessageCommand"]=function(self) self:playcommand("Set") end,
+		["CurrentSteps"..ToEnumShortString(player).."ChangedMessageCommand"]=function(self) self:playcommand("Set") end,
+		["CurrentTrail"..ToEnumShortString(player).."ChangedMessageCommand"]=function(self) self:playcommand("Set") end,
 		SetMessageCommand=function(self)
 			self:settext("")
 			local song = (GAMESTATE:IsCourseMode() and GAMESTATE:GetCurrentCourse()) or GAMESTATE:GetCurrentSong()

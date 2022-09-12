@@ -1,15 +1,15 @@
-return Def.ActorFrame {
-	Def.ActorFrame {
+return Def.ActorFrame{
+	Def.ActorFrame{
 		SystemMessageMessageCommand=function(self, params)
 			SystemMessageText:settext( params.Message )
-			self:playcommand( "On" )
+			self:playcommand("On")
 			if params.NoAnimate then
 				self:finishtweening()
 			end
-			self:playcommand( "Off" )
+			self:playcommand("Off")
 		end,
 		HideSystemMessageMessageCommand=function(self) self:finishtweening() end,
-		Def.Quad {
+		Def.Quad{
 			InitCommand=function(self)
 				self:zoomto(_screen.w, 30):horizalign(left):vertalign(top)
 					:diffuse(Color.Black):diffusealpha(0)

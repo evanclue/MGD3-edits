@@ -1,4 +1,4 @@
-return Def.ActorFrame {
+return Def.ActorFrame{
 	Def.Sprite{
 		SetCommand=function(self,param)
 			local Course = param.Course

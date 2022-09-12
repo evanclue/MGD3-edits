@@ -1,4 +1,4 @@
-return Def.ActorFrame {
+return Def.ActorFrame{
 	Def.Banner{
 		SetMessageCommand=function(self,params)
 			local so = GAMESTATE:GetSortOrder()

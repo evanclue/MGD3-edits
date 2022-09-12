@@ -1,8 +1,8 @@
 local Song = GAMESTATE:GetCurrentSong()
 local dir = Song:GetSongDir()
-local t = Def.ActorFrame {}
+local t = Def.ActorFrame{}
 if string.find(dir,"Mungyodance") then
-	t[#t+1] = Def.ActorFrame {
+	t[#t+1] = Def.ActorFrame{
 		Def.Sprite{
 			BeginCommand=function(self) self:scale_or_crop_background() end,
 			InitCommand=function(self)
@@ -18,7 +18,7 @@ if string.find(dir,"Mungyodance") then
 		}
 	}
 else
-	t[#t+1] = Def.ActorFrame {
+	t[#t+1] = Def.ActorFrame{
 		Def.Sprite{
 			BeginCommand=function(self) self:scale_or_crop_background() end,
 			InitCommand=function(self)
@@ -34,23 +34,23 @@ else
 		}
 	}
 end
-t[#t+1] = Def.ActorFrame {
+t[#t+1] = Def.ActorFrame{
 	Def.Quad{
 		OnCommand=function(self) self:FullScreen():diffusecolor(Color.White):zoomy(SCREEN_HEIGHT):decelerate(0.34):zoomy(0.013):sleep(0.1):accelerate(0.35):diffusealpha(0):zoomx(0) end
 	},
-	LoadActor( "../../select" )..{
+	LoadActor("../../select")..{
 		BeginCommand=function(self) self:Center() end,
 		OnCommand=function(self) self:sleep(0.5):linear(0.4):diffusealpha(0) end
 	},
-	LoadActor( "../../spin" )..{
+	LoadActor("../../spin")..{
 		BeginCommand=function(self) self:scale_or_crop_background() end,
 		OnCommand=function(self) self:diffusealpha(0.6):zoom(0.2):accelerate(0.6):zoom(1):diffusealpha(0):rotationz(250) end
 	},
-	LoadActor( "../../spin" )..{
+	LoadActor("../../spin")..{
 		BeginCommand=function(self) self:scale_or_crop_background() end,
 		OnCommand=function(self) self:diffusealpha(0.6):zoom(0.2):accelerate(0.8):zoom(1):diffusealpha(0):rotationz(-250) end
 	},
-	LoadActor( "../../spin" )..{
+	LoadActor("../../spin")..{
 		BeginCommand=function(self) self:scale_or_crop_background() end,
 		OnCommand=function(self) self:diffusealpha(0.6):zoom(0.2):accelerate(1):zoom(1):diffusealpha(0):rotationz(250) end
 	}

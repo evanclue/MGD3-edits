@@ -22,7 +22,7 @@ local function GetPosition(pn)
 	else
 		local strPlayer = (NumPlayers == 1) and "OnePlayer" or "TwoPlayers"
 		local strSide = (NumSides == 1) and "OneSide" or "TwoSides"
-		return THEME:GetMetric("ScreenGameplay","Player".. ToEnumShortString(pn) .. strPlayer .. strSide .."X")
+		return THEME:GetMetric("ScreenGameplay","Player"..ToEnumShortString(pn)..strPlayer..strSide.."X")
 	end
 end
 

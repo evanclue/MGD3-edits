@@ -6,8 +6,8 @@ if IsUsingWideScreen() == true then
 	file2 = "selmwide folder.png"
 end
 
-return Def.ActorFrame {
-	Def.ActorFrame {
+return Def.ActorFrame{
+	Def.ActorFrame{
 		InitCommand=function(self) c = self:GetChildren() end,
 		LoadActor(file1)..{
 			Name="BG1",

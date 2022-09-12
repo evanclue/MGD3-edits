@@ -1,7 +1,7 @@
-local t = Def.ActorFrame {}
+local t = Def.ActorFrame{}
 
 if GAMESTATE:IsCourseMode() then
-	t[#t+1] = Def.ActorFrame {
+	t[#t+1] = Def.ActorFrame{
 		Def.Sprite{
 			BeginCommand=function(self) self:scale_or_crop_background() end,
 			InitCommand=function(self)
@@ -9,7 +9,7 @@ if GAMESTATE:IsCourseMode() then
 			end,
 			OnCommand=function(self) self:diffusecolor(1,0.3,0.3,1):diffusealpha(1):sleep(0.2):decelerate(0.88):diffusealpha(0) end
 		},
-		LoadActor( "../exborder" )..{
+		LoadActor("../exborder")..{
 			BeginCommand=function(self) self:Center() end,
 			OnCommand=function(self) self:diffusealpha(0.8):zoomy(1):accelerate(0.8):zoomy(2.4) end
 		}
@@ -18,7 +18,7 @@ else
 	local Song = GAMESTATE:GetCurrentSong()
 	local SongTit = Song:GetDisplayMainTitle()
 
-	t[#t+1] = Def.ActorFrame {
+	t[#t+1] = Def.ActorFrame{
 		InitCommand=function(self) self:sleep(4) end,
 		Def.Sprite{
 			BeginCommand=function(self) self:scale_or_crop_background() end,
@@ -36,7 +36,7 @@ else
 	}
 
 	if IsSongBoss(SongTit) then
-		t[#t+1] = Def.ActorFrame {
+		t[#t+1] = Def.ActorFrame{
 			Def.Sprite{
 				BeginCommand=function(self) self:scale_or_crop_background() end,
 				InitCommand=function(self)
@@ -53,15 +53,15 @@ else
 		}
 	end
 	if IsSongDash(SongTit) then
-		t[#t+1] = Def.ActorFrame {
-			LoadActor( "../dash-bg" )..{
+		t[#t+1] = Def.ActorFrame{
+			LoadActor("../dash-bg")..{
 				BeginCommand=function(self) self:scale_or_crop_background() end,
 				OnCommand=function(self) self:diffusealpha(1):sleep(0.2):decelerate(0.88):diffusealpha(0) end
 			}
 		}
 	end
 	if IsSongLife(SongTit) then
-		t[#t+1] = Def.ActorFrame {
+		t[#t+1] = Def.ActorFrame{
 			Def.Sprite{
 				BeginCommand=function(self) self:scale_or_crop_background() end,
 				InitCommand=function(self)
@@ -78,24 +78,24 @@ else
 		}
 	end
 	if IsSongBoss(SongTit) then
-		t[#t+1] = Def.ActorFrame {
-			LoadActor( "../border" )..{
+		t[#t+1] = Def.ActorFrame{
+			LoadActor("../border")..{
 				BeginCommand=function(self) self:Center() end,
 				OnCommand=function(self) self:diffusealpha(0.8):zoomy(1):accelerate(0.8):zoomy(2.4) end
 			}
 		}
 	end
 	if IsSongEx(SongTit) then
-		t[#t+1] = Def.ActorFrame {
-			LoadActor( "../exborder" )..{
+		t[#t+1] = Def.ActorFrame{
+			LoadActor("../exborder")..{
 				BeginCommand=function(self) self:Center() end,
 				OnCommand=function(self) self:diffusealpha(0.8):zoomy(1):accelerate(0.8):zoomy(2.4) end
 			}
 		}
 	end
 	if IsSongLife(SongTit) then
-		t[#t+1] = Def.ActorFrame {
-			LoadActor( "../lifeborder" )..{
+		t[#t+1] = Def.ActorFrame{
+			LoadActor("../lifeborder")..{
 				BeginCommand=function(self) self:Center() end,
 				OnCommand=function(self) self:diffusealpha(0.8):zoomy(1):accelerate(0.8):zoomy(2.4) end
 			}

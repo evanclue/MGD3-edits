@@ -1,4 +1,4 @@
-return Def.ActorFrame {
+return Def.ActorFrame{
 	LoadActor("menu_bg")..{
 		OnCommand=function(self) self:Center():addy(126) end
 	},

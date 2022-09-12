@@ -1,4 +1,4 @@
-return Def.ActorFrame {
+return Def.ActorFrame{
 	LoadActor("logo")..{
 		InitCommand=function(self) self:FullScreen() end
 	},

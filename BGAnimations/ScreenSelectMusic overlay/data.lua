@@ -18,7 +18,7 @@ local function DifficultyIcons(pn)
 		local dc = Selection:GetDifficulty()
 		self:SetFromDifficulty( dc )
 	end
-	local t = Def.DifficultyIcon {
+	local t = Def.DifficultyIcon{
 		File=diff,
 		InitCommand=function(self)
 			self:player( pn )
@@ -31,7 +31,7 @@ local function DifficultyIcons(pn)
 end
 
 return Def.ActorFrame{
-	Def.ActorFrame {
+	Def.ActorFrame{
 		InitCommand=function(self)
 			cs = self:GetChildren()
 		end,
@@ -91,7 +91,7 @@ return Def.ActorFrame{
 				cs.TrueTime:diffusealpha(0)
 			end
 		end,
-		Def.BPMDisplay {
+		Def.BPMDisplay{
 			File=THEME:GetPathF("BPM", "Display"),
 			Name="BPMDisplay",
 			InitCommand=function(self)
@@ -180,7 +180,7 @@ return Def.ActorFrame{
 				end
 			end
 		},
-		DifficultyIcons(PLAYER_1) .. {
+		DifficultyIcons(PLAYER_1)..{
 			BeginCommand=function(self)
 				if not GAMESTATE:IsHumanPlayer(PLAYER_2) then
 					self:x(76):y(-52):zoom(0.8)
@@ -195,7 +195,7 @@ return Def.ActorFrame{
 				end
 			end
 		},
-		DifficultyIcons(PLAYER_2) .. {
+		DifficultyIcons(PLAYER_2)..{
 			BeginCommand=function(self)
 				if not GAMESTATE:IsHumanPlayer(PLAYER_1) then
 					self:x(76):y(-52):zoom(0.8)
@@ -220,7 +220,7 @@ return Def.ActorFrame{
 					if GAMESTATE:GetNumPlayersEnabled() == 1 then
 						local GetRadar = GAMESTATE:GetCurrentSteps(mPlayer):GetRadarValues(mPlayer)
 						if GetRadar:GetValue('RadarCategory_Fakes') > 0 then
-							name = name .. "?"
+							name = name.."?"
 						end
 					else
 						stepsP1 = GAMESTATE:GetCurrentSteps(PLAYER_1)
@@ -229,7 +229,7 @@ return Def.ActorFrame{
 							local GetRadarP1 = GAMESTATE:GetCurrentSteps(PLAYER_1):GetRadarValues(PLAYER_1)
 							local GetRadarP2 = GAMESTATE:GetCurrentSteps(PLAYER_2):GetRadarValues(PLAYER_2)
 							if GetRadarP1:GetValue('RadarCategory_Fakes') > 0 or GetRadarP2:GetValue('RadarCategory_Fakes') > 0 then
-								name = name .. "?"
+								name = name.."?"
 							end
 						end
 					end
@@ -258,16 +258,16 @@ return Def.ActorFrame{
 				if song and steps ~=nil then
 					if GAMESTATE:GetNumPlayersEnabled() == 1 then
 						local GetRadar = GAMESTATE:GetCurrentSteps(mPlayer):GetRadarValues(mPlayer)
-						if GetRadar:GetValue('RadarCategory_Rolls') > 0 then name = name .. "+ROLLS" end
-						if GetRadar:GetValue('RadarCategory_Lifts') > 0 then name = name .. "+LIFTS" end
+						if GetRadar:GetValue('RadarCategory_Rolls') > 0 then name = name.."+ROLLS" end
+						if GetRadar:GetValue('RadarCategory_Lifts') > 0 then name = name.."+LIFTS" end
 					else
 						stepsP1 = GAMESTATE:GetCurrentSteps(PLAYER_1)
 						stepsP2 = GAMESTATE:GetCurrentSteps(PLAYER_2)
 						if stepsP1 ~=nil and stepsP2 ~=nil then
 							local GetRadarP1 = GAMESTATE:GetCurrentSteps(PLAYER_1):GetRadarValues(PLAYER_1)
 							local GetRadarP2 = GAMESTATE:GetCurrentSteps(PLAYER_2):GetRadarValues(PLAYER_2)
-							if GetRadarP1:GetValue('RadarCategory_Rolls') > 0 or GetRadarP2:GetValue('RadarCategory_Rolls') > 0 then name = name .. "+ROLLS" end
-							if GetRadarP1:GetValue('RadarCategory_Lifts') > 0 or GetRadarP2:GetValue('RadarCategory_Lifts') > 0 then name = name .. "+LIFTS" end
+							if GetRadarP1:GetValue('RadarCategory_Rolls') > 0 or GetRadarP2:GetValue('RadarCategory_Rolls') > 0 then name = name.."+ROLLS" end
+							if GetRadarP1:GetValue('RadarCategory_Lifts') > 0 or GetRadarP2:GetValue('RadarCategory_Lifts') > 0 then name = name.."+LIFTS" end
 						end
 					end
 				end
@@ -319,7 +319,7 @@ return Def.ActorFrame{
 							local GetRadarP2 = GAMESTATE:GetCurrentSteps(PLAYER_2):GetRadarValues(PLAYER_2)
 							local statsP1 = GetRadarP1:GetValue('RadarCategory_TapsAndHolds')
 							local statsP2 = GetRadarP2:GetValue('RadarCategory_TapsAndHolds')
-							name = statsP1 .. " | " .. statsP2
+							name = statsP1.." | "..statsP2
 						end
 					end
 				end
@@ -344,7 +344,7 @@ return Def.ActorFrame{
 							local GetRadarP2 = GAMESTATE:GetCurrentSteps(PLAYER_2):GetRadarValues(PLAYER_2)
 							local statsP1 = GetRadarP1:GetValue('RadarCategory_Jumps')
 							local statsP2 = GetRadarP2:GetValue('RadarCategory_Jumps')
-							name = statsP1 .. " | " .. statsP2
+							name = statsP1.." | "..statsP2
 						end
 					end
 				end
@@ -369,7 +369,7 @@ return Def.ActorFrame{
 							local GetRadarP2 = GAMESTATE:GetCurrentSteps(PLAYER_2):GetRadarValues(PLAYER_2)
 							local statsP1 = GetRadarP1:GetValue('RadarCategory_Hands')
 							local statsP2 = GetRadarP2:GetValue('RadarCategory_Hands')
-							name = statsP1 .. " | " .. statsP2
+							name = statsP1.." | "..statsP2
 						end
 					end
 				end
@@ -389,10 +389,10 @@ return Def.ActorFrame{
 							name = GetRadar:GetValue('RadarCategory_Holds')
 						end
 						if GetRadar:GetValue('RadarCategory_Rolls') > 0 then
-							if name ~= "" then name = name .. "+" .. GetRadar:GetValue('RadarCategory_Rolls') else name = GetRadar:GetValue('RadarCategory_Rolls') end
+							if name ~= "" then name = name.."+"..GetRadar:GetValue('RadarCategory_Rolls') else name = GetRadar:GetValue('RadarCategory_Rolls') end
 						end
 						if GetRadar:GetValue('RadarCategory_Lifts') > 0 then
-							if name ~= "" then name = name .. "+" .. GetRadar:GetValue('RadarCategory_Lifts') else name = GetRadar:GetValue('RadarCategory_Lifts') end
+							if name ~= "" then name = name.."+"..GetRadar:GetValue('RadarCategory_Lifts') else name = GetRadar:GetValue('RadarCategory_Lifts') end
 						end
 					else
 						stepsP1 = GAMESTATE:GetCurrentSteps(PLAYER_1)
@@ -408,25 +408,25 @@ return Def.ActorFrame{
 							end
 
 							if GetRadarP1:GetValue('RadarCategory_Rolls') > 0 then
-								if statsP1 ~= "" then statsP1 = statsP1 .. "+" .. GetRadarP1:GetValue('RadarCategory_Rolls') else statsP1 = GetRadarP1:GetValue('RadarCategory_Rolls') end
+								if statsP1 ~= "" then statsP1 = statsP1.."+"..GetRadarP1:GetValue('RadarCategory_Rolls') else statsP1 = GetRadarP1:GetValue('RadarCategory_Rolls') end
 							end
 							if GetRadarP2:GetValue('RadarCategory_Rolls') > 0 then
-								if statsP2 ~= "" then statsP2 = statsP2 .. "+" .. GetRadarP2:GetValue('RadarCategory_Rolls') else statsP2 = GetRadarP2:GetValue('RadarCategory_Rolls') end
+								if statsP2 ~= "" then statsP2 = statsP2.."+"..GetRadarP2:GetValue('RadarCategory_Rolls') else statsP2 = GetRadarP2:GetValue('RadarCategory_Rolls') end
 							end
 							if GetRadarP1:GetValue('RadarCategory_Lifts') > 0 then
-								if statsP1 ~= "" then statsP1 = statsP1 .. "+" .. GetRadarP1:GetValue('RadarCategory_Lifts') else statsP1 = GetRadarP1:GetValue('RadarCategory_Lifts') end
+								if statsP1 ~= "" then statsP1 = statsP1.."+"..GetRadarP1:GetValue('RadarCategory_Lifts') else statsP1 = GetRadarP1:GetValue('RadarCategory_Lifts') end
 							end
 							if GetRadarP2:GetValue('RadarCategory_Lifts') > 0 then
-								if statsP2 ~= "" then statsP2 = statsP2 .. "+" .. GetRadarP2:GetValue('RadarCategory_Lifts') else statsP2 = GetRadarP2:GetValue('RadarCategory_Lifts') end
+								if statsP2 ~= "" then statsP2 = statsP2.."+"..GetRadarP2:GetValue('RadarCategory_Lifts') else statsP2 = GetRadarP2:GetValue('RadarCategory_Lifts') end
 							end
-							name = statsP1 .. " | " .. statsP2
+							name = statsP1.." | "..statsP2
 						end
 					end
 				end
 				self:settext(name)
 			end
 		},
-		Def.Sprite {
+		Def.Sprite{
 			Texture='../mine',
 			Frames = Sprite.LinearFrames( 8, 1 ),
 			InitCommand=function(self) self:effectclock('beat'):addx(180):addy(12):visible(false) end,

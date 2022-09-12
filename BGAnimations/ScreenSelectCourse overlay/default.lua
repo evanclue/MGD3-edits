@@ -7,9 +7,9 @@ if IsUsingWideScreen() == true then
 end
 
 return Def.ActorFrame{
-	Def.ActorFrame {
+	Def.ActorFrame{
 		InitCommand=function(self) cc = self:GetChildren() end,
-		LoadActor( "tile" )..{
+		LoadActor("tile")..{
 			OnCommand=function(self) self:blend('BlendMode_Add'):diffusealpha(0.2) end
 		},
 		LoadActor(file1)..{

@@ -24,7 +24,7 @@ function DoesCourseHasX()
 	file:destroy()
 end
 
-return Def.ActorFrame {
+return Def.ActorFrame{
 	OnCommand=function()
 		for pn in ivalues(GAMESTATE:GetEnabledPlayers()) do
 			GAMESTATE:ApplyGameCommand('mod,'..SpeedMods[sIdx[pn]],pn)
@@ -40,7 +40,7 @@ return Def.ActorFrame {
 	PlayerUnjoinedMessageCommand=function(self)
 		self:playcommand("On")
 	end,
-	Def.ActorFrame {
+	Def.ActorFrame{
 		CodeMessageCommand = function(self, params)
 			if params.Name == 'SpeedUp' then
 				sIdx[params.PlayerNumber] = sIdx[params.PlayerNumber] - (1 * invert)

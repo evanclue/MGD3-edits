@@ -3,14 +3,14 @@ local Song = GAMESTATE:GetCurrentSong()
 local SongTit = Song:GetDisplayMainTitle()
 
 if not ThemePrefs.Get("AltResult") then
-	t[#t+1] = Def.ActorFrame {
+	t[#t+1] = Def.ActorFrame{
 		LoadActor("../ball3")..{
 			InitCommand=function(self) self:Center():zoom(14):z(-100):spin():effectmagnitude(44,44,44):diffusealpha(0.5) end
 		}
 	}
 end
 
-t[#t+1] = Def.ActorFrame {
+t[#t+1] = Def.ActorFrame{
 	LoadActor("../_tiledbg"),
 	Def.Sprite{
 		InitCommand=function(self)
@@ -30,7 +30,7 @@ t[#t+1] = Def.ActorFrame {
 }
 
 if ThemePrefs.Get("AltResult") then
-	t[#t+1] = Def.ActorFrame {
+	t[#t+1] = Def.ActorFrame{
 		LoadActor("../ball3")..{
 			InitCommand=function(self) self:Center():zoom(14):z(-100):spin():effectmagnitude(44,44,44):diffusealpha(1) end
 		},
@@ -40,7 +40,7 @@ if ThemePrefs.Get("AltResult") then
 	}
 end
 
-t[#t+1] = Def.ActorFrame {
+t[#t+1] = Def.ActorFrame{
 	Def.Sprite{
 		InitCommand=function(self)
 			if Song then
@@ -75,7 +75,7 @@ t[#t+1] = Def.ActorFrame {
 }
 
 for player in ivalues(GAMESTATE:GetEnabledPlayers()) do
-	t[#t+1] = Def.ActorFrame {
+	t[#t+1] = Def.ActorFrame{
 		LoadFont("Combo numbers")..{
 			InitCommand=function(self)
 				if Song then

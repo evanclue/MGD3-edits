@@ -1,4 +1,4 @@
-return Def.ActorFrame {
+return Def.ActorFrame{
 	LoadActor("ScreenMDCredits decorations/solong")..{
 		InitCommand=function(self) self:Center():blend('BlendMode_Add'):diffusealpha(0.5) end
 	},

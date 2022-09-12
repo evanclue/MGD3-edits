@@ -15,16 +15,16 @@ local ComboNormal = THEME:GetMetric("Combo","FullComboBrokenCommand")
 local course = nil
 local isSurvival = false
 
-return Def.ActorFrame {
-	LoadFont( "Combo", "numbers" ) .. {
+return Def.ActorFrame{
+	LoadFont("Combo", "numbers")..{
 		Name="Number",
 		OnCommand = THEME:GetMetric("Combo", "NumberOnCommand")
 	},
-	LoadActor("_combo") .. {
+	LoadActor("_combo")..{
 		Name="ComboLabel",
 		OnCommand = THEME:GetMetric("Combo", "LabelOnCommand")
 	},
-	LoadActor("_misses") .. {
+	LoadActor("_misses")..{
 		Name="MissesLabel",
 		OnCommand = THEME:GetMetric("Combo", "LabelOnCommand")
 	},

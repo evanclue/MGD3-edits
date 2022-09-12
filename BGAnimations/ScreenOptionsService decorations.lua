@@ -1,4 +1,4 @@
-return Def.ActorFrame {
+return Def.ActorFrame{
 	LoadActor("Logo/mgdlogo")..{
 		InitCommand=function(self) self:Center():blend('BlendMode_Add'):diffusealpha(0.25) end
 	},

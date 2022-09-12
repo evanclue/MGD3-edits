@@ -17,7 +17,7 @@ return Def.ActorFrame{
 	PlayerUnjoinedMessageCommand=function(self)
 		self:playcommand("On")
 	end,
-	Def.ActorFrame {
+	Def.ActorFrame{
 		CodeMessageCommand = function(self, params)
 			if params.Name == 'SpeedUp' then
 				sIdx[params.PlayerNumber] = sIdx[params.PlayerNumber] - (1 * invert)
