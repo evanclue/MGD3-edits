@@ -19,7 +19,7 @@ return Def.ActorFrame{
 	end,
 	Def.ActorFrame{
 		CodeMessageCommand = function(self, params)
-			if params.Name == 'SpeedUp' then
+			if params.Name == 'SpeedUp' or params.Name == 'SpeedUpCab' then
 				sIdx[params.PlayerNumber] = sIdx[params.PlayerNumber] - (1 * invert)
 				if sIdx[params.PlayerNumber] < 1 then
 					sIdx[params.PlayerNumber] = sMax
@@ -28,7 +28,7 @@ return Def.ActorFrame{
 				end
 				GAMESTATE:ApplyGameCommand('mod,'..SpeedMods[sIdx[params.PlayerNumber]],params.PlayerNumber)
 				self:playcommand("Speed"):playcommand("Speed"..ToEnumShortString(params.PlayerNumber))
-			elseif params.Name == 'SpeedDown' then
+			elseif params.Name == 'SpeedDown' or params.Name == 'SpeedDownCab' then
 				sIdx[params.PlayerNumber] = sIdx[params.PlayerNumber] + (1 * invert)
 				if sIdx[params.PlayerNumber] > sMax then
 					sIdx[params.PlayerNumber] = 1
