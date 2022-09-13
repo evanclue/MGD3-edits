@@ -22,7 +22,7 @@ return Def.ActorFrame{
 			if params.Player == player then
 				if curLives ~= params.LivesLeft then
 					curLives = params.LivesLeft
-					self:stoptweening()
+					self:finishtweening()
 					self:settext(params.LivesLeft)
 					if params.LivesLeft <= 5 then
 						self:diffuseshift()
