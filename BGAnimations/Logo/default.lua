@@ -1,15 +1,15 @@
 return Def.ActorFrame{
 	LoadActor("logo_deco")..{
-		OnCommand=function(self) self:y(-85) end
+		OnCommand=function(self) self:y(-85):zoom(0.25) end
 	},
-	LoadFont("Panedisplay Blurred")..{
-		OnCommand=function(self) self:y(200):horizalign(center):maxwidth(573):zoomx(0.3):zoomy(0.2):diffusealpha(0.5):playcommand("Refresh") end,
-		RefreshCommand=function(self)
-			self:settext(ProductFamily().." "..ProductVersion().." ("..VersionDate()..")")
-		end
-	},
+--	LoadFont("Panedisplay Blurred")..{
+--		OnCommand=function(self) self:y(200):horizalign(center):maxwidth(573):zoomx(0.3):zoomy(0.2):diffusealpha(0.5):playcommand("Refresh") end,
+--		RefreshCommand=function(self)
+--			self:settext(ProductFamily().." "..ProductVersion().." ("..VersionDate()..")")
+--		end
+--	},
 	LoadActor("copy")..{
-		OnCommand=function(self) self:y(222) end
+		OnCommand=function(self) self:y(222):zoom(0.2) end
 	},
 	LoadActor("effect")..{
         OnCommand=function(self) self:queuecommand("Animate") end,
